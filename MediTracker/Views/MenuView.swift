@@ -21,14 +21,29 @@ struct MenuView: View {
             
             VStack{
                 
-                
+                //MARK: - deklaracja dolnego panelu nawigacyjnego - menu
                 TabView {
-                            Tab1View()
-                                .tabItem {
-                                    Label("Pierwsza", systemImage: "1.square.fill")
-                                }
-                           
+                    MainView()
+                        .tabItem {
+                            VStack {
+                                Image(systemName: "house")
+                                    .foregroundColor(.white) // Ustawianie koloru dla pierwszego symbolu
+                                Text("Ekran główny")
+                                    .foregroundColor(.white) // Ustawianie koloru dla tekstu
+                            }
                         }
+                    ListOfDrugsView()
+                        .tabItem {
+                            VStack {
+                                Image(systemName: "pills")
+                                    .foregroundColor(.white) // Ustawianie koloru dla drugiego symbolu
+                                Text("Leki")
+                                    .foregroundColor(.white) // Ustawianie koloru dla tekstu
+                            }
+                        }
+                }
+                .accentColor(K.BrandColors.darkPink2) // Ustawianie koloru akcentu dla całej TabView
+
                 
                 
                 
@@ -77,9 +92,9 @@ struct MenuView: View {
                 }
             }
             
-        
             
-           
+            
+            
             
             
         }

@@ -7,16 +7,26 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FD2169642AEBED2300FC613B /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD2169632AEBED2300FC613B /* MenuView.swift */; };
+		FD32FF252AF0184B00680755 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD32FF242AF0184B00680755 /* MainView.swift */; };
+		FD32FF272AF0193600680755 /* ListOfDrugsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD32FF262AF0193600680755 /* ListOfDrugsView.swift */; };
+		FD7725512AE83B10009D91FB /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD7725502AE83B10009D91FB /* RegisterView.swift */; };
+		FD7725542AE83CA2009D91FB /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD7725532AE83CA2009D91FB /* Constants.swift */; };
 		FD830ED42AE6D57300E3D2FC /* MediTrackerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD830ED32AE6D57300E3D2FC /* MediTrackerApp.swift */; };
-		FD830ED62AE6D57300E3D2FC /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD830ED52AE6D57300E3D2FC /* ContentView.swift */; };
+		FD830ED62AE6D57300E3D2FC /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD830ED52AE6D57300E3D2FC /* WelcomeView.swift */; };
 		FD830ED82AE6D57400E3D2FC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FD830ED72AE6D57400E3D2FC /* Assets.xcassets */; };
 		FD830EDB2AE6D57400E3D2FC /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FD830EDA2AE6D57400E3D2FC /* Preview Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		FD2169632AEBED2300FC613B /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
+		FD32FF242AF0184B00680755 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		FD32FF262AF0193600680755 /* ListOfDrugsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListOfDrugsView.swift; sourceTree = "<group>"; };
+		FD7725502AE83B10009D91FB /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
+		FD7725532AE83CA2009D91FB /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		FD830ED02AE6D57300E3D2FC /* MediTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MediTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FD830ED32AE6D57300E3D2FC /* MediTrackerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediTrackerApp.swift; sourceTree = "<group>"; };
-		FD830ED52AE6D57300E3D2FC /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		FD830ED52AE6D57300E3D2FC /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		FD830ED72AE6D57400E3D2FC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FD830EDA2AE6D57400E3D2FC /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -32,6 +42,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		FD7725522AE83B16009D91FB /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				FD7725502AE83B10009D91FB /* RegisterView.swift */,
+				FD830ED52AE6D57300E3D2FC /* WelcomeView.swift */,
+				FD2169632AEBED2300FC613B /* MenuView.swift */,
+				FD32FF242AF0184B00680755 /* MainView.swift */,
+				FD32FF262AF0193600680755 /* ListOfDrugsView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		FD830EC72AE6D57300E3D2FC = {
 			isa = PBXGroup;
 			children = (
@@ -52,9 +74,10 @@
 			isa = PBXGroup;
 			children = (
 				FD830ED32AE6D57300E3D2FC /* MediTrackerApp.swift */,
-				FD830ED52AE6D57300E3D2FC /* ContentView.swift */,
 				FD830ED72AE6D57400E3D2FC /* Assets.xcassets */,
 				FD830ED92AE6D57400E3D2FC /* Preview Content */,
+				FD7725522AE83B16009D91FB /* Views */,
+				FD7725532AE83CA2009D91FB /* Constants.swift */,
 			);
 			path = MediTracker;
 			sourceTree = "<group>";
@@ -137,8 +160,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FD830ED62AE6D57300E3D2FC /* ContentView.swift in Sources */,
+				FD7725512AE83B10009D91FB /* RegisterView.swift in Sources */,
+				FD32FF252AF0184B00680755 /* MainView.swift in Sources */,
+				FD830ED62AE6D57300E3D2FC /* WelcomeView.swift in Sources */,
 				FD830ED42AE6D57300E3D2FC /* MediTrackerApp.swift in Sources */,
+				FD2169642AEBED2300FC613B /* MenuView.swift in Sources */,
+				FD7725542AE83CA2009D91FB /* Constants.swift in Sources */,
+				FD32FF272AF0193600680755 /* ListOfDrugsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
