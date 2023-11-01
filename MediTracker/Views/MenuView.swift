@@ -10,16 +10,18 @@ import SwiftUI
 
 struct MenuView: View {
     
-    let nameUser = "ALA"
-    let profilePerson = "man"
     
-    @State var menuOpened = false
+    
+    @State var nameUser: String = "ALA"
+    @State var profilePerson = "man"
+    
+    @State var sideMenuOpened = false
     
     var body: some View {
         
         NavigationView{
             
-            VStack{
+            ZStack{
                 
                 //MARK: - deklaracja dolnego panelu nawigacyjnego - menu
                 TabView {
@@ -43,9 +45,9 @@ struct MenuView: View {
                         }
                 }
                 .accentColor(K.BrandColors.darkPink2) // Ustawianie koloru akcentu dla całej TabView
-
                 
                 
+                 SideMenu(width: UIScreen.main.bounds.width/1.5, menuOpened: sideMenuOpened, toggleMenu: toggleMenu)
                 
                 
             }
@@ -59,10 +61,15 @@ struct MenuView: View {
                 //deklaracja miniaturki
                 ToolbarItem(placement: .topBarLeading) {
                     Button(action: {
-                        // Tutaj umieść akcję do wykonania po kliknięciu
+                        
+                        // uruchomienie menu pobocznego
+                        self.sideMenuOpened.toggle()
+                        
                     }) {
                         HStack{
                             MiniProfileView(nameUser: nameUser, profilePictureType: profilePerson)
+                            Image(systemName: "chevron.down")
+                                .foregroundColor(K.BrandColors.darkPink1)
                         }
                         .padding(.top)
                     }
@@ -91,6 +98,14 @@ struct MenuView: View {
                     }
                 }
             }
+            .navigationBarHidden(self.sideMenuOpened) // Ukryj pasek nawigacji, gdy menu jest otwarte
+            .overlay(
+                SideMenu(width: 300, menuOpened: sideMenuOpened) {
+                    withAnimation {
+                        self.sideMenuOpened.toggle()
+                    }
+                }
+            )
             
             
             
@@ -100,52 +115,22 @@ struct MenuView: View {
         }
         .navigationBarBackButtonHidden(true)
         
+        
+        
+        
+    }
+    //zmiana zmiennej na odwrotna - czy menu poboczne otwarte
+    func toggleMenu(){
+        sideMenuOpened.toggle()
     }
     
     
 }
 
-struct Tab1View: View {
-    var body: some View {
-        Text("Pierwsza zakładka")
-    }
-}
-//MARK: - Subview do wyswietlenie miniaturki profilu
 
-struct MiniProfileView: View {
-    
-    var nameUser : String
-    var profilePictureType : String
-    
-    var body: some View {
-        
-        HStack{
-            Image(profilePictureType)
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(width: 70, height: 70)
-                .shadow(radius: 7)
-                .clipShape(Circle())
-                .overlay(
-                    Circle()
-                        .stroke(.gray, lineWidth: 2)
-                )
-            
-            Text(nameUser)
-                .font(.system(size: 27))
-                .bold()
-                .foregroundColor(K.BrandColors.darkPink1)
-            
-            Image(systemName: "chevron.down")
-            
-            
-            
-        }
-        
-    }
-    
-    
-}
+
+
+
 
 #Preview {
     MenuView()

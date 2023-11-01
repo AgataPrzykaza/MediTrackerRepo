@@ -8,31 +8,13 @@
 import SwiftUI
 
 
-struct MenuContent: View{
-    
- 
-   
-    var body: some View {
-        ZStack{
-            Color(.blue)
-            
-            VStack(alignment: .leading,spacing: 0){
-                
-                Text("halo side menu")
-                
-            }
-            .padding(.top,50)
-        }
-    }
-}
-
-
-
 struct SideMenu: View {
     
     let width: CGFloat
     let menuOpened: Bool
     let toggleMenu: () -> Void
+    
+    
     
     var body: some View {
         
@@ -53,7 +35,7 @@ struct SideMenu: View {
             
             //Menu Content
             HStack{
-                MenuContent()
+                MenuContent(nameUser: "Ala", profilePerson: "man")
                     .frame(width: width)
                     .offset(x: menuOpened ? 0 : -width)
                     .onTapGesture {
@@ -64,8 +46,10 @@ struct SideMenu: View {
                 
                 Spacer()
             }
+           
         }
         .edgesIgnoringSafeArea(.all)
+        
         
     }
 }
