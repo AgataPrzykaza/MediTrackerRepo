@@ -40,8 +40,29 @@ struct MenuContent: View{
                         })
                         .padding(.trailing,50)
                     }
+                    .padding(.bottom,30)
+                    
+                    Divider()
+                        .background(Color.white)
+                        .padding(.bottom, 15)
+                    
                     
                     //MARK: - Profile pozostale
+                    
+                    
+                    ProfileList(profiles: [
+                        Profile(name: "John Doe", pictureType: "man"),
+                        Profile(name: "Jane Smith", pictureType: "woman"),
+                        Profile(name: "Jane Kate", pictureType: "woman"),
+                        // ... Dodaj więcej profili
+                    ], addProfileAction: {
+                        // Akcja do dodawania nowego profilu
+                    })
+                    .padding(.bottom, 100)
+                    
+                    
+                    
+                    
                     
                     
                     //MARK: - Mozliwosc wylogowania
@@ -66,7 +87,7 @@ struct MenuContent: View{
                         })
                         
                     }
-                   
+                    
                     
                 }
                 .padding(.top,60)
