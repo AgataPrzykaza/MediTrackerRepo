@@ -13,15 +13,38 @@ struct MedicationListView: View {
     
     var body: some View {
         
-        Text("\(time)")
-            .frame(width: 100,alignment: .leading)
-            .padding(.trailing,270)
-            .bold()
-            .font(.system(size: 30))
-            .padding(.bottom)
+        HStack {
+            Text("\(time)")
+                .frame(width: 100,alignment: .leading)
+                .bold()
+                .font(.system(size: 30))
+                .padding(.horizontal,50)
+            
+            //przycisk do odznaczenie wszystkich tabeltek na danej godzinie
+            Button(action: {
+                
+            }){
+                
+                Text("Oznacz wszystkie")
+                    .frame(width: 200)
+                    .foregroundColor(K.BrandColors.intensePink1)
+            }
+        }
+        
+        //lista lekow na dan godzine
         ForEach(medications,id: \.id) {  medication in
-            Medication(medication: medication)
-                .padding(.bottom,5)
+            
+            //lek jako przycisk 
+            Button(action: {
+                
+                
+               
+                
+            }) {
+                Medication(medication: medication)
+                    .padding(.bottom,5)
+            }
+           
         }
     }
 }

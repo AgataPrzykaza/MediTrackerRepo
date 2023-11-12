@@ -15,19 +15,19 @@ struct Medication: View {
         
       
             VStack{
-                
+              
                 //nazwa leku
                 
                 Text(medication.name)
                     .bold()
-                    .font(.system(size: 30))
+                    .font(.system(size: 25))
                     .foregroundColor(K.BrandColors.intensePink1)
                     .frame(width: 300,alignment: .leading)
                    
                 
                 //ilosc do przyjęcia
                 
-                Text("Weź \(String(format: "%.2f",medication.quantity)) \(medication.type)")
+                Text("\(String(format: "%.2f",medication.quantity)) \(medication.type)")
                     .frame(width: 300,alignment: .leading)
                 
                 

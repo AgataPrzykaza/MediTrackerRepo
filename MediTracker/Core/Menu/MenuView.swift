@@ -26,6 +26,7 @@ struct MenuView: View {
                 //MARK: - deklaracja dolnego panelu nawigacyjnego - menu
                 TabView {
                     MainView()
+                        .frame(height: 620)
                         .tabItem {
                             VStack {
                                 Image(systemName: "house")
@@ -35,16 +36,18 @@ struct MenuView: View {
                             }
                         }
                     ListOfDrugsView()
+                        .frame(height: 620)
                         .tabItem {
                             VStack {
                                 Image(systemName: "pills")
-                                    .foregroundColor(.white) // Ustawianie koloru dla drugiego symbolu
+                                    .foregroundColor(.white) 
                                 Text("Leki")
-                                    .foregroundColor(.white) // Ustawianie koloru dla tekstu
+                                    .foregroundColor(.white)
                             }
                         }
                 }
                 .accentColor(K.BrandColors.darkPink2) // Ustawianie koloru akcentu dla całej TabView
+                .padding(/*@START_MENU_TOKEN@*/EdgeInsets()/*@END_MENU_TOKEN@*/)
                 
                 
                  SideMenu(width: UIScreen.main.bounds.width/1.5, menuOpened: sideMenuOpened, toggleMenu: toggleMenu)

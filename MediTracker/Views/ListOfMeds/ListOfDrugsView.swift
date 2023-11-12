@@ -11,7 +11,11 @@ struct ListOfDrugsView: View {
     var body: some View {
         
         VStack{
-            Text("Leki")
+            ActiveMeds()
+                .navigationBarBackButtonHidden()
+            
+            
+            
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(K.BrandColors.lightPink2)

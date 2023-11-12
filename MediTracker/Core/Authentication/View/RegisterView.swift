@@ -11,6 +11,12 @@ struct RegisterView: View {
     
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
+    @State var imie: String?
+    @State var email: String?
+    @State var nazwisko: String?
+    @State var haslo: String?
+    @State var potwrhasla: String?
+    
     var body: some View {
         
         NavigationView{
@@ -26,11 +32,15 @@ struct RegisterView: View {
                 //MARK: - Pola do rejestracji
                 VStack {
                     
-                    TextField("Pseudonim", text: /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Value@*/.constant("")/*@END_MENU_TOKEN@*/)
+                    TextField("Imie", text: /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Value@*/.constant("")/*@END_MENU_TOKEN@*/)
                         .font(.system(size: 22))
                         .frame(width: 275, height: 44)
                         .background(.white)
                         .cornerRadius(12)
+                        .autocorrectionDisabled()
+                        .onSubmit {
+                            
+                        }
                     
                     Spacer()
                         .frame(height:23)
@@ -40,6 +50,10 @@ struct RegisterView: View {
                         .frame(width: 275, height: 44)
                         .background(.white)
                         .cornerRadius(12)
+                        .autocorrectionDisabled()
+                        .onSubmit {
+                            
+                        }
                     Spacer()
                         .frame(height:23)
                     
@@ -48,6 +62,10 @@ struct RegisterView: View {
                         .frame(width: 275, height: 44)
                         .background(.white)
                         .cornerRadius(12)
+                        .autocorrectionDisabled()
+                        .onSubmit {
+                            
+                        }
                     
                     Spacer()
                         .frame(height:23)
@@ -57,6 +75,10 @@ struct RegisterView: View {
                         .frame(width: 275, height: 44)
                         .background(.white)
                         .cornerRadius(12)
+                        .autocorrectionDisabled()
+                        .onSubmit {
+                            
+                        }
                     
                     
                 }

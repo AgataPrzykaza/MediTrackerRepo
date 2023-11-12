@@ -11,12 +11,18 @@ struct MenuContent: View{
     
     var nameUser:String
     var profilePerson: String
-    
+    @State private var isShowingEditProfile = false
+  
     
     var body: some View {
         ZStack(alignment: .top){
-            Color(K.BrandColors.intensePink1)
+            Color(K.BrandColors.pink1)
                 .cornerRadius(30)
+            
+            
+            
+            
+            
             
             ScrollView{
                 
@@ -29,18 +35,18 @@ struct MenuContent: View{
                     }
                     .padding(.horizontal,20)
                     
-                    HStack{
-                        
-                        Spacer()
-                        Button(action: {
-                            // Tutaj dodaj akcję dla przycisku
-                        }, label: {
+                    
+                    
+                    NavigationLink(destination: EditProfileView()) {
+                        HStack {
+                            Spacer()
                             Text("Edytuj profil")
                                 .foregroundColor(.white)
-                        })
-                        .padding(.trailing,50)
+                        }
+                        .padding(.trailing, 50)
                     }
-                    .padding(.bottom,30)
+                    .padding(.bottom, 30)
+                    .navigationBarBackButtonHidden()
                     
                     Divider()
                         .background(Color.white)
@@ -67,29 +73,25 @@ struct MenuContent: View{
                     
                     //MARK: - Mozliwosc wylogowania
                     Spacer()
-                    HStack{
-                        
-                        Button(action: {
-                            // Tutaj dodaj akcję dla przycisku wylogowania
-                        }, label: {
-                            HStack{
-                                Image(systemName: "rectangle.portrait.and.arrow.right")
-                                    .foregroundColor(.white)
-                                    .font(.system(size: 24))
-                                    .padding(.trailing,10)
-                                
-                                
-                                Text("Wyloguj się")
-                                    .foregroundColor(.white)
-                                    .font(.system(size: 24))
-                            }
-                            .padding(.leading,30)
-                        })
-                        
+                    NavigationLink(destination: WelcomeView()) {
+                        HStack {
+                            Image(systemName: "rectangle.portrait.and.arrow.right")
+                                .foregroundColor(.white)
+                                .font(.system(size: 24))
+                                .padding(.trailing, 10)
+                            
+                            Text("Wyloguj się")
+                                .foregroundColor(.white)
+                                .font(.system(size: 24))
+                        }
+                        .padding(.leading, 30)
                     }
                     
                     
+                    
                 }
+                
+                
                 .padding(.top,60)
             }
             
