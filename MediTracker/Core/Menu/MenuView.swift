@@ -10,10 +10,10 @@ import SwiftUI
 
 struct MenuView: View {
     
-    
+    @ObservedObject var userAuth: UserAuthManager
     
     @State var nameUser: String = "ALA"
-    @State var profilePerson = "man"
+    @State var profilePerson = "woman"
     
     @State var sideMenuOpened = false
     
@@ -50,7 +50,7 @@ struct MenuView: View {
                 .padding(/*@START_MENU_TOKEN@*/EdgeInsets()/*@END_MENU_TOKEN@*/)
                 
                 
-                 SideMenu(width: UIScreen.main.bounds.width/1.5, menuOpened: sideMenuOpened, toggleMenu: toggleMenu)
+                SideMenu(userAuth: userAuth,width: UIScreen.main.bounds.width/1.5, menuOpened: sideMenuOpened, toggleMenu: toggleMenu)
                 
                 
             }
@@ -103,7 +103,7 @@ struct MenuView: View {
             }
             .navigationBarHidden(self.sideMenuOpened) // Ukryj pasek nawigacji, gdy menu jest otwarte
             .overlay(
-                SideMenu(width: 300, menuOpened: sideMenuOpened) {
+                SideMenu(userAuth: userAuth,width: 300, menuOpened: sideMenuOpened) {
                     withAnimation {
                         self.sideMenuOpened.toggle()
                     }
@@ -135,6 +135,6 @@ struct MenuView: View {
 
 
 
-#Preview {
-    MenuView()
-}
+//#Preview {
+//    MenuView()
+//}

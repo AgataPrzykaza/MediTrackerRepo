@@ -13,7 +13,7 @@ struct AuthenticatedGroupView: View {
        var body: some View {
            Group {
                if isUserAuthenticated {
-                   MenuView()
+                   MenuView(isUserLoggedIn: $isUserAuthenticated)
                } else {
                    WelcomeView()
                }

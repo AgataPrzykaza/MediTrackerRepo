@@ -8,10 +8,13 @@
 import SwiftUI
 
 struct WelcomeView: View {
+    
+    @ObservedObject var userAuth: UserAuthManager
+    
     var body: some View {
         
         //Widok do uzycia przejscia do kolejnego widoku
-        NavigationView {
+        NavigationStack {
             VStack {
                 //Logo aplikcji
                 Image("meditrackerLogo")
@@ -35,18 +38,18 @@ struct WelcomeView: View {
                 //grupa przyciskow
                 VStack(spacing: 20) {
                     //Przycisk logowania
-                    Button("Zaloguj się") {
-                        /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Action@*/ /*@END_MENU_TOKEN@*/
+                    NavigationLink(destination: LoginView(userAuth: userAuth)){
+                     
+                        Text("Zaloguj się")
+                            .padding()
+                            .font(.system(size: 27, weight: .bold))
+                            .frame(minWidth: 0, maxWidth: 200)
+                            .background(K.BrandColors.pink2)
+                            .foregroundStyle(.white)
+                            .cornerRadius(24)
                     }
-                    .padding()
-                    .font(.system(size: 27, weight: .bold))
-                    .frame(minWidth: 0, maxWidth: 200)
-                    .background(K.BrandColors.pink2)
-                    .foregroundStyle(.white)
-                    .cornerRadius(24)
-
                     //Przycisk rejestracji
-                    NavigationLink(destination: RegisterView()) {
+                    NavigationLink(destination: RegisterView(userAuth:userAuth)) {
                         Text("Zarejestruj się")
                             .padding()
                             .font(.system(size: 27, weight: .bold))
@@ -74,5 +77,5 @@ struct WelcomeView: View {
 }
 
 #Preview {
-    WelcomeView()
+    WelcomeView(userAuth: UserAuthManager())
 }

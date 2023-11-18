@@ -68,9 +68,9 @@ struct HeadingView: View {
     var body: some View {
         
         MedicationListView(medications: medicine, time: time)
-        MedicationListView(medications: medicine, time: time)
-        MedicationListView(medications: medicine, time: time)
-        MedicationListView(medications: medicine, time: time)
+        MedicationListView(medications: medicine, time: "18.00")
+        //MedicationListView(medications: medicine, time: time)
+       // MedicationListView(medications: medicine, time: time)
         
         
     }

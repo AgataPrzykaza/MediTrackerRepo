@@ -6,8 +6,12 @@
 //
 
 import SwiftUI
+import FirebaseAuth
 
 struct MenuContent: View{
+    
+    
+    @ObservedObject var userAuth: UserAuthManager
     
     var nameUser:String
     var profilePerson: String
@@ -73,20 +77,22 @@ struct MenuContent: View{
                     
                     //MARK: - Mozliwosc wylogowania
                     Spacer()
-                    NavigationLink(destination: WelcomeView()) {
-                        HStack {
-                            Image(systemName: "rectangle.portrait.and.arrow.right")
-                                .foregroundColor(.white)
-                                .font(.system(size: 24))
-                                .padding(.trailing, 10)
-                            
-                            Text("Wyloguj się")
-                                .foregroundColor(.white)
-                                .font(.system(size: 24))
-                        }
-                        .padding(.leading, 30)
-                    }
-                    
+
+                    Button(action: {
+                        userAuth.logout()
+                                }) {
+                                    HStack {
+                                        Image(systemName: "rectangle.portrait.and.arrow.right")
+                                            .foregroundColor(.white)
+                                            .font(.system(size: 24))
+                                            .padding(.trailing, 10)
+                                        
+                                        Text("Wyloguj się")
+                                            .foregroundColor(.white)
+                                            .font(.system(size: 24))
+                                    }
+                                    .padding(.leading, 30)
+                                }
                     
                     
                 }
@@ -100,6 +106,8 @@ struct MenuContent: View{
         
         
     }
+    
+ 
 }
 
 

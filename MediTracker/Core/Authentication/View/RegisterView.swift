@@ -6,16 +6,26 @@
 //
 
 import SwiftUI
+import Firebase
+import FirebaseCore
+import FirebaseAuth
 
 struct RegisterView: View {
     
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
-    @State var imie: String?
-    @State var email: String?
-    @State var nazwisko: String?
-    @State var haslo: String?
-    @State var potwrhasla: String?
+    @ObservedObject var userAuth: UserAuthManager
+    
+    @State private var isNextViewActive = false
+    @State private var showAlert = false
+    @State var alertText: String = ""
+    
+    @State var name: String = ""
+    @State var email: String = ""
+    @State var surname: String = ""
+    @State var password: String = ""
+    @State var passwordAgain: String = ""
+    
     
     var body: some View {
         
@@ -31,63 +41,86 @@ struct RegisterView: View {
                     .frame(height:40)
                 //MARK: - Pola do rejestracji
                 VStack {
-                    
-                    TextField("Imie", text: /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Value@*/.constant("")/*@END_MENU_TOKEN@*/)
+              //Imie textfield ---------------------------------------
+                    TextField("Imie", text: $name)
                         .font(.system(size: 22))
+                        .foregroundColor(.black)
                         .frame(width: 275, height: 44)
                         .background(.white)
                         .cornerRadius(12)
                         .autocorrectionDisabled()
-                        .onSubmit {
-                            
-                        }
+                        
                     
                     Spacer()
                         .frame(height:23)
-                    
-                    TextField("Email", text: /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Value@*/.constant("")/*@END_MENU_TOKEN@*/)
+               //nazwisko textfield -------------------------------
+                    TextField("Nazwisko", text: $surname)
                         .font(.system(size: 22))
+                        .foregroundColor(.black)
                         .frame(width: 275, height: 44)
                         .background(.white)
                         .cornerRadius(12)
                         .autocorrectionDisabled()
-                        .onSubmit {
-                            
-                        }
-                    Spacer()
-                        .frame(height:23)
-                    
-                    TextField("Hasło", text: /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Value@*/.constant("")/*@END_MENU_TOKEN@*/)
-                        .font(.system(size: 22))
-                        .frame(width: 275, height: 44)
-                        .background(.white)
-                        .cornerRadius(12)
-                        .autocorrectionDisabled()
-                        .onSubmit {
-                            
-                        }
+                        
                     
                     Spacer()
                         .frame(height:23)
-                    
-                    TextField("Potwierdzenie hasła", text: /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Value@*/.constant("")/*@END_MENU_TOKEN@*/)
+                  //Email textfield ----------------------------------------------
+                    TextField("Email", text: $email)
                         .font(.system(size: 22))
                         .frame(width: 275, height: 44)
                         .background(.white)
+                        .foregroundColor(.black)
                         .cornerRadius(12)
                         .autocorrectionDisabled()
-                        .onSubmit {
-                            
-                        }
+                       
+                    Spacer()
+                        .frame(height:23)
+                  
+                    //hasło textfield ----------------------------------------------------------
+                    TextField("Hasło", text: $password)
+                        .font(.system(size: 22))
+                        .frame(width: 275, height: 44)
+                        .background(.white)
+                        .foregroundColor(.black)
+                        .cornerRadius(12)
+                        .autocorrectionDisabled()
+                        
                     
+                    Spacer()
+                        .frame(height:23)
+                  //Potwierdzenie hasła -----------------------------------------------------------
+                    TextField("Potwierdzenie hasła", text: $passwordAgain)
+                        .font(.system(size: 22))
+                        .frame(width: 275, height: 44)
+                        .background(.white)
+                        .foregroundColor(.black)
+                        .cornerRadius(12)
+                        .autocorrectionDisabled()
+                        
                     
                 }
-                
-                //MARK: - Przycisk kontynuujący
                 HStack {
+                    
                     Spacer()
                         .frame(width: 230)
-                    NavigationLink(destination: MenuView()) {
+                    
+                    Button(action: {
+                        
+                        let validation = checkedAllFields(name: name, surname:surname, email: email, password: password, passwordAgain: passwordAgain)
+                        
+                        if validation.1{
+                            //wszystkie pola sa uzupelnione
+                           // createUser(email: email, password: password)
+                            userAuth.createUser(email: email, password: password)
+                            isNextViewActive = true
+                        }
+                        else{
+                            alertText = validation.0
+                            showAlert = true
+                        }
+                        
+                    }) {
                         HStack {
                             Text("Dalej")
                                 .font(.system(size: 22))
@@ -101,12 +134,16 @@ struct RegisterView: View {
                         .background(K.BrandColors.intensePink2)
                         .cornerRadius(24)
                     }
+                    .navigationDestination(isPresented: $isNextViewActive){
+                        MenuView(userAuth:userAuth)
+                    }
+                    .alert(isPresented: $showAlert) {
+                        Alert(title: Text("Uwaga"), message: Text(alertText))
+                    }
+                    
 
-                    
-                    
                 }
-                .offset(y:80)
-                
+                .offset(y: 80)
                 
                 
             }
@@ -117,10 +154,13 @@ struct RegisterView: View {
             .background(
                 LinearGradient(gradient: Gradient(colors: [K.BrandColors.lightPink1, K.BrandColors.pink1]), startPoint: .top, endPoint: .bottom))
             .ignoresSafeArea()
-           
+            
             .navigationTitle("Rejestracja")
             .navigationBarTitleDisplayMode(.inline)
             .foregroundColor(.blue)
+            .onTapGesture {
+                UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+            }
             
             //MARK: - Implementacja przycisku cofnij
             .toolbar {
@@ -147,6 +187,91 @@ struct RegisterView: View {
 }
 
 
+//Sprawdzenie wszystkich pól
+func checkedAllFields(name:String, surname:String,email:String,password:String,passwordAgain:String) -> (String,Bool) {
+    
+    if name.isEmpty || surname.isEmpty || email.isEmpty || password.isEmpty || passwordAgain.isEmpty{
+         
+        return ("Zostały nie uzupełnione pola!",false)
+    }
+    else{
+        if checkLengthOfName(name: name) && checkLengthOfName(name: surname){
+            
+            if isValidEmail(email){
+                
+                if checkLengthOfPassword(password: password) && samePassword(password: password, passwordAgain: passwordAgain){
+                    return ("",true)
+                }
+                else{
+                    return ("Niepoprawne hasła", false)
+                }
+                
+            }
+            else
+            {
+                return ("Nieporawny email",false)
+            }
+            
+        }
+        else{
+            return ("Nieporawne imie badź nazwisko",false)
+        }
+        
+        
+    }
+}
+
+func checkLengthOfName(name:String) -> Bool{
+    if name.count>1{
+        return true
+    }
+    else
+    {
+        return false
+    }
+}
+//Walidacja emaila
+func isValidEmail(_ email: String) -> Bool {
+    // Wyrażenie regularne do sprawdzania poprawności adresu e-mail
+    let emailRegex = #"^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$"#
+    
+    let emailPredicate = NSPredicate(format: "SELF MATCHES %@", emailRegex)
+    return emailPredicate.evaluate(with: email)
+}
+
+//Sprawdzenie czy dwa hasła są takie same
+func samePassword(password: String, passwordAgain: String) -> Bool{
+    if password == passwordAgain{
+        return true
+    }
+    else{
+        return false
+    }
+}
+//Sprawdzenie długości hasła
+func checkLengthOfPassword(password: String) -> Bool{
+    if password.count > 6{
+        return true
+    }
+    else{
+        return false
+    }
+}
+
+//func createUser(email: String, password: String) {
+//    
+//        
+//        Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
+//            
+//            guard let user = authResult?.user else {
+//                    // Obsługa błędu, jeśli użytkownik nie został utworzony poprawnie
+//                    return
+//                }
+//        }
+//        
+//    
+//}
+
 #Preview {
-    RegisterView()
+    RegisterView( userAuth: UserAuthManager())
 }
