@@ -9,14 +9,24 @@ import SwiftUI
 import FirebaseAuth
 
 struct ContentView: View {
-    @StateObject var userAuth = UserAuthManager()
+    @StateObject var userAuth = UserManager()
+    
     
     var body: some View {
         Group {
             if userAuth.isUserLoggedIn {
+                
                 MenuView(userAuth: userAuth)
+                    .onAppear {
+                                            userAuth.fetchUserData()
+                        }
             } else {
                 WelcomeView(userAuth: userAuth)
+            }
+        }
+        .onAppear(){
+            if userAuth.isUserLoggedIn{
+                userAuth.fetchUserData()
             }
         }
         

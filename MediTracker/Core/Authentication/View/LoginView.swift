@@ -12,7 +12,8 @@ struct LoginView: View {
     
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
-    @ObservedObject var userAuth: UserAuthManager
+    @ObservedObject var userAuth: UserManager
+    
     
     @State private var goToMenuView = false
     @State var email: String = ""
@@ -39,8 +40,8 @@ struct LoginView: View {
                 Spacer()
                     .frame(height:50)
                 
-                //hasło textfield ----------------------------------------------------------
-                TextField("Hasło", text: $password)
+                //hasło field ----------------------------------------------------------
+                SecureField("Hasło", text: $password)
                     .font(.system(size: 22))
                     .frame(width: 275, height: 44)
                     .background(.white)
@@ -161,19 +162,8 @@ struct LoginView: View {
     }
 }
 
-//func login(email:String, password: String, completion: @escaping (Bool, Error?) -> Void){
-//    
-//    Auth.auth().signIn(withEmail: email, password: password) { (result, error) in
-//        if let error = error {
-//            print(error.localizedDescription)
-//            completion(false, error)
-//        } else {
-//            print("success")
-//            completion(true, nil)
-//        }
-//    }
-//}
+
 
 #Preview {
-    LoginView(userAuth: UserAuthManager())
+    LoginView(userAuth: UserManager())
 }

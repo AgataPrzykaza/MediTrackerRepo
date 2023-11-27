@@ -7,8 +7,40 @@
 
 import Foundation
 
-struct Profile: Identifiable {
+class Profile: Identifiable, Codable{
+   
     var id = UUID()
-    var name: String
-    var pictureType: String
+     var uid: String
+     var name: String
+     var surname: String
+     var pictureType: String
+    
+    init(uid: String, name: String,surname: String,pictureType: String) {
+        self.uid = uid
+        self.name = name
+        self.surname = surname
+        self.pictureType = pictureType
+    }
+    
+    func updateName(_ newName: String) {
+        name = newName
+    }
+    
+    func updateSurname(_ newSurname: String) {
+        surname = newSurname
+    }
+    
+    func updatepictureType(_ newType: String)
+    {
+        pictureType = newType
+    }
+    
 }
+
+
+
+//struct Profile: Identifiable, Codable{
+//    var id = UUID()
+//    var name: String
+//    var pictureType: String
+//}

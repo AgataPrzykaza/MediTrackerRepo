@@ -9,7 +9,7 @@ import SwiftUI
 
 struct WelcomeView: View {
     
-    @ObservedObject var userAuth: UserAuthManager
+    @ObservedObject var userAuth: UserManager
     
     var body: some View {
         
@@ -77,5 +77,5 @@ struct WelcomeView: View {
 }
 
 #Preview {
-    WelcomeView(userAuth: UserAuthManager())
+    WelcomeView(userAuth: UserManager())
 }

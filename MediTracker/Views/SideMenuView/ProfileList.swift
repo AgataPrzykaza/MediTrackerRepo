@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ProfileList: View {
+    
     var profiles: [Profile]
     var addProfileAction: () -> Void
 
@@ -44,8 +45,8 @@ struct ProfileList: View {
 
 #Preview {
     ProfileList(profiles: [
-        Profile(name: "John Doe", pictureType: "man"),
-        Profile(name: "Jane Smith", pictureType: "woman"),
+//        Profile(name: "John Doe", pictureType: "Kobieta"),
+//        Profile(name: "Jane Smith", pictureType: "pet"),
         // ... Dodaj więcej profili
     ], addProfileAction: {})
 }

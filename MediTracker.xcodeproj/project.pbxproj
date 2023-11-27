@@ -24,6 +24,10 @@
 		FD830ED62AE6D57300E3D2FC /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD830ED52AE6D57300E3D2FC /* WelcomeView.swift */; };
 		FD830ED82AE6D57400E3D2FC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FD830ED72AE6D57400E3D2FC /* Assets.xcassets */; };
 		FD830EDB2AE6D57400E3D2FC /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FD830EDA2AE6D57400E3D2FC /* Preview Assets.xcassets */; };
+		FD873FB62B14DB7D00F39B43 /* ProfilesListManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD873FB52B14DB7D00F39B43 /* ProfilesListManager.swift */; };
+		FD873FB82B14F1AD00F39B43 /* ProfileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD873FB72B14F1AD00F39B43 /* ProfileManager.swift */; };
+		FD873FBA2B14F20900F39B43 /* Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD873FB92B14F20900F39B43 /* Controller.swift */; };
+		FDA248EB2B138D7E0044C883 /* UserManagerKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDA248EA2B138D7E0044C883 /* UserManagerKey.swift */; };
 		FDCA6CBE2AFD53A000575E05 /* EditProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDCA6CBD2AFD53A000575E05 /* EditProfileView.swift */; };
 		FDCA6CC02AFD5AE400575E05 /* EditLoginData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDCA6CBF2AFD5AE400575E05 /* EditLoginData.swift */; };
 		FDDB58D22B07808B003A7767 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FDDB58D12B07808B003A7767 /* GoogleService-Info.plist */; };
@@ -53,7 +57,7 @@
 		FDE107C92AF7F1D700DD234B /* MedicationList.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDE107C82AF7F1D700DD234B /* MedicationList.swift */; };
 		FDE107CB2AF7F2BB00DD234B /* Medication.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDE107CA2AF7F2BB00DD234B /* Medication.swift */; };
 		FDF2548A2B09005D00ADDAB4 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDF254892B09005D00ADDAB4 /* LoginView.swift */; };
-		FDF2548D2B092C3600ADDAB4 /* UserAuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDF2548C2B092C3600ADDAB4 /* UserAuthManager.swift */; };
+		FDF2548D2B092C3600ADDAB4 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDF2548C2B092C3600ADDAB4 /* UserManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -75,6 +79,10 @@
 		FD830ED52AE6D57300E3D2FC /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		FD830ED72AE6D57400E3D2FC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FD830EDA2AE6D57400E3D2FC /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		FD873FB52B14DB7D00F39B43 /* ProfilesListManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilesListManager.swift; sourceTree = "<group>"; };
+		FD873FB72B14F1AD00F39B43 /* ProfileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileManager.swift; sourceTree = "<group>"; };
+		FD873FB92B14F20900F39B43 /* Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Controller.swift; sourceTree = "<group>"; };
+		FDA248EA2B138D7E0044C883 /* UserManagerKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManagerKey.swift; sourceTree = "<group>"; };
 		FDCA6CBD2AFD53A000575E05 /* EditProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileView.swift; sourceTree = "<group>"; };
 		FDCA6CBF2AFD5AE400575E05 /* EditLoginData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditLoginData.swift; sourceTree = "<group>"; };
 		FDDB58D12B07808B003A7767 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -84,7 +92,7 @@
 		FDE107C82AF7F1D700DD234B /* MedicationList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicationList.swift; sourceTree = "<group>"; };
 		FDE107CA2AF7F2BB00DD234B /* Medication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Medication.swift; sourceTree = "<group>"; };
 		FDF254892B09005D00ADDAB4 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
-		FDF2548C2B092C3600ADDAB4 /* UserAuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAuthManager.swift; sourceTree = "<group>"; };
+		FDF2548C2B092C3600ADDAB4 /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -267,7 +275,11 @@
 		FDF2548B2B092BD700ADDAB4 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				FDF2548C2B092C3600ADDAB4 /* UserAuthManager.swift */,
+				FDF2548C2B092C3600ADDAB4 /* UserManager.swift */,
+				FDA248EA2B138D7E0044C883 /* UserManagerKey.swift */,
+				FD873FB52B14DB7D00F39B43 /* ProfilesListManager.swift */,
+				FD873FB72B14F1AD00F39B43 /* ProfileManager.swift */,
+				FD873FB92B14F20900F39B43 /* Controller.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -368,7 +380,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FDF2548D2B092C3600ADDAB4 /* UserAuthManager.swift in Sources */,
+				FDA248EB2B138D7E0044C883 /* UserManagerKey.swift in Sources */,
+				FDF2548D2B092C3600ADDAB4 /* UserManager.swift in Sources */,
 				FD7725512AE83B10009D91FB /* RegisterView.swift in Sources */,
 				FDE107C52AF7F0F800DD234B /* Medicine.swift in Sources */,
 				FDCA6CBE2AFD53A000575E05 /* EditProfileView.swift in Sources */,
@@ -383,6 +396,7 @@
 				FD830ED42AE6D57300E3D2FC /* MediTrackerApp.swift in Sources */,
 				FDE107C92AF7F1D700DD234B /* MedicationList.swift in Sources */,
 				FD7EC3132B000CED008F40AF /* ActiveMeds.swift in Sources */,
+				FD873FB82B14F1AD00F39B43 /* ProfileManager.swift in Sources */,
 				FD2169642AEBED2300FC613B /* MenuView.swift in Sources */,
 				FDE107CB2AF7F2BB00DD234B /* Medication.swift in Sources */,
 				FD7EC3162B000EC9008F40AF /* EditMedicine.swift in Sources */,
@@ -390,8 +404,10 @@
 				FD8308832AFFEFD700939175 /* User.swift in Sources */,
 				FD32FF272AF0193600680755 /* ListOfDrugsView.swift in Sources */,
 				FD7EC3112B000C2D008F40AF /* Settings.swift in Sources */,
+				FD873FB62B14DB7D00F39B43 /* ProfilesListManager.swift in Sources */,
 				FD279C122AF2B21C00B23AC4 /* MenuContent.swift in Sources */,
 				FDE107C12AF7E8B700DD234B /* ProfileList.swift in Sources */,
+				FD873FBA2B14F20900F39B43 /* Controller.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

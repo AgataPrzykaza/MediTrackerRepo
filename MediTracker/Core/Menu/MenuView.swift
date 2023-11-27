@@ -10,12 +10,12 @@ import SwiftUI
 
 struct MenuView: View {
     
-    @ObservedObject var userAuth: UserAuthManager
+    @ObservedObject var userAuth: UserManager
     
-    @State var nameUser: String = "ALA"
-    @State var profilePerson = "woman"
     
     @State var sideMenuOpened = false
+    
+    
     
     var body: some View {
         
@@ -70,7 +70,9 @@ struct MenuView: View {
                         
                     }) {
                         HStack{
-                            MiniProfileView(nameUser: nameUser, profilePictureType: profilePerson)
+                            
+                            MiniProfileView(nameUser: userAuth.currentUser?.name ?? "brak", profilePictureType: userAuth.currentUser?.gender ?? "Inne")
+                               
                             Image(systemName: "chevron.down")
                                 .foregroundColor(K.BrandColors.darkPink1)
                         }

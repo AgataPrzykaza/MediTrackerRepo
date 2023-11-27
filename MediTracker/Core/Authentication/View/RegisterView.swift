@@ -14,7 +14,8 @@ struct RegisterView: View {
     
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
-    @ObservedObject var userAuth: UserAuthManager
+    @ObservedObject var userAuth: UserManager
+    
     
     @State private var isNextViewActive = false
     @State private var showAlert = false
@@ -26,6 +27,8 @@ struct RegisterView: View {
     @State var password: String = ""
     @State var passwordAgain: String = ""
     
+    @State private var selectedGender: String = "Mężczyzna"
+    let genders = ["Mężczyzna", "Kobieta", "Inne"]
     
     var body: some View {
         
@@ -41,7 +44,7 @@ struct RegisterView: View {
                     .frame(height:40)
                 //MARK: - Pola do rejestracji
                 VStack {
-              //Imie textfield ---------------------------------------
+                    //Imie textfield ---------------------------------------
                     TextField("Imie", text: $name)
                         .font(.system(size: 22))
                         .foregroundColor(.black)
@@ -49,11 +52,11 @@ struct RegisterView: View {
                         .background(.white)
                         .cornerRadius(12)
                         .autocorrectionDisabled()
-                        
+                    
                     
                     Spacer()
                         .frame(height:23)
-               //nazwisko textfield -------------------------------
+                    //nazwisko textfield -------------------------------
                     TextField("Nazwisko", text: $surname)
                         .font(.system(size: 22))
                         .foregroundColor(.black)
@@ -61,11 +64,27 @@ struct RegisterView: View {
                         .background(.white)
                         .cornerRadius(12)
                         .autocorrectionDisabled()
-                        
+                    
                     
                     Spacer()
                         .frame(height:23)
-                  //Email textfield ----------------------------------------------
+                    
+                    //Plec wybrana
+                    Text("Wybierz płeć")
+                        .font(.system(size: 22))
+                        .foregroundColor(K.BrandColors.darkPink2)
+                    
+                    Picker("Płeć", selection: $selectedGender) {
+                        ForEach(genders, id: \.self) { gender in
+                            Text(gender).tag(gender)
+                        }
+                    }
+                    .pickerStyle(SegmentedPickerStyle())
+                    .frame(width:300)
+                    
+                    Spacer()
+                        .frame(height:23)
+                    //Email textfield ----------------------------------------------
                     TextField("Email", text: $email)
                         .font(.system(size: 22))
                         .frame(width: 275, height: 44)
@@ -73,31 +92,31 @@ struct RegisterView: View {
                         .foregroundColor(.black)
                         .cornerRadius(12)
                         .autocorrectionDisabled()
-                       
-                    Spacer()
-                        .frame(height:23)
-                  
-                    //hasło textfield ----------------------------------------------------------
-                    TextField("Hasło", text: $password)
-                        .font(.system(size: 22))
-                        .frame(width: 275, height: 44)
-                        .background(.white)
-                        .foregroundColor(.black)
-                        .cornerRadius(12)
-                        .autocorrectionDisabled()
-                        
                     
                     Spacer()
                         .frame(height:23)
-                  //Potwierdzenie hasła -----------------------------------------------------------
-                    TextField("Potwierdzenie hasła", text: $passwordAgain)
+                    
+                    //hasło textfield ----------------------------------------------------------
+                    SecureField("Hasło", text: $password)
                         .font(.system(size: 22))
                         .frame(width: 275, height: 44)
                         .background(.white)
                         .foregroundColor(.black)
                         .cornerRadius(12)
                         .autocorrectionDisabled()
-                        
+                    
+                    
+                    Spacer()
+                        .frame(height:23)
+                    //Potwierdzenie hasła -----------------------------------------------------------
+                    SecureField("Potwierdzenie hasła", text: $passwordAgain)
+                        .font(.system(size: 22))
+                        .frame(width: 275, height: 44)
+                        .background(.white)
+                        .foregroundColor(.black)
+                        .cornerRadius(12)
+                        .autocorrectionDisabled()
+                    
                     
                 }
                 HStack {
@@ -111,8 +130,8 @@ struct RegisterView: View {
                         
                         if validation.1{
                             //wszystkie pola sa uzupelnione
-                           // createUser(email: email, password: password)
-                            userAuth.createUser(email: email, password: password)
+                            
+                            userAuth.createUser(email: email, password: password,name: name, surname: surname,gender:selectedGender)
                             isNextViewActive = true
                         }
                         else{
@@ -141,7 +160,7 @@ struct RegisterView: View {
                         Alert(title: Text("Uwaga"), message: Text(alertText))
                     }
                     
-
+                    
                 }
                 .offset(y: 80)
                 
@@ -191,7 +210,7 @@ struct RegisterView: View {
 func checkedAllFields(name:String, surname:String,email:String,password:String,passwordAgain:String) -> (String,Bool) {
     
     if name.isEmpty || surname.isEmpty || email.isEmpty || password.isEmpty || passwordAgain.isEmpty{
-         
+        
         return ("Zostały nie uzupełnione pola!",false)
     }
     else{
@@ -258,20 +277,8 @@ func checkLengthOfPassword(password: String) -> Bool{
     }
 }
 
-//func createUser(email: String, password: String) {
-//    
-//        
-//        Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
-//            
-//            guard let user = authResult?.user else {
-//                    // Obsługa błędu, jeśli użytkownik nie został utworzony poprawnie
-//                    return
-//                }
-//        }
-//        
-//    
-//}
+
 
 #Preview {
-    RegisterView( userAuth: UserAuthManager())
+    RegisterView( userAuth: UserManager())
 }

@@ -11,12 +11,16 @@ struct EditProfileView: View {
     
     @Environment(\.dismiss) var dismiss
     
+    @ObservedObject var userAuth: UserManager
+    
+    
     var rodzajProfilu = "Profil"
     
-    @State var imie = "Ola"
-    var nazwisko = "ko"
-    var plec = "men"
-    var haslo = "asa"
+    @State var name = "Ola"
+    @State var surname = ""
+    
+    @State private var selectedGender: String = "Mężczyzna"
+    let genders = ["Mężczyzna", "Kobieta", "Inne"]
     
     var body: some View {
         
@@ -38,8 +42,22 @@ struct EditProfileView: View {
                     .padding()
                 
                 Button(action: {
-                   
-                }) {
+                    
+                    updateUserData()
+                    userAuth.updateUser(user: userAuth.currentUser!) { error in
+                            if let error = error {
+                                print("Błąd aktualizacji danych użytkownika: \(error.localizedDescription)")
+                            } else {
+                                print("Dane użytkownika zaktualizowane pomyślnie!")
+                                
+                            }
+                        }
+                    dismiss()
+                    
+                    }
+                    
+                  
+                ) {
                    Text("Zapisz")
                         .font(.system(size: 20))
                         .foregroundStyle(K.BrandColors.darkPink1)
@@ -56,7 +74,7 @@ struct EditProfileView: View {
                     .frame(width: 300,alignment: .leading)
                     .foregroundColor(K.BrandColors.intensePink2)
                     .font(.system(size: 23))
-                TextField(imie, text: $imie)
+                TextField("Imie", text: $name)
                     .frame(width: 300,height: 40)
                     .font(.system(size: 23))
                     .autocorrectionDisabled()
@@ -68,7 +86,7 @@ struct EditProfileView: View {
                     .frame(width: 300,alignment: .leading)
                     .foregroundColor(K.BrandColors.intensePink2)
                     .font(.system(size: 23))
-                TextField(nazwisko, text: /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Value@*/.constant("")/*@END_MENU_TOKEN@*/)
+                TextField("Nazwisko", text: $surname)
                     .frame(width: 300,height: 40)
                     .font(.system(size: 23))
                     .autocorrectionDisabled()
@@ -82,27 +100,52 @@ struct EditProfileView: View {
                     .frame(width: 300,alignment: .leading)
                     .foregroundColor(K.BrandColors.intensePink2)
                     .font(.system(size: 23))
-                TextField(plec, text: /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Value@*/.constant("")/*@END_MENU_TOKEN@*/)
-                    .frame(width: 300,height: 40)
-                    .font(.system(size: 23))
-                    .autocorrectionDisabled()
-                    .onSubmit {
-                        
+                
+                Picker("Płeć", selection: $selectedGender) {
+                    ForEach(genders, id: \.self) { gender in
+                        Text(gender).tag(gender)
                     }
+                }
+                .pickerStyle(SegmentedPickerStyle())
+                .frame(width:300)
+               
                 
                 
                 
             }
             Spacer()
         }
-        .frame(width: 500,height: .infinity,alignment: .top)
+        .frame(width: 500,height: 800,alignment: .top)
         .navigationBarBackButtonHidden()
         .onTapGesture {
             UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
         }
+        .onAppear(){
+            var userData = loadData(userAuth: userAuth)
+            name = userData.0
+            surname = userData.1
+            selectedGender = userData.2
+        }
     }
+
+    func updateUserData(){
+        userAuth.currentUser?.updateName(name)
+        userAuth.currentUser?.updateSurname(surname)
+        userAuth.currentUser?.updateGender(selectedGender)
+    }
+    
 }
 
+func loadData(userAuth: UserManager) -> (String,String,String){
+    
+    var name = userAuth.currentUser?.name ?? "Brak"
+    var surname = userAuth.currentUser?.surname ?? "Brak"
+    var gender = userAuth.currentUser?.gender ?? "Brak"
+    
+    return (name,surname,gender)
+}
+
+
 #Preview {
-    EditProfileView()
+    EditProfileView(userAuth: UserManager())
 }

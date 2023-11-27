@@ -10,10 +10,12 @@ import SwiftUI
 
 struct SideMenu: View {
     
-    @ObservedObject var userAuth: UserAuthManager
+    @ObservedObject var userAuth: UserManager
+    
+    
     
     let width: CGFloat
-    let menuOpened: Bool
+    var menuOpened: Bool
     let toggleMenu: () -> Void
     
     
@@ -37,7 +39,7 @@ struct SideMenu: View {
             
             //Menu Content
             HStack{
-                MenuContent(userAuth: userAuth,nameUser: "Ala", profilePerson: "woman")
+                MenuContent(userAuth: userAuth)
                     .frame(width: width)
                     .offset(x: menuOpened ? 0 : -width)
                     .onTapGesture {

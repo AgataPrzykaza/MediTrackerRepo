@@ -11,10 +11,12 @@ import FirebaseAuth
 struct MenuContent: View{
     
     
-    @ObservedObject var userAuth: UserAuthManager
+    @ObservedObject var userAuth: UserManager
     
-    var nameUser:String
-    var profilePerson: String
+    
+    
+    @State var nameUser:String = ""
+    @State var profilePerson: String = ""
     @State private var isShowingEditProfile = false
   
     
@@ -34,14 +36,16 @@ struct MenuContent: View{
                     
                     //MARK: - Profil główny oraz mozliwosc edycji
                     HStack(){
-                        MiniProfileView(nameUser: nameUser, profilePictureType: profilePerson )
+                        
+                        
+                        MiniProfileView(nameUser: userAuth.currentUser?.name ?? "brak", profilePictureType: userAuth.currentUser?.gender ?? "Inna" )
                         Spacer()
                     }
                     .padding(.horizontal,20)
                     
                     
                     
-                    NavigationLink(destination: EditProfileView()) {
+                    NavigationLink(destination: EditProfileView(userAuth: userAuth)) {
                         HStack {
                             Spacer()
                             Text("Edytuj profil")
@@ -61,9 +65,8 @@ struct MenuContent: View{
                     
                     
                     ProfileList(profiles: [
-                        Profile(name: "John Doe", pictureType: "man"),
-                        Profile(name: "Jane Smith", pictureType: "woman"),
-                        Profile(name: "Jane Kate", pictureType: "woman"),
+                        
+                        
                         // ... Dodaj więcej profili
                     ], addProfileAction: {
                         // Akcja do dodawania nowego profilu
