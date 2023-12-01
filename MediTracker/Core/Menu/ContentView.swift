@@ -18,7 +18,8 @@ struct ContentView: View {
                 
                 MenuView(userAuth: userAuth)
                     .onAppear {
-                                            userAuth.fetchUserData()
+                            userAuth.fetchUserData()
+                           
                         }
             } else {
                 WelcomeView(userAuth: userAuth)

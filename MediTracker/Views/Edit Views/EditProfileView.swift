@@ -11,12 +11,12 @@ struct EditProfileView: View {
     
     @Environment(\.dismiss) var dismiss
     
-    @ObservedObject var userAuth: UserManager
+    @ObservedObject var manager: UserManager
     
     
     var rodzajProfilu = "Profil"
     
-    @State var name = "Ola"
+    @State var name = ""
     @State var surname = ""
     
     @State private var selectedGender: String = "Mężczyzna"
@@ -43,18 +43,28 @@ struct EditProfileView: View {
                 
                 Button(action: {
                     
-                    updateUserData()
-                    userAuth.updateUser(user: userAuth.currentUser!) { error in
-                            if let error = error {
-                                print("Błąd aktualizacji danych użytkownika: \(error.localizedDescription)")
-                            } else {
-                                print("Dane użytkownika zaktualizowane pomyślnie!")
-                                
-                            }
+                    //updateCurrentUserData()
+                    updateCurrentProfile()
+                    
+                    manager.profilemanager.updateProfile(profile: manager.currentProfileSelected!) { error in
+                        if let error = error {
+                            print("Błąd aktualizacji danych użytkownika: \(error.localizedDescription)")
+                        } else {
+                            print("Dane użytkownika zaktualizowane pomyślnie!")
+                            
                         }
+                    }
+//                    manager.updateUser(user: manager.currentUser!) { error in
+//                            if let error = error {
+//                                print("Błąd aktualizacji danych użytkownika: \(error.localizedDescription)")
+//                            } else {
+//                                print("Dane użytkownika zaktualizowane pomyślnie!")
+//                                
+//                            }
+//                        }
                     dismiss()
                     
-                    }
+                  }
                     
                   
                 ) {
@@ -121,31 +131,39 @@ struct EditProfileView: View {
             UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
         }
         .onAppear(){
-            var userData = loadData(userAuth: userAuth)
+            var userData = loadData(manager: manager)
             name = userData.0
             surname = userData.1
             selectedGender = userData.2
         }
     }
 
-    func updateUserData(){
-        userAuth.currentUser?.updateName(name)
-        userAuth.currentUser?.updateSurname(surname)
-        userAuth.currentUser?.updateGender(selectedGender)
+    func updateCurrentUserData(){
+        manager.currentUser?.updateName(name)
+        manager.currentUser?.updateSurname(surname)
+        manager.currentUser?.updateGender(selectedGender)
     }
     
+    func updateCurrentProfile(){
+        manager.currentProfileSelected?.updateName(name)
+        manager.currentProfileSelected?.updateSurname(surname)
+        manager.currentProfileSelected?.updatepictureType(selectedGender)
+        
+        manager.fetchUserData()
+        
+    }
 }
 
-func loadData(userAuth: UserManager) -> (String,String,String){
+func loadData(manager: UserManager) -> (String,String,String){
     
-    var name = userAuth.currentUser?.name ?? "Brak"
-    var surname = userAuth.currentUser?.surname ?? "Brak"
-    var gender = userAuth.currentUser?.gender ?? "Brak"
+    var name = manager.currentProfileSelected?.name ?? "Brak"
+    var surname = manager.currentProfileSelected?.surname ?? "Brak"
+    var gender = manager.currentProfileSelected?.pictureType ?? "Brak"
     
     return (name,surname,gender)
 }
 
 
 #Preview {
-    EditProfileView(userAuth: UserManager())
+    EditProfileView(manager: UserManager())
 }

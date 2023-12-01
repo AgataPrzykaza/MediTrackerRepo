@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FD15FE022B1A0EA400D8C259 /* EditUserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD15FE012B1A0EA400D8C259 /* EditUserView.swift */; };
 		FD2169642AEBED2300FC613B /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD2169632AEBED2300FC613B /* MenuView.swift */; };
 		FD279C0D2AF2AD6A00B23AC4 /* SideMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD279C0C2AF2AD6A00B23AC4 /* SideMenu.swift */; };
 		FD279C0F2AF2B16A00B23AC4 /* MiniProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD279C0E2AF2B16A00B23AC4 /* MiniProfileView.swift */; };
@@ -28,6 +29,7 @@
 		FD873FB82B14F1AD00F39B43 /* ProfileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD873FB72B14F1AD00F39B43 /* ProfileManager.swift */; };
 		FD873FBA2B14F20900F39B43 /* Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD873FB92B14F20900F39B43 /* Controller.swift */; };
 		FDA248EB2B138D7E0044C883 /* UserManagerKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDA248EA2B138D7E0044C883 /* UserManagerKey.swift */; };
+		FDB12BD22B18E72D00AAEAD7 /* AddProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDB12BD12B18E72D00AAEAD7 /* AddProfileView.swift */; };
 		FDCA6CBE2AFD53A000575E05 /* EditProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDCA6CBD2AFD53A000575E05 /* EditProfileView.swift */; };
 		FDCA6CC02AFD5AE400575E05 /* EditLoginData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDCA6CBF2AFD5AE400575E05 /* EditLoginData.swift */; };
 		FDDB58D22B07808B003A7767 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FDDB58D12B07808B003A7767 /* GoogleService-Info.plist */; };
@@ -61,6 +63,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		FD15FE012B1A0EA400D8C259 /* EditUserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditUserView.swift; sourceTree = "<group>"; };
 		FD2169632AEBED2300FC613B /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
 		FD279C0C2AF2AD6A00B23AC4 /* SideMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenu.swift; sourceTree = "<group>"; };
 		FD279C0E2AF2B16A00B23AC4 /* MiniProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiniProfileView.swift; sourceTree = "<group>"; };
@@ -83,6 +86,7 @@
 		FD873FB72B14F1AD00F39B43 /* ProfileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileManager.swift; sourceTree = "<group>"; };
 		FD873FB92B14F20900F39B43 /* Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Controller.swift; sourceTree = "<group>"; };
 		FDA248EA2B138D7E0044C883 /* UserManagerKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManagerKey.swift; sourceTree = "<group>"; };
+		FDB12BD12B18E72D00AAEAD7 /* AddProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddProfileView.swift; sourceTree = "<group>"; };
 		FDCA6CBD2AFD53A000575E05 /* EditProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileView.swift; sourceTree = "<group>"; };
 		FDCA6CBF2AFD5AE400575E05 /* EditLoginData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditLoginData.swift; sourceTree = "<group>"; };
 		FDDB58D12B07808B003A7767 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -132,6 +136,7 @@
 				FD279C0C2AF2AD6A00B23AC4 /* SideMenu.swift */,
 				FD279C112AF2B21C00B23AC4 /* MenuContent.swift */,
 				FDE107C02AF7E8B700DD234B /* ProfileList.swift */,
+				FDB12BD12B18E72D00AAEAD7 /* AddProfileView.swift */,
 			);
 			path = SideMenuView;
 			sourceTree = "<group>";
@@ -172,6 +177,7 @@
 			children = (
 				FDCA6CBF2AFD5AE400575E05 /* EditLoginData.swift */,
 				FDCA6CBD2AFD53A000575E05 /* EditProfileView.swift */,
+				FD15FE012B1A0EA400D8C259 /* EditUserView.swift */,
 			);
 			path = "Edit Views";
 			sourceTree = "<group>";
@@ -395,11 +401,13 @@
 				FD279C0F2AF2B16A00B23AC4 /* MiniProfileView.swift in Sources */,
 				FD830ED42AE6D57300E3D2FC /* MediTrackerApp.swift in Sources */,
 				FDE107C92AF7F1D700DD234B /* MedicationList.swift in Sources */,
+				FDB12BD22B18E72D00AAEAD7 /* AddProfileView.swift in Sources */,
 				FD7EC3132B000CED008F40AF /* ActiveMeds.swift in Sources */,
 				FD873FB82B14F1AD00F39B43 /* ProfileManager.swift in Sources */,
 				FD2169642AEBED2300FC613B /* MenuView.swift in Sources */,
 				FDE107CB2AF7F2BB00DD234B /* Medication.swift in Sources */,
 				FD7EC3162B000EC9008F40AF /* EditMedicine.swift in Sources */,
+				FD15FE022B1A0EA400D8C259 /* EditUserView.swift in Sources */,
 				FD7725542AE83CA2009D91FB /* Constants.swift in Sources */,
 				FD8308832AFFEFD700939175 /* User.swift in Sources */,
 				FD32FF272AF0193600680755 /* ListOfDrugsView.swift in Sources */,

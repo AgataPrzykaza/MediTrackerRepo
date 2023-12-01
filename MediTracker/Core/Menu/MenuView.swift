@@ -71,7 +71,7 @@ struct MenuView: View {
                     }) {
                         HStack{
                             
-                            MiniProfileView(nameUser: userAuth.currentUser?.name ?? "brak", profilePictureType: userAuth.currentUser?.gender ?? "Inne")
+                            MiniProfileView(nameUser: userAuth.currentProfileSelected?.name ?? "brak", profilePictureType: userAuth.currentProfileSelected?.pictureType ?? "Inne")
                                
                             Image(systemName: "chevron.down")
                                 .foregroundColor(K.BrandColors.darkPink1)
@@ -137,6 +137,6 @@ struct MenuView: View {
 
 
 
-//#Preview {
-//    MenuView()
-//}
+#Preview {
+    MenuView(userAuth: UserManager())
+}

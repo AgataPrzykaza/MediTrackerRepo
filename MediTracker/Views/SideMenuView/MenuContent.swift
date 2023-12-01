@@ -11,14 +11,14 @@ import FirebaseAuth
 struct MenuContent: View{
     
     
-    @ObservedObject var userAuth: UserManager
+    @ObservedObject var manager: UserManager
     
     
     
     @State var nameUser:String = ""
     @State var profilePerson: String = ""
     @State private var isShowingEditProfile = false
-  
+    
     
     var body: some View {
         ZStack(alignment: .top){
@@ -38,14 +38,14 @@ struct MenuContent: View{
                     HStack(){
                         
                         
-                        MiniProfileView(nameUser: userAuth.currentUser?.name ?? "brak", profilePictureType: userAuth.currentUser?.gender ?? "Inna" )
+                        MiniProfileView(nameUser: manager.currentProfileSelected?.name ?? "brak", profilePictureType: manager.currentProfileSelected?.pictureType ?? "Inne" )
                         Spacer()
                     }
                     .padding(.horizontal,20)
                     
                     
                     
-                    NavigationLink(destination: EditProfileView(userAuth: userAuth)) {
+                    NavigationLink(destination: EditProfileView(manager: manager)) {
                         HStack {
                             Spacer()
                             Text("Edytuj profil")
@@ -63,12 +63,9 @@ struct MenuContent: View{
                     
                     //MARK: - Profile pozostale
                     
-                    
-                    ProfileList(profiles: [
-                        
-                        
-                        // ... Dodaj więcej profili
-                    ], addProfileAction: {
+                    //Array(mojaTablica.dropFirst())
+                    //userAuth.listOfProfiles
+                    ProfileList(userAuth: manager, profiles: manager.listOfProfiles, addProfileAction: {
                         // Akcja do dodawania nowego profilu
                     })
                     .padding(.bottom, 100)
@@ -82,7 +79,7 @@ struct MenuContent: View{
                     Spacer()
 
                     Button(action: {
-                        userAuth.logout()
+                        manager.logout()
                                 }) {
                                     HStack {
                                         Image(systemName: "rectangle.portrait.and.arrow.right")

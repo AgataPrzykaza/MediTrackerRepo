@@ -9,9 +9,10 @@ import SwiftUI
 
 struct ProfileList: View {
     
+    @ObservedObject var userAuth: UserManager
     var profiles: [Profile]
     var addProfileAction: () -> Void
-
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
             Text("TWOJE PROFILE")
@@ -25,28 +26,29 @@ struct ProfileList: View {
                     // Tutaj dodaj akcję dla przycisku
                 }, label: {
                     MiniProfileView(nameUser: profile.name, profilePictureType: profile.pictureType)
-                        
+                    
                 })
             }
-            Button(action: addProfileAction, label: {
-                Spacer()
-                Image(systemName: "plus")
-                    .tint(.white)
-                
-                Text("Dodaj profil")
-                    .foregroundColor(.white)
-            })
-            .padding(.leading, 70)
+            NavigationLink(destination: AddProfileView( manager: userAuth )) {
+                HStack {
+                    Spacer()
+                    Image(systemName: "plus")
+                        .tint(.white)
+                    Text("Dodaj profil")
+                        .foregroundColor(.white)
+                }
+                .padding(.leading, 70)
+            }
         }
         .padding(.horizontal, 20)
     }
 }
 
 
-#Preview {
-    ProfileList(profiles: [
-//        Profile(name: "John Doe", pictureType: "Kobieta"),
-//        Profile(name: "Jane Smith", pictureType: "pet"),
-        // ... Dodaj więcej profili
-    ], addProfileAction: {})
-}
+//#Preview {
+//    ProfileList(profiles: [
+//        //        Profile(name: "John Doe", pictureType: "Kobieta"),
+//        //        Profile(name: "Jane Smith", pictureType: "pet"),
+//        // ... Dodaj więcej profili
+//    ], addProfileAction: {})
+//}

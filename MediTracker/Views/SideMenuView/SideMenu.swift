@@ -39,7 +39,7 @@ struct SideMenu: View {
             
             //Menu Content
             HStack{
-                MenuContent(userAuth: userAuth)
+                MenuContent(manager: userAuth)
                     .frame(width: width)
                     .offset(x: menuOpened ? 0 : -width)
                     .onTapGesture {

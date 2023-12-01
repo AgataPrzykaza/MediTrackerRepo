@@ -9,10 +9,10 @@ import Foundation
 
 class Profile: Identifiable, Codable{
    
-    var id = UUID()
+    
      var uid: String
      var name: String
-     var surname: String
+     var surname: String?
      var pictureType: String
     
     init(uid: String, name: String,surname: String,pictureType: String) {
@@ -26,10 +26,11 @@ class Profile: Identifiable, Codable{
         name = newName
     }
     
-    func updateSurname(_ newSurname: String) {
+    func updateSurname(_ newSurname: String)
+    {
         surname = newSurname
     }
-    
+   
     func updatepictureType(_ newType: String)
     {
         pictureType = newType
@@ -39,8 +40,3 @@ class Profile: Identifiable, Codable{
 
 
 
-//struct Profile: Identifiable, Codable{
-//    var id = UUID()
-//    var name: String
-//    var pictureType: String
-//}

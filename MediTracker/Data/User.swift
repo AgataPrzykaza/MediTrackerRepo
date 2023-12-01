@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import FirebaseFirestore
 
 class User: Codable{
     
@@ -15,7 +16,7 @@ class User: Codable{
     var email: String
     var gender: String
     
-    var profiles: [Profile] = []
+    var profiles: [DocumentReference] = []
     
     // inne właściwości użytkownika
     
@@ -28,6 +29,11 @@ class User: Codable{
         
     }
     
+    func addProfileReference(profile: DocumentReference){
+        
+        profiles.append(profile)
+        
+    }
     func updateName(_ newName: String) {
         name = newName
     }
