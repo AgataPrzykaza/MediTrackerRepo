@@ -14,7 +14,7 @@ class UserManager: ObservableObject {
     
     
     @Published var db = Firestore.firestore()
-    let profilemanager = ProfileManager()
+    @Published var profilemanager = ProfileManager()
     
     @Published var isUserLoggedIn: Bool = false
     @Published var currentUser: User?
@@ -29,6 +29,21 @@ class UserManager: ObservableObject {
     }
     
     
+    //MARK: - Zmiana wybranego profilu
+    func selectProfile(newProfile: Profile){
+        self.objectWillChange.send()
+        currentProfileSelected = newProfile
+    }
+    //MARK: - Aktualizacja Profilu
+    func updateProfile(){
+        self.objectWillChange.send()
+        profilemanager.updateProfile(profile: currentProfileSelected!) { error in
+            
+        }
+    }
+    
+    
+   //Zapisanie Usera
     func saveUser(user: User) {
         
         db.collection("users").document(user.uid).setData([
@@ -47,6 +62,7 @@ class UserManager: ObservableObject {
         }
     }
     
+    //Pobranie danych usera
     func fetchUserData() {
         guard let uid = Auth.auth().currentUser?.uid else {
             print("Brak zalogowanego użytkownika")
@@ -97,6 +113,7 @@ class UserManager: ObservableObject {
         
     }
     
+    //Aktualizowanie danych usera
     func updateUser(user: User, completion: @escaping (Error?) -> Void) {
         DispatchQueue.main.async {
             
@@ -137,6 +154,7 @@ class UserManager: ObservableObject {
 
 extension UserManager {
  
+    //Zmiana hasła !!!!!!!!!!!!!!!!!!!!!!!!
     func changePassword(newPassword: String, completion: @escaping (Bool, Error?) -> Void) {
         guard let currentUser = Auth.auth().currentUser else {
             completion(false, NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: "Brak zalogowanego użytkownika"]))
@@ -153,6 +171,7 @@ extension UserManager {
             }
         }
     }
+    
     
     
     func logout() {

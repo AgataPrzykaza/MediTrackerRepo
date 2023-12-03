@@ -154,7 +154,7 @@ struct RegisterView: View {
                         .cornerRadius(24)
                     }
                     .navigationDestination(isPresented: $isNextViewActive){
-                        MenuView(userAuth:userAuth)
+                        MenuView(manager:userAuth)
                     }
                     .alert(isPresented: $showAlert) {
                         Alert(title: Text("Uwaga"), message: Text(alertText))

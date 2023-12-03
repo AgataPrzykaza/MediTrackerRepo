@@ -13,7 +13,7 @@
 		FD279C0F2AF2B16A00B23AC4 /* MiniProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD279C0E2AF2B16A00B23AC4 /* MiniProfileView.swift */; };
 		FD279C122AF2B21C00B23AC4 /* MenuContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD279C112AF2B21C00B23AC4 /* MenuContent.swift */; };
 		FD32FF252AF0184B00680755 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD32FF242AF0184B00680755 /* MainView.swift */; };
-		FD32FF272AF0193600680755 /* ListOfDrugsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD32FF262AF0193600680755 /* ListOfDrugsView.swift */; };
+		FD60F5F32B1BA06A009B6F34 /* AddMedicineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD60F5F22B1BA06A009B6F34 /* AddMedicineView.swift */; };
 		FD7725512AE83B10009D91FB /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD7725502AE83B10009D91FB /* RegisterView.swift */; };
 		FD7725542AE83CA2009D91FB /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD7725532AE83CA2009D91FB /* Constants.swift */; };
 		FD7EC30F2AFFFFD6008F40AF /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD7EC30E2AFFFFD6008F40AF /* ContentView.swift */; };
@@ -29,6 +29,7 @@
 		FD873FB82B14F1AD00F39B43 /* ProfileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD873FB72B14F1AD00F39B43 /* ProfileManager.swift */; };
 		FD873FBA2B14F20900F39B43 /* Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD873FB92B14F20900F39B43 /* Controller.swift */; };
 		FDA248EB2B138D7E0044C883 /* UserManagerKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDA248EA2B138D7E0044C883 /* UserManagerKey.swift */; };
+		FDAA6D112B1CA7B20075D00E /* MedicineManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDAA6D102B1CA7B20075D00E /* MedicineManager.swift */; };
 		FDB12BD22B18E72D00AAEAD7 /* AddProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDB12BD12B18E72D00AAEAD7 /* AddProfileView.swift */; };
 		FDCA6CBE2AFD53A000575E05 /* EditProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDCA6CBD2AFD53A000575E05 /* EditProfileView.swift */; };
 		FDCA6CC02AFD5AE400575E05 /* EditLoginData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDCA6CBF2AFD5AE400575E05 /* EditLoginData.swift */; };
@@ -69,7 +70,7 @@
 		FD279C0E2AF2B16A00B23AC4 /* MiniProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiniProfileView.swift; sourceTree = "<group>"; };
 		FD279C112AF2B21C00B23AC4 /* MenuContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuContent.swift; sourceTree = "<group>"; };
 		FD32FF242AF0184B00680755 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
-		FD32FF262AF0193600680755 /* ListOfDrugsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListOfDrugsView.swift; sourceTree = "<group>"; };
+		FD60F5F22B1BA06A009B6F34 /* AddMedicineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMedicineView.swift; sourceTree = "<group>"; };
 		FD7725502AE83B10009D91FB /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
 		FD7725532AE83CA2009D91FB /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		FD7EC30E2AFFFFD6008F40AF /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -86,6 +87,7 @@
 		FD873FB72B14F1AD00F39B43 /* ProfileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileManager.swift; sourceTree = "<group>"; };
 		FD873FB92B14F20900F39B43 /* Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Controller.swift; sourceTree = "<group>"; };
 		FDA248EA2B138D7E0044C883 /* UserManagerKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManagerKey.swift; sourceTree = "<group>"; };
+		FDAA6D102B1CA7B20075D00E /* MedicineManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicineManager.swift; sourceTree = "<group>"; };
 		FDB12BD12B18E72D00AAEAD7 /* AddProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddProfileView.swift; sourceTree = "<group>"; };
 		FDCA6CBD2AFD53A000575E05 /* EditProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileView.swift; sourceTree = "<group>"; };
 		FDCA6CBF2AFD5AE400575E05 /* EditLoginData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditLoginData.swift; sourceTree = "<group>"; };
@@ -185,6 +187,7 @@
 		FD7EC30A2AFFFED1008F40AF /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				FDAA6D122B1CAA2F0075D00E /* Managers */,
 				FD7EC30D2AFFFFA2008F40AF /* Menu */,
 				FD7EC30B2AFFFEDE008F40AF /* Authentication */,
 			);
@@ -222,9 +225,9 @@
 		FD7EC3142B000E98008F40AF /* ListOfMeds */ = {
 			isa = PBXGroup;
 			children = (
-				FD32FF262AF0193600680755 /* ListOfDrugsView.swift */,
 				FD7EC3122B000CED008F40AF /* ActiveMeds.swift */,
 				FD7EC3152B000EC9008F40AF /* EditMedicine.swift */,
+				FD60F5F22B1BA06A009B6F34 /* AddMedicineView.swift */,
 			);
 			path = ListOfMeds;
 			sourceTree = "<group>";
@@ -266,6 +269,14 @@
 				FD830EDA2AE6D57400E3D2FC /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		FDAA6D122B1CAA2F0075D00E /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				FDAA6D102B1CA7B20075D00E /* MedicineManager.swift */,
+			);
+			path = Managers;
 			sourceTree = "<group>";
 		};
 		FDE107C72AF7F1A800DD234B /* MedicationListView */ = {
@@ -395,6 +406,7 @@
 				FDE107C32AF7EA5200DD234B /* Profile.swift in Sources */,
 				FDCA6CC02AFD5AE400575E05 /* EditLoginData.swift in Sources */,
 				FDF2548A2B09005D00ADDAB4 /* LoginView.swift in Sources */,
+				FDAA6D112B1CA7B20075D00E /* MedicineManager.swift in Sources */,
 				FD32FF252AF0184B00680755 /* MainView.swift in Sources */,
 				FD830ED62AE6D57300E3D2FC /* WelcomeView.swift in Sources */,
 				FD279C0D2AF2AD6A00B23AC4 /* SideMenu.swift in Sources */,
@@ -403,6 +415,7 @@
 				FDE107C92AF7F1D700DD234B /* MedicationList.swift in Sources */,
 				FDB12BD22B18E72D00AAEAD7 /* AddProfileView.swift in Sources */,
 				FD7EC3132B000CED008F40AF /* ActiveMeds.swift in Sources */,
+				FD60F5F32B1BA06A009B6F34 /* AddMedicineView.swift in Sources */,
 				FD873FB82B14F1AD00F39B43 /* ProfileManager.swift in Sources */,
 				FD2169642AEBED2300FC613B /* MenuView.swift in Sources */,
 				FDE107CB2AF7F2BB00DD234B /* Medication.swift in Sources */,
@@ -410,7 +423,6 @@
 				FD15FE022B1A0EA400D8C259 /* EditUserView.swift in Sources */,
 				FD7725542AE83CA2009D91FB /* Constants.swift in Sources */,
 				FD8308832AFFEFD700939175 /* User.swift in Sources */,
-				FD32FF272AF0193600680755 /* ListOfDrugsView.swift in Sources */,
 				FD7EC3112B000C2D008F40AF /* Settings.swift in Sources */,
 				FD873FB62B14DB7D00F39B43 /* ProfilesListManager.swift in Sources */,
 				FD279C122AF2B21C00B23AC4 /* MenuContent.swift in Sources */,
@@ -555,8 +567,8 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIStatusBarStyle = "";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -585,8 +597,8 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIStatusBarStyle = "";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

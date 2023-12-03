@@ -103,7 +103,7 @@ struct EditMedicine: View {
                         
                         Text("Dawka")
                         
-                        Stepper("\(dose) hours", value: $dose)
+                        Stepper("\(dose)", value: $dose)
                     }
                     //MARK: - Toggle Przypomnienia
                     HStack{

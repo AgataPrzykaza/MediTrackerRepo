@@ -9,12 +9,10 @@ import SwiftUI
 
 struct MainView: View {
     
-    var tabTMP = [
-        Medicine(name: "Omega", time: "12.00", quantity: 1.5, type: "tabletka"),
-        Medicine(name: "Vitamin C", time: "8.00", quantity: 1, type: "tabletka"),
-        Medicine(name: "Paracetamol", time: "10.00", quantity: 2, type: "tabletka"),
-        // Dodaj więcej leków według potrzeb
-    ]
+    @ObservedObject var manager: UserManager
+   
+   
+    
     var time = "12.00"
     
     var body: some View {
@@ -27,7 +25,16 @@ struct MainView: View {
                     .font(.system(size: 30))
                     .foregroundColor(K.BrandColors.darkPink2)
                     .padding()
-                HeadingView(time: time, medicine: tabTMP)
+                
+                ForEach(manager.currentProfileSelected?.medicationSchedule.indices ?? 0..<0, id: \.self) { index in
+                    let entry = manager.currentProfileSelected?.medicationSchedule[index]
+                    if let times = entry?.times, !times.isEmpty {
+                        HeadingView(time: calculateHour(time: times[0]), medicine: [entry?.medicine].compactMap { $0 })
+                    }
+                }
+
+
+              
                 
                 
             }
@@ -45,6 +52,14 @@ struct MainView: View {
     
 }
 
+
+func calculateHour(time: Date) -> String {
+    let formatter = DateFormatter()
+    formatter.dateFormat = "HH:mm"
+    return formatter.string(from: time)
+}
+
+
 //Funkcja do dzisiejszej daty
 func getCurrentDateInWords() -> String {
     let currentDate = Date()
@@ -55,7 +70,7 @@ func getCurrentDateInWords() -> String {
 }
 
 #Preview {
-    MainView()
+    MainView(manager: UserManager())
 }
 
 //MARK: - Lista leków na dany dzień
@@ -68,9 +83,7 @@ struct HeadingView: View {
     var body: some View {
         
         MedicationListView(medications: medicine, time: time)
-        MedicationListView(medications: medicine, time: "18.00")
-        //MedicationListView(medications: medicine, time: time)
-       // MedicationListView(medications: medicine, time: time)
+       
         
         
     }

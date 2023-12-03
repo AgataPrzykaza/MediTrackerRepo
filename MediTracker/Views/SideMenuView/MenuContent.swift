@@ -63,11 +63,8 @@ struct MenuContent: View{
                     
                     //MARK: - Profile pozostale
                     
-                    //Array(mojaTablica.dropFirst())
-                    //userAuth.listOfProfiles
-                    ProfileList(userAuth: manager, profiles: manager.listOfProfiles, addProfileAction: {
-                        // Akcja do dodawania nowego profilu
-                    })
+                 
+                    ProfileList(manager: manager, profiles: manager.listOfProfiles)
                     .padding(.bottom, 100)
                     
                     

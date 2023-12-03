@@ -32,7 +32,7 @@ struct MedicationListView: View {
         }
         
         //lista lekow na dan godzine
-        ForEach(medications,id: \.id) {  medication in
+        ForEach(medications,id: \.uid) {  medication in
             
             //lek jako przycisk 
             Button(action: {
@@ -50,11 +50,45 @@ struct MedicationListView: View {
 }
 
 #Preview {
-    MedicationListView(medications: [
-        Medicine(name: "Omega", time: "12.00", quantity: 1.5, type: "tabletka"),
-        Medicine(name: "Vitamin C", time: "8.00", quantity: 1, type: "tabletka"),
-        Medicine(name: "Paracetamol", time: "10.00", quantity: 2, type: "tabletka"),
+    MedicationListView(medications:[
+        Medicine(
+           
+            name: "Paracetamol",
+            dosage: 500,
+            unit: "mg",
+            type: "tabletka",
+            hourPeriod: 6,
+            frequency: 4,
+            startHour: Date(),  // Możesz dostosować tę datę
+            onEmptyStomach: false,
+            delayMeds: 0, // Przykładowa wartość, dostosuj według potrzeb
+            instructions: "Take with water",  // Dostosuj według potrzeb
+            interactions: ["Ibuprofen"],
+            reminder: true,
+            isAntibiotic: false
+        ),
+
         // Dodaj więcej leków według potrzeb
-    ],time: "10.00")
+        // Na przykład:
+        Medicine(
+          
+            name: "Ibuprofen",
+            dosage: 200,
+            unit: "mg",
+            type: "tabletka",
+            hourPeriod: 8,
+            
+            frequency: 3,
+            startHour: Date(),  // Możesz dostosować tę datę
+            onEmptyStomach: true,
+            delayMeds: 0, // Przykładowa wartość, dostosuj według potrzeb
+            instructions: "Take after eating",  // Dostosuj według potrzeb
+            interactions: ["Paracetamol"],
+            reminder: true,
+            isAntibiotic: false
+        )
+
+        // Możesz kontynuować dodawanie
+],time: "10.00")
 }
 

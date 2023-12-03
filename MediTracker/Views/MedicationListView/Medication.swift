@@ -27,7 +27,7 @@ struct Medication: View {
                 
                 //ilosc do przyjęcia
                 
-                Text("\(String(format: "%.2f",medication.quantity)) \(medication.type)")
+                Text("\(String(format: "%.2f",medication.dosage))\(medication.unit) \(medication.type)")
                     .frame(width: 300,alignment: .leading)
                 
                 
@@ -45,6 +45,6 @@ func ChangeUnit() -> Void{
     
 }
 
-#Preview {
-    Medication(medication: Medicine(name: "Omega", time: "12.00", quantity: 1.5, type: "tabletka"))
-}
+//#Preview {
+//    Medication(medication: Medicine(name: "Omega", time: "12.00", quantity: 1.5, type: "tabletka"))
+//}

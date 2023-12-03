@@ -9,9 +9,9 @@ import SwiftUI
 
 struct ProfileList: View {
     
-    @ObservedObject var userAuth: UserManager
+    @ObservedObject var manager: UserManager
     var profiles: [Profile]
-    var addProfileAction: () -> Void
+   
     
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
@@ -23,13 +23,15 @@ struct ProfileList: View {
             
             ForEach(profiles, id: \.id) { profile in
                 Button(action: {
-                    // Tutaj dodaj akcję dla przycisku
+                   
+                    manager.selectProfile(newProfile: profile)
                 }, label: {
                     MiniProfileView(nameUser: profile.name, profilePictureType: profile.pictureType)
                     
                 })
             }
-            NavigationLink(destination: AddProfileView( manager: userAuth )) {
+            
+            NavigationLink(destination: AddProfileView( manager: manager )) {
                 HStack {
                     Spacer()
                     Image(systemName: "plus")

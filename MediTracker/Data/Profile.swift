@@ -14,6 +14,7 @@ class Profile: Identifiable, Codable{
      var name: String
      var surname: String?
      var pictureType: String
+     var medicationSchedule: [MedicationEntry] = []
     
     init(uid: String, name: String,surname: String,pictureType: String) {
         self.uid = uid
@@ -22,6 +23,11 @@ class Profile: Identifiable, Codable{
         self.pictureType = pictureType
     }
     
+    func addMedication (_ med: Medicine){
+        
+        var entry = MedicationEntry(medicine: med, times: med.calculateNextDoses())
+        medicationSchedule.append(entry)
+    }
     func updateName(_ newName: String) {
         name = newName
     }
@@ -36,6 +42,14 @@ class Profile: Identifiable, Codable{
         pictureType = newType
     }
     
+    func getMedsList() -> [Medicine]{
+        var leki: [Medicine] = []
+
+        for entry in medicationSchedule {
+            leki.append(entry.medicine)
+        }
+        return leki
+    }
 }
 
 

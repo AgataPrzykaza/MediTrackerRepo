@@ -10,7 +10,7 @@ import SwiftUI
 
 struct MenuView: View {
     
-    @ObservedObject var userAuth: UserManager
+    @ObservedObject var manager: UserManager
     
     
     @State var sideMenuOpened = false
@@ -25,7 +25,7 @@ struct MenuView: View {
                 
                 //MARK: - deklaracja dolnego panelu nawigacyjnego - menu
                 TabView {
-                    MainView()
+                    MainView(manager: manager)
                         .frame(height: 620)
                         .tabItem {
                             VStack {
@@ -35,7 +35,7 @@ struct MenuView: View {
                                     .foregroundColor(.white) // Ustawianie koloru dla tekstu
                             }
                         }
-                    ListOfDrugsView()
+                    ActiveMeds(manager: manager)
                         .frame(height: 620)
                         .tabItem {
                             VStack {
@@ -50,7 +50,7 @@ struct MenuView: View {
                 .padding(/*@START_MENU_TOKEN@*/EdgeInsets()/*@END_MENU_TOKEN@*/)
                 
                 
-                SideMenu(userAuth: userAuth,width: UIScreen.main.bounds.width/1.5, menuOpened: sideMenuOpened, toggleMenu: toggleMenu)
+                SideMenu(userAuth: manager,width: UIScreen.main.bounds.width/1.5, menuOpened: sideMenuOpened, toggleMenu: toggleMenu)
                 
                 
             }
@@ -71,12 +71,15 @@ struct MenuView: View {
                     }) {
                         HStack{
                             
-                            MiniProfileView(nameUser: userAuth.currentProfileSelected?.name ?? "brak", profilePictureType: userAuth.currentProfileSelected?.pictureType ?? "Inne")
+                            MiniProfileView(nameUser: manager.currentProfileSelected?.name ?? "brak", profilePictureType: manager.currentProfileSelected?.pictureType ?? "Inne")
                                
                             Image(systemName: "chevron.down")
                                 .foregroundColor(K.BrandColors.darkPink1)
+                                
                         }
-                        .padding(.top)
+                        //.padding(.top)
+                        
+                        
                     }
                     
                 }
@@ -96,21 +99,23 @@ struct MenuView: View {
                                 .aspectRatio(contentMode: .fit)
                                 .foregroundColor(K.BrandColors.darkerPink)
                                 .frame(width: 40, height: 40)
-                            
+                                
                             
                             
                         }
                     }
                 }
             }
+    
             .navigationBarHidden(self.sideMenuOpened) // Ukryj pasek nawigacji, gdy menu jest otwarte
             .overlay(
-                SideMenu(userAuth: userAuth,width: 300, menuOpened: sideMenuOpened) {
+                SideMenu(userAuth: manager,width: 300, menuOpened: sideMenuOpened) {
                     withAnimation {
                         self.sideMenuOpened.toggle()
                     }
                 }
             )
+            
             
             
             
@@ -138,5 +143,5 @@ struct MenuView: View {
 
 
 #Preview {
-    MenuView(userAuth: UserManager())
+    MenuView(manager: UserManager())
 }

@@ -16,7 +16,7 @@ struct ContentView: View {
         Group {
             if userAuth.isUserLoggedIn {
                 
-                MenuView(userAuth: userAuth)
+                MenuView(manager: userAuth)
                     .onAppear {
                             userAuth.fetchUserData()
                            

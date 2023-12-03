@@ -19,8 +19,8 @@ struct EditProfileView: View {
     @State var name = ""
     @State var surname = ""
     
-    @State private var selectedGender: String = "Mężczyzna"
-    let genders = ["Mężczyzna", "Kobieta", "Inne"]
+    @State private var selectedType: String = "Mężczyzna"
+    let types = ["Mężczyzna", "Kobieta", "Inne","Zwierze"]
     
     var body: some View {
         
@@ -54,14 +54,7 @@ struct EditProfileView: View {
                             
                         }
                     }
-//                    manager.updateUser(user: manager.currentUser!) { error in
-//                            if let error = error {
-//                                print("Błąd aktualizacji danych użytkownika: \(error.localizedDescription)")
-//                            } else {
-//                                print("Dane użytkownika zaktualizowane pomyślnie!")
-//                                
-//                            }
-//                        }
+
                     dismiss()
                     
                   }
@@ -106,13 +99,13 @@ struct EditProfileView: View {
                 
                 
                 
-                Text("Płeć")
+                Text("Osoba lub zwierze")
                     .frame(width: 300,alignment: .leading)
                     .foregroundColor(K.BrandColors.intensePink2)
                     .font(.system(size: 23))
                 
-                Picker("Płeć", selection: $selectedGender) {
-                    ForEach(genders, id: \.self) { gender in
+                Picker("Płeć", selection: $selectedType) {
+                    ForEach(types, id: \.self) { gender in
                         Text(gender).tag(gender)
                     }
                 }
@@ -134,20 +127,20 @@ struct EditProfileView: View {
             var userData = loadData(manager: manager)
             name = userData.0
             surname = userData.1
-            selectedGender = userData.2
+            selectedType = userData.2
         }
     }
 
     func updateCurrentUserData(){
         manager.currentUser?.updateName(name)
         manager.currentUser?.updateSurname(surname)
-        manager.currentUser?.updateGender(selectedGender)
+        manager.currentUser?.updateGender(selectedType)
     }
     
     func updateCurrentProfile(){
         manager.currentProfileSelected?.updateName(name)
         manager.currentProfileSelected?.updateSurname(surname)
-        manager.currentProfileSelected?.updatepictureType(selectedGender)
+        manager.currentProfileSelected?.updatepictureType(selectedType)
         
         manager.fetchUserData()
         
