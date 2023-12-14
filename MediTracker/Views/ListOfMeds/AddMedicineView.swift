@@ -27,11 +27,15 @@ struct AddMedicineView: View {
     @State var frequencyType: String = "raz dziennie"
     let frequencyTypes = ["raz dziennie","X razy dziennie","co X godzin"]
     
-    @State var frequency: Int = 2
-    let frequencies = [2,3,4,5,6,7,8,9,10,11,12]
+    @State var frequency: Int = 0
+    let frequencies = [0,2,3,4,5,6,7,8,9,10,11,12]
     
-    @State var hourPeriod: Int = 1
-    let hours = [1,2,3,4,5,6,7,8,9,10,11,12]
+    @State var dayType: Int = 0
+    let dayTypes = [0,1,2,3,4,5,6,7]
+
+    
+    @State var hourPeriod: Int = 0
+    let hours = [0,1,2,3,4,5,6,7,8,9,10,11,12]
     
     @State var firstDose = Date.now
     
@@ -51,6 +55,7 @@ struct AddMedicineView: View {
     
     @State var probioticPeriod: Double = 0
     
+    @State var everyday: Bool = false
     
     @Environment(\.dismiss) var dismiss
     
@@ -126,7 +131,7 @@ struct AddMedicineView: View {
     
     func createMedicine(){
         
-        let med = Medicine(name: name, dosage: Double(dose)!, unit: unit, type: type, hourPeriod: calculateHourPeriod(), frequency:calculateFrequency(),startHour: firstDose, onEmptyStomach: false, delayMeds: 0, instructions: extraInstruction, interactions: [], reminder: false, isAntibiotic: false)
+        let med = Medicine(name: name, dosage: Double(dose)!, unit: unit, type: type, hourPeriod: hourPeriod, frequency:frequency,startHour: firstDose, dayPeriod: dayType, onEmptyStomach: false, delayMeds: 0, instructions: extraInstruction, interactions: [], reminder: false, isAntibiotic: false)
         
       
         manager.currentProfileSelected?.addMedication(med)
@@ -240,6 +245,36 @@ struct AddMedicineView: View {
                     
                     Text("Częstotliwość brania leku:")
                         .bold()
+                        .padding(.bottom,10)
+                    
+                    
+                    //MARK: - Czy mozna brac z innymi lekami
+                    HStack{
+                        Text("Codzienne")
+                            .frame(width: 200)
+                        Toggle(isOn: $everyday) {
+                        }
+                        .frame(width: /*@START_MENU_TOKEN@*/100/*@END_MENU_TOKEN@*/)
+                        .tint(.pink)
+                        
+                        
+                    }
+                    
+                    if !everyday{
+                        HStack{
+                            Text("Co")
+                            Picker("Dni", selection: $dayType) {
+                                ForEach(dayTypes, id: \.self) { day in
+                                    Text(String(day)).tag(day)
+                                }
+                            }
+                            .accentColor(.pink)
+                            
+                            Text("dni")
+                        }
+                    }
+                    
+                   
                     
                     Picker("Czestosc", selection: $frequencyType) {
                         ForEach(frequencyTypes, id: \.self) { freq in

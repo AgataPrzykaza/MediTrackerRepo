@@ -8,8 +8,13 @@
 import SwiftUI
 
 struct MedicationListView: View {
+    @ObservedObject var manager: UserManager
+    
     var medications: [Medicine]
     var time: String
+    @State private var medicationTakenStates: [String: Bool] = [:]
+    @State private var showAlert = false
+    @State private var alertMessage = ""
     
     var body: some View {
         
@@ -31,64 +36,73 @@ struct MedicationListView: View {
             }
         }
         
-        //lista lekow na dan godzine
-        ForEach(medications,id: \.uid) {  medication in
-            
-            //lek jako przycisk 
+        ForEach(medications, id: \.uid) { medication in
             Button(action: {
+                let scheduledTime = createDateWithTodayDateAndTimeString(timeString: time)!
+                let key = "\(medication.uid)-\(scheduledTime)"
                 
-                
-               
-                
+                if !(self.medicationTakenStates[key] ?? false) {
+                    manager.profilemanager.medHistoryManager.addMedicationHistoryEntry(
+                        profileId: manager.currentProfileSelected?.uid ?? "",
+                        medicationId: medication.uid,
+                        scheduledTime: scheduledTime,
+                        actualTimeTaken: Date()) { error in
+                            if error != nil {
+                                alertMessage = "Wystąpił problem przy zapisie przyjęcia leku."
+                            } else {
+                                self.medicationTakenStates[key] = true
+                                alertMessage = "Lek \(medication.name) został zażyty."
+                            }
+                            showAlert = true
+                        }
+                } else {
+                    alertMessage = "Lek \(medication.name) został już zażyty."
+                    showAlert = true
+                }
             }) {
                 Medication(medication: medication)
-                    .padding(.bottom,5)
+                    .opacity(self.medicationTakenStates["\(medication.uid)-\(createDateWithTodayDateAndTimeString(timeString: time)!)"] ?? false ? 0.25 : 1.0)
             }
-           
+        }
+        .onAppear {
+            
+            for medication in medications {
+                    let scheduledTime = createDateWithTodayDateAndTimeString(timeString: time)!
+                    let key = "\(medication.uid)-\(scheduledTime)"
+
+                    manager.profilemanager.medHistoryManager.isMedicationTaken(
+                        profileId: manager.currentProfileSelected?.uid ?? "",
+                        medicationId: medication.uid,
+                        at: scheduledTime) { isTaken in
+                            self.medicationTakenStates[key] = isTaken
+                        }
+                }
+            
+        }
+        .alert(isPresented: $showAlert) {
+            Alert(title: Text("Informacja"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
         }
     }
 }
 
-#Preview {
-    MedicationListView(medications:[
-        Medicine(
-           
-            name: "Paracetamol",
-            dosage: 500,
-            unit: "mg",
-            type: "tabletka",
-            hourPeriod: 6,
-            frequency: 4,
-            startHour: Date(),  // Możesz dostosować tę datę
-            onEmptyStomach: false,
-            delayMeds: 0, // Przykładowa wartość, dostosuj według potrzeb
-            instructions: "Take with water",  // Dostosuj według potrzeb
-            interactions: ["Ibuprofen"],
-            reminder: true,
-            isAntibiotic: false
-        ),
 
-        // Dodaj więcej leków według potrzeb
-        // Na przykład:
-        Medicine(
-          
-            name: "Ibuprofen",
-            dosage: 200,
-            unit: "mg",
-            type: "tabletka",
-            hourPeriod: 8,
-            
-            frequency: 3,
-            startHour: Date(),  // Możesz dostosować tę datę
-            onEmptyStomach: true,
-            delayMeds: 0, // Przykładowa wartość, dostosuj według potrzeb
-            instructions: "Take after eating",  // Dostosuj według potrzeb
-            interactions: ["Paracetamol"],
-            reminder: true,
-            isAntibiotic: false
-        )
 
-        // Możesz kontynuować dodawanie
-],time: "10.00")
+
+
+func createDateWithTodayDateAndTimeString(timeString: String) -> Date? {
+    // Ustawienie formatu daty
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = "yyyy-MM-dd"
+    
+    // Pobranie dzisiejszej daty jako String
+    let todayDateString = dateFormatter.string(from: Date())
+    
+    // Połączenie dzisiejszej daty z podanym czasem
+    let dateTimeString = "\(todayDateString) \(timeString)"
+    
+    // Ustawienie odpowiedniego formatu dla DateFormatter
+    dateFormatter.dateFormat = "yyyy-MM-dd HH:mm"
+    
+    // Konwersja stringa na Date
+    return dateFormatter.date(from: dateTimeString)
 }
-

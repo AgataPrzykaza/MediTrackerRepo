@@ -10,7 +10,8 @@ import SwiftUI
 struct Medication: View {
     
     var medication: Medicine
-    
+ 
+
     var body: some View {
         
       
@@ -33,6 +34,7 @@ struct Medication: View {
                 
                 
             }
+           
             
         
        

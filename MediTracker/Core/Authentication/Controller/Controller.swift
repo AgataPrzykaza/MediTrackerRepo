@@ -10,12 +10,12 @@ import Foundation
 class Controller: ObservableObject{
     
     @Published  var userManager: UserManager
-    @Published var profileListManager: ProfilesListManager
+    
     @Published var profileManager: ProfileManager
     
-    init(userManager: UserManager, profileListManager: ProfilesListManager, profileManager: ProfileManager) {
+    init(userManager: UserManager, profileManager: ProfileManager) {
         self.userManager = userManager
-        self.profileListManager = profileListManager
+        
         self.profileManager = profileManager
     }
 }

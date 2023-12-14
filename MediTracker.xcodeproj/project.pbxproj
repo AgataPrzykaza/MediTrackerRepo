@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		FD15FE022B1A0EA400D8C259 /* EditUserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD15FE012B1A0EA400D8C259 /* EditUserView.swift */; };
 		FD2169642AEBED2300FC613B /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD2169632AEBED2300FC613B /* MenuView.swift */; };
+		FD26BD272B29F9460003C5FC /* MedicationHistoryEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD26BD262B29F9460003C5FC /* MedicationHistoryEntry.swift */; };
 		FD279C0D2AF2AD6A00B23AC4 /* SideMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD279C0C2AF2AD6A00B23AC4 /* SideMenu.swift */; };
 		FD279C0F2AF2B16A00B23AC4 /* MiniProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD279C0E2AF2B16A00B23AC4 /* MiniProfileView.swift */; };
 		FD279C122AF2B21C00B23AC4 /* MenuContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD279C112AF2B21C00B23AC4 /* MenuContent.swift */; };
@@ -25,11 +26,10 @@
 		FD830ED62AE6D57300E3D2FC /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD830ED52AE6D57300E3D2FC /* WelcomeView.swift */; };
 		FD830ED82AE6D57400E3D2FC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FD830ED72AE6D57400E3D2FC /* Assets.xcassets */; };
 		FD830EDB2AE6D57400E3D2FC /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FD830EDA2AE6D57400E3D2FC /* Preview Assets.xcassets */; };
-		FD873FB62B14DB7D00F39B43 /* ProfilesListManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD873FB52B14DB7D00F39B43 /* ProfilesListManager.swift */; };
 		FD873FB82B14F1AD00F39B43 /* ProfileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD873FB72B14F1AD00F39B43 /* ProfileManager.swift */; };
 		FD873FBA2B14F20900F39B43 /* Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD873FB92B14F20900F39B43 /* Controller.swift */; };
 		FDA248EB2B138D7E0044C883 /* UserManagerKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDA248EA2B138D7E0044C883 /* UserManagerKey.swift */; };
-		FDAA6D112B1CA7B20075D00E /* MedicineManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDAA6D102B1CA7B20075D00E /* MedicineManager.swift */; };
+		FDAA6D112B1CA7B20075D00E /* MedicationHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDAA6D102B1CA7B20075D00E /* MedicationHistory.swift */; };
 		FDB12BD22B18E72D00AAEAD7 /* AddProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDB12BD12B18E72D00AAEAD7 /* AddProfileView.swift */; };
 		FDCA6CBE2AFD53A000575E05 /* EditProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDCA6CBD2AFD53A000575E05 /* EditProfileView.swift */; };
 		FDCA6CC02AFD5AE400575E05 /* EditLoginData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDCA6CBF2AFD5AE400575E05 /* EditLoginData.swift */; };
@@ -66,6 +66,7 @@
 /* Begin PBXFileReference section */
 		FD15FE012B1A0EA400D8C259 /* EditUserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditUserView.swift; sourceTree = "<group>"; };
 		FD2169632AEBED2300FC613B /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
+		FD26BD262B29F9460003C5FC /* MedicationHistoryEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicationHistoryEntry.swift; sourceTree = "<group>"; };
 		FD279C0C2AF2AD6A00B23AC4 /* SideMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenu.swift; sourceTree = "<group>"; };
 		FD279C0E2AF2B16A00B23AC4 /* MiniProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiniProfileView.swift; sourceTree = "<group>"; };
 		FD279C112AF2B21C00B23AC4 /* MenuContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuContent.swift; sourceTree = "<group>"; };
@@ -83,11 +84,10 @@
 		FD830ED52AE6D57300E3D2FC /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		FD830ED72AE6D57400E3D2FC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FD830EDA2AE6D57400E3D2FC /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		FD873FB52B14DB7D00F39B43 /* ProfilesListManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilesListManager.swift; sourceTree = "<group>"; };
 		FD873FB72B14F1AD00F39B43 /* ProfileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileManager.swift; sourceTree = "<group>"; };
 		FD873FB92B14F20900F39B43 /* Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Controller.swift; sourceTree = "<group>"; };
 		FDA248EA2B138D7E0044C883 /* UserManagerKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManagerKey.swift; sourceTree = "<group>"; };
-		FDAA6D102B1CA7B20075D00E /* MedicineManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicineManager.swift; sourceTree = "<group>"; };
+		FDAA6D102B1CA7B20075D00E /* MedicationHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicationHistory.swift; sourceTree = "<group>"; };
 		FDB12BD12B18E72D00AAEAD7 /* AddProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddProfileView.swift; sourceTree = "<group>"; };
 		FDCA6CBD2AFD53A000575E05 /* EditProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileView.swift; sourceTree = "<group>"; };
 		FDCA6CBF2AFD5AE400575E05 /* EditLoginData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditLoginData.swift; sourceTree = "<group>"; };
@@ -149,6 +149,7 @@
 				FDE107C22AF7EA5200DD234B /* Profile.swift */,
 				FDE107C42AF7F0F800DD234B /* Medicine.swift */,
 				FD8308822AFFEFD700939175 /* User.swift */,
+				FD26BD262B29F9460003C5FC /* MedicationHistoryEntry.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -274,7 +275,8 @@
 		FDAA6D122B1CAA2F0075D00E /* Managers */ = {
 			isa = PBXGroup;
 			children = (
-				FDAA6D102B1CA7B20075D00E /* MedicineManager.swift */,
+				FD873FB72B14F1AD00F39B43 /* ProfileManager.swift */,
+				FDAA6D102B1CA7B20075D00E /* MedicationHistory.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -294,8 +296,6 @@
 			children = (
 				FDF2548C2B092C3600ADDAB4 /* UserManager.swift */,
 				FDA248EA2B138D7E0044C883 /* UserManagerKey.swift */,
-				FD873FB52B14DB7D00F39B43 /* ProfilesListManager.swift */,
-				FD873FB72B14F1AD00F39B43 /* ProfileManager.swift */,
 				FD873FB92B14F20900F39B43 /* Controller.swift */,
 			);
 			path = Controller;
@@ -406,7 +406,8 @@
 				FDE107C32AF7EA5200DD234B /* Profile.swift in Sources */,
 				FDCA6CC02AFD5AE400575E05 /* EditLoginData.swift in Sources */,
 				FDF2548A2B09005D00ADDAB4 /* LoginView.swift in Sources */,
-				FDAA6D112B1CA7B20075D00E /* MedicineManager.swift in Sources */,
+				FD26BD272B29F9460003C5FC /* MedicationHistoryEntry.swift in Sources */,
+				FDAA6D112B1CA7B20075D00E /* MedicationHistory.swift in Sources */,
 				FD32FF252AF0184B00680755 /* MainView.swift in Sources */,
 				FD830ED62AE6D57300E3D2FC /* WelcomeView.swift in Sources */,
 				FD279C0D2AF2AD6A00B23AC4 /* SideMenu.swift in Sources */,
@@ -424,7 +425,6 @@
 				FD7725542AE83CA2009D91FB /* Constants.swift in Sources */,
 				FD8308832AFFEFD700939175 /* User.swift in Sources */,
 				FD7EC3112B000C2D008F40AF /* Settings.swift in Sources */,
-				FD873FB62B14DB7D00F39B43 /* ProfilesListManager.swift in Sources */,
 				FD279C122AF2B21C00B23AC4 /* MenuContent.swift in Sources */,
 				FDE107C12AF7E8B700DD234B /* ProfileList.swift in Sources */,
 				FD873FBA2B14F20900F39B43 /* Controller.swift in Sources */,

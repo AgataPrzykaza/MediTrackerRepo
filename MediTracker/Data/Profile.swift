@@ -27,6 +27,7 @@ class Profile: Identifiable, Codable{
         
         var entry = MedicationEntry(medicine: med, times: med.calculateNextDoses())
         medicationSchedule.append(entry)
+       
     }
     func updateName(_ newName: String) {
         name = newName

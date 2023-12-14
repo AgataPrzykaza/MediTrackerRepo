@@ -19,7 +19,9 @@ class UserManager: ObservableObject {
     @Published var isUserLoggedIn: Bool = false
     @Published var currentUser: User?
     @Published var currentProfileSelected: Profile?
+    
     @Published var listOfProfiles:[Profile]  = []
+   
     
     //    var profileListManager =  ProfilesListManager (profiles: [])
     
@@ -28,7 +30,7 @@ class UserManager: ObservableObject {
         
     }
     
-    
+
     //MARK: - Zmiana wybranego profilu
     func selectProfile(newProfile: Profile){
         self.objectWillChange.send()
@@ -151,6 +153,8 @@ class UserManager: ObservableObject {
     
     
 }
+
+
 
 extension UserManager {
  
