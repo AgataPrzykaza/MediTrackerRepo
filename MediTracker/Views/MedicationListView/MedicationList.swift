@@ -27,7 +27,7 @@ struct MedicationListView: View {
             
             //przycisk do odznaczenie wszystkich tabeltek na danej godzinie
             Button(action: {
-                
+                markAllMedicationsAsTaken()
             }){
                 
                 Text("Oznacz wszystkie")
@@ -83,7 +83,29 @@ struct MedicationListView: View {
             Alert(title: Text("Informacja"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
         }
     }
+    
+    
+    func markAllMedicationsAsTaken() {
+        let scheduledTime = createDateWithTodayDateAndTimeString(timeString: time)!
+
+        for medication in medications {
+            let key = "\(medication.uid)-\(scheduledTime)"
+            // Sprawdzenie, czy lek nie został już oznaczony jako zażyty
+            if !(self.medicationTakenStates[key] ?? false) {
+                manager.profilemanager.medHistoryManager.addMedicationHistoryEntry(
+                    profileId: manager.currentProfileSelected?.uid ?? "",
+                    medicationId: medication.uid,
+                    scheduledTime: scheduledTime,
+                    actualTimeTaken: Date()) { error in
+                        if error == nil {
+                            self.medicationTakenStates[key] = true
+                        }
+                    }
+            }
+        }
+    }
 }
+
 
 
 

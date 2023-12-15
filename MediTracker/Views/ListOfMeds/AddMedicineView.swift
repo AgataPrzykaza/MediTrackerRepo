@@ -18,10 +18,10 @@ struct AddMedicineView: View {
     
     @State var dose: String = ""
     @State private var unit: String = "mg"
-    let unitTypes = ["mg", "ml", "ilość"]
+    let unitTypes = ["mg", "ml", "sztuki"]
     
     @State var type: String = "tabletka"
-    let medType = ["tabletka","syrop","zastrzyk"]
+    let medType = ["tabletka","syrop","zastrzyk","probiotyk"]
     @State var antibioticToggle: Bool = false
     
     @State var frequencyType: String = "raz dziennie"
@@ -44,16 +44,17 @@ struct AddMedicineView: View {
      let instructions = ["Przed jedzeniem","Po jedzeniu","Na czczo","W trakcie jedzenia","Brak"]
     
     @State var extraInstruction: String = ""
-    
+    @State var interactions: String = ""
     @State var withOtherMeds :Bool = false
 
-    @State var delayMeds: Double = 0
-    let hourDelay = [0.5,1,2,3,4,5,6,7,8,9,10,11,12]
+    @State var delayMeds: Int = 0
+    let hourDelay = [1,2,3,4,5,6,7,8,9,10,11,12]
     
     @State var probioticName: String = ""
     @State var probioticDose: String = ""
     
-    @State var probioticPeriod: Double = 0
+    @State var probioticPeriod: Int = 0
+    @State var beforeAfterProbiotic: String = "przed"
     
     @State var everyday: Bool = false
     
@@ -129,12 +130,31 @@ struct AddMedicineView: View {
       
     }
     
+    func stringToArray(_ input: String) -> [String] {
+        let components = input.components(separatedBy: ",")
+        return components.map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
+    }
     func createMedicine(){
         
-        let med = Medicine(name: name, dosage: Double(dose)!, unit: unit, type: type, hourPeriod: hourPeriod, frequency:frequency,startHour: firstDose, dayPeriod: dayType, onEmptyStomach: false, delayMeds: 0, instructions: extraInstruction, interactions: [], reminder: false, isAntibiotic: false)
-        
+        let med = Medicine(name: name, dosage: Double(dose)!, unit: unit, type: type, hourPeriod: hourPeriod, frequency:frequency,startHour: firstDose, dayPeriod: dayType, onEmptyStomach: selectedInstruction == "Na czczo" ? true: false, delayMeds: 0, instructions: selectedInstruction + ", " + extraInstruction, interactions: stringToArray(interactions), reminder: true, isAntibiotic: antibioticToggle)
+        manager.currentProfileSelected?.addMedication(med,delay: Double(delayMeds))
       
-        manager.currentProfileSelected?.addMedication(med)
+      
+        if antibioticToggle{
+            
+            var timeProbiotic: Date
+            if beforeAfterProbiotic == "przed"{
+                timeProbiotic = firstDose.addingTimeInterval(Double(-probioticPeriod * 3600))
+            }else{
+                timeProbiotic = firstDose.addingTimeInterval(Double(probioticPeriod*3600))
+            }
+            
+            let probiotic = Medicine(name: probioticName, dosage: Double(probioticDose)!, unit: "sztuki", type: "probiotyk", hourPeriod: 0, frequency: 1, startHour: timeProbiotic, dayPeriod: dayType, onEmptyStomach: false, delayMeds: 0, instructions: "", interactions: [], reminder: true, isAntibiotic: false)
+         
+            manager.currentProfileSelected?.addMedication(probiotic,delay:0)
+
+        }
+       
         
         manager.updateProfile() 
     }
@@ -370,7 +390,7 @@ struct AddMedicineView: View {
                     Text("Dodatkowe instrukcje i informacje")
                         .bold()
                     
-                    TextField("Lek", text: $extraInstruction)
+                    TextField("Informacje", text: $extraInstruction)
                         .frame(width: 300,height: 40)
                         .autocorrectionDisabled()
                         .onSubmit {
@@ -411,6 +431,15 @@ struct AddMedicineView: View {
                             
                             
                         }
+                        
+                        Text("Lista interacji, po przecinku")
+                        TextField("Interakcje", text: $interactions)
+                            .frame(width: 300,height: 40)
+                            .autocorrectionDisabled()
+                            .onSubmit {
+                                
+                            }
+                        
                     }
                     
                     //MARK: - Informacja o antybiotyku i probiotyku
@@ -442,7 +471,7 @@ struct AddMedicineView: View {
                             .bold()
                         
                         
-                        TextField("Dawka", text: $probioticDose)
+                        TextField("Dawka - ilość", text: $probioticDose)
                             .frame(width: 300,height: 40)
                             .autocorrectionDisabled()
                             .onSubmit {
@@ -451,12 +480,22 @@ struct AddMedicineView: View {
                         
                         Text("Odstęp od antybiotyku")
                         
+                       
+                        
+                        
                         HStack{
                             Text("Ile godzin")
                             
                             Picker("godziny", selection: $probioticPeriod) {
                                 ForEach(hourDelay, id: \.self) { hour in
                                     Text(String(hour)).tag(hour)
+                                }
+                            }
+                            .accentColor(.pink)
+                            
+                            Picker("Typ", selection: $beforeAfterProbiotic) {
+                                ForEach(["przed","po"], id: \.self) { unit in
+                                    Text(unit).tag(unit)
                                 }
                             }
                             .accentColor(.pink)
