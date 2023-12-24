@@ -154,6 +154,15 @@ class UserManager: ObservableObject {
     
 }
 
+//Operacje na profilach
+extension UserManager{
+    
+    func removeMedicine(medicineUID: String, completion: @escaping (Error?) -> Void){
+        self.objectWillChange.send()
+        self.profilemanager.removeMedicationEntry(from: self.currentProfileSelected!, withMedicineUID: medicineUID, completion: completion)
+    }
+    
+}
 
 
 extension UserManager {

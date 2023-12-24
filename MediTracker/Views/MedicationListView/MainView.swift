@@ -11,7 +11,7 @@ struct MainView: View {
     
     @ObservedObject var manager: UserManager
    
-    //var groupedMedications: [String: [Medicine]] = [:]
+
 
     private var groupedMedications: [String: [Medicine]] {
           groupMedicationsByTime(manager: manager)

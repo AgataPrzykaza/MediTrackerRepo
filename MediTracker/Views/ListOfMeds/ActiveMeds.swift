@@ -11,7 +11,7 @@ struct ActiveMeds: View {
     
     @ObservedObject var manager: UserManager
     
-    var meds: [Medicine] = []
+   
     
     var body: some View {
         
@@ -44,7 +44,7 @@ struct ActiveMeds: View {
                 
                 ForEach(manager.currentProfileSelected?.getMedsList() ?? [],id: \.uid) {  medication in
                     
-                    NavigationLink(destination: EditMedicine()){
+                    NavigationLink(destination: MedDetailsView( medicationEntry: (manager.currentProfileSelected?.getMedicationEntry(for: medication))!, manager: manager)){
                         
                         Medication(medication: medication)
                             .padding(.bottom,5)
@@ -71,6 +71,7 @@ struct ActiveMeds: View {
         
         
     }
+    
     
 }
 

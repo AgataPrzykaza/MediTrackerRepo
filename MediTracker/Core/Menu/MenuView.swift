@@ -45,6 +45,16 @@ struct MenuView: View {
                                     .foregroundColor(.white)
                             }
                         }
+                    SettingsView()
+                        .frame(height: 620)
+                        .tabItem {
+                            VStack {
+                                Image(systemName: "gearshape")
+                                    .foregroundColor(.white)
+                                Text("Ustawienia")
+                                    .foregroundColor(.white)
+                            }
+                        }
                 }
                 .accentColor(K.BrandColors.darkPink2) // Ustawianie koloru akcentu dla całej TabView
                 .padding(/*@START_MENU_TOKEN@*/EdgeInsets()/*@END_MENU_TOKEN@*/)
@@ -84,27 +94,7 @@ struct MenuView: View {
                     
                 }
                 
-                //deklaracja przycisku ustawien
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    
-                    Button {
-                        
-                        
-                        
-                    } label: {
-                        HStack {
-                            
-                            Image(systemName: "gearshape")
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                                .foregroundColor(K.BrandColors.darkerPink)
-                                .frame(width: 40, height: 40)
-                                
-                            
-                            
-                        }
-                    }
-                }
+
             }
     
             .navigationBarHidden(self.sideMenuOpened) // Ukryj pasek nawigacji, gdy menu jest otwarte

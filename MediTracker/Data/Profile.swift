@@ -38,7 +38,16 @@ class Profile: Identifiable, Codable{
         
         
     }
-    
+    func removeMedicationEntry(medicineUID: String) {
+            // Find the index of the medication entry that matches the given medicine UID
+        if let index = medicationSchedule.firstIndex(where: { $0.medicine.uid.uuidString == medicineUID }) {
+                // Remove the medication entry at the found index
+                medicationSchedule.remove(at: index)
+            } else {
+                // Handle the case where the medication entry is not found
+                print("Medication entry not found")
+            }
+        }
     func adjustTimesForMatchingMedicationsAndWeekdays(interactions: [String], delay: Double, newMedicationEntry: MedicationEntry) {
         
         let newWeekdays = Set(newMedicationEntry.times.map { Calendar.current.component(.weekday, from: $0) })
@@ -121,6 +130,11 @@ func getMedsList() -> [Medicine]{
     }
     return leki
 }
+    
+    func getMedicationEntry(for medicine: Medicine) -> MedicationEntry? {
+        return medicationSchedule.first { $0.medicine.uid == medicine.uid }
+    }
+
 }
 
 

@@ -15,7 +15,24 @@ class ProfileManager{
     let db = Firestore.firestore()
     @Published var medHistoryManager = MedicationHistoryManager()
     
-    
+    func removeMedicationEntry(from profile: Profile, withMedicineUID medicineUID: String, completion: @escaping (Error?) -> Void) {
+           
+        
+      
+           profile.removeMedicationEntry(medicineUID: medicineUID)
+           
+          
+           updateProfile(profile: profile) { error in
+               if let error = error {
+                   print("Error updating profile in Firestore: \(error.localizedDescription)")
+                   completion(error)
+               } else {
+                   print("Profile updated successfully in Firestore.")
+                   completion(nil)
+               }
+           }
+       }
+
     
     func updateProfile(profile: Profile, completion: @escaping (Error?) -> Void) {
         DispatchQueue.main.async {
