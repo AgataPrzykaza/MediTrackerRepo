@@ -105,8 +105,14 @@ class Medicine: Codable {
 
 
    
+    
 
+    
 
+}
+
+func shiftDatesByAWeek(dates: [Date]) -> [Date] {
+    return dates.map { $0.addingTimeInterval(604800) } // Dodaje 604800 sekund (czyli tydzień) do każdej daty
 }
 
 
@@ -114,3 +120,4 @@ struct MedicationEntry: Codable {
     var medicine: Medicine
     var times: [Date] // Czasy zażycia leku
 }
+

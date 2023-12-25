@@ -62,6 +62,7 @@
 		FDE107C52AF7F0F800DD234B /* Medicine.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDE107C42AF7F0F800DD234B /* Medicine.swift */; };
 		FDE107C92AF7F1D700DD234B /* MedicationList.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDE107C82AF7F1D700DD234B /* MedicationList.swift */; };
 		FDE107CB2AF7F2BB00DD234B /* Medication.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDE107CA2AF7F2BB00DD234B /* Medication.swift */; };
+		FDE3848A2B39C4A2000F2CCA /* DeleteProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDE384892B39C4A2000F2CCA /* DeleteProfileView.swift */; };
 		FDF2548A2B09005D00ADDAB4 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDF254892B09005D00ADDAB4 /* LoginView.swift */; };
 		FDF2548D2B092C3600ADDAB4 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDF2548C2B092C3600ADDAB4 /* UserManager.swift */; };
 /* End PBXBuildFile section */
@@ -114,6 +115,7 @@
 		FDE107C42AF7F0F800DD234B /* Medicine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Medicine.swift; sourceTree = "<group>"; };
 		FDE107C82AF7F1D700DD234B /* MedicationList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicationList.swift; sourceTree = "<group>"; };
 		FDE107CA2AF7F2BB00DD234B /* Medication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Medication.swift; sourceTree = "<group>"; };
+		FDE384892B39C4A2000F2CCA /* DeleteProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteProfileView.swift; sourceTree = "<group>"; };
 		FDF254892B09005D00ADDAB4 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		FDF2548C2B092C3600ADDAB4 /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -252,6 +254,7 @@
 				FD2169632AEBED2300FC613B /* MenuView.swift */,
 				FD7EC30E2AFFFFD6008F40AF /* ContentView.swift */,
 				FD570F242B38CFE70079BDCB /* SettingsView.swift */,
+				FDE384892B39C4A2000F2CCA /* DeleteProfileView.swift */,
 			);
 			path = Menu;
 			sourceTree = "<group>";
@@ -480,6 +483,7 @@
 				FD6EC0E22B2DD385003D4B1D /* MedDetailsView.swift in Sources */,
 				FDE107C32AF7EA5200DD234B /* Profile.swift in Sources */,
 				FDCA6CC02AFD5AE400575E05 /* EditLoginData.swift in Sources */,
+				FDE3848A2B39C4A2000F2CCA /* DeleteProfileView.swift in Sources */,
 				FDF2548A2B09005D00ADDAB4 /* LoginView.swift in Sources */,
 				FD26BD272B29F9460003C5FC /* MedicationHistoryEntry.swift in Sources */,
 				FDAA6D112B1CA7B20075D00E /* MedicationHistory.swift in Sources */,

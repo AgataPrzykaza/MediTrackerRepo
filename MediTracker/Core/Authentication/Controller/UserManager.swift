@@ -21,7 +21,7 @@ class UserManager: ObservableObject {
     @Published var currentProfileSelected: Profile?
     
     @Published var listOfProfiles:[Profile]  = []
-   
+    
     
     //    var profileListManager =  ProfilesListManager (profiles: [])
     
@@ -30,7 +30,7 @@ class UserManager: ObservableObject {
         
     }
     
-
+    
     //MARK: - Zmiana wybranego profilu
     func selectProfile(newProfile: Profile){
         self.objectWillChange.send()
@@ -45,7 +45,7 @@ class UserManager: ObservableObject {
     }
     
     
-   //Zapisanie Usera
+    //Zapisanie Usera
     func saveUser(user: User) {
         
         db.collection("users").document(user.uid).setData([
@@ -80,7 +80,7 @@ class UserManager: ObservableObject {
                     let user = try document.data(as: User.self)
                     DispatchQueue.main.async {
                         self.currentUser = user
-
+                        
                         // Teraz używasz fetchProfiles zamiast fetchProfile
                         if let profileRefs = self.currentUser?.profiles{
                             self.profilemanager.fetchProfiles(profileRefs: profileRefs) { profiles in
@@ -148,7 +148,7 @@ class UserManager: ObservableObject {
     
     
     
-   
+    
     
     
     
@@ -162,35 +162,100 @@ extension UserManager{
         self.profilemanager.removeMedicationEntry(from: self.currentProfileSelected!, withMedicineUID: medicineUID, completion: completion)
     }
     
-}
-
-
-extension UserManager {
- 
-    //Zmiana hasła !!!!!!!!!!!!!!!!!!!!!!!!
-    func changePassword(newPassword: String, completion: @escaping (Bool, Error?) -> Void) {
-        guard let currentUser = Auth.auth().currentUser else {
-            completion(false, NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: "Brak zalogowanego użytkownika"]))
-            return
-        }
-        
-        currentUser.updatePassword(to: newPassword) { error in
+    
+    func deleteProfile(profile: Profile, completion: @escaping (Error?) -> Void) {
+        self.objectWillChange.send()
+        // Usunięcie profilu z Firestore
+        db.collection("profiles").document(profile.uid).delete { error in
             if let error = error {
-                // Obsługa błędu
-                completion(false, error)
+                completion(error)
+                return
+            }
+            
+            // Aktualizacja obiektu User
+            if let index = self.currentUser?.profiles.firstIndex(where: { $0.documentID == profile.uid }) {
+                self.currentUser?.profiles.remove(at: index)
+                self.updateUser(user: self.currentUser!) { error in
+                    if let error = error {
+                        completion(error)
+                        return
+                    }
+                    
+                    // Aktualizacja currentProfileSelected i listOfProfiles
+                    DispatchQueue.main.async {
+                        
+                        self.listOfProfiles.removeAll { $0.uid == profile.uid }
+                        self.currentProfileSelected = self.listOfProfiles.first
+                        
+                        
+                        completion(nil)
+                    }
+                }
             } else {
-                // Hasło zostało zmienione
-                completion(true, nil)
+                // Profil nie znaleziony w obiekcie User
+                completion(nil)
             }
         }
     }
     
+}
+
+
+extension UserManager {
     
+    func updateEmailAndPassword(newEmail: String, newPassword: String, completion: @escaping (Bool, String?) -> Void) {
+        
+        self.objectWillChange.send()
+        
+        guard let currentUser = Auth.auth().currentUser else {
+            completion(false, "Brak zalogowanego użytkownika.")
+            return
+        }
+        
+        // Aktualizacja adresu e-mail
+        currentUser.updateEmail(to: newEmail) { emailError in
+            if let emailError = emailError {
+                completion(false, "Błąd aktualizacji e-maila: \(emailError.localizedDescription)")
+                return
+            }
+            
+            currentUser.updatePassword(to: newPassword) { passwordError in
+                if let passwordError = passwordError {
+                    completion(false, "Błąd aktualizacji hasła: \(passwordError.localizedDescription)")
+                    return
+                }
+                
+                currentUser.updateEmail(to: newEmail)
+                
+               
+                self.updateEmailInFirestore(userUid: currentUser.uid, newEmail: newEmail) { firestoreError in
+                    if let firestoreError = firestoreError {
+                        completion(false, "Błąd aktualizacji e-maila w Firestore: \(firestoreError.localizedDescription)")
+                    } else {
+                        completion(true, nil) // Sukces
+                    }
+                }}
+        }
+    }
+    
+    func updateEmailInFirestore(userUid: String, newEmail: String, completion: @escaping (Error?) -> Void) {
+        let userRef = db.collection("users").document(userUid)
+        userRef.updateData(["email": newEmail]) { error in
+            completion(error)
+        }
+    }
     
     func logout() {
         do {
             try Auth.auth().signOut()
+            
+            self.objectWillChange.send()
+            currentUser = nil
+            currentProfileSelected = nil
+            
+            listOfProfiles = []
             isUserLoggedIn = false
+            
         } catch let signOutError {
             print("Błąd wylogowania: \(signOutError.localizedDescription)")
         }
@@ -215,45 +280,82 @@ extension UserManager {
         
     }
     
-    func createUser(email: String, password: String,name: String, surname: String,gender: String) {
-        
-        
-        Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
+    func createUser(email: String, password: String, name: String, surname: String, gender: String, completion: @escaping (Bool, String?) -> Void) {
+        Auth.auth().createUser(withEmail: email.lowercased(), password: password) { authResult, error in
+            if let error = error as NSError? {
+                // Sprawdzenie, czy email jest już używany
+                if error.code == AuthErrorCode.emailAlreadyInUse.rawValue {
+                    completion(false, "Ten email jest już używany.")
+                } else {
+                    // Obsługa innych błędów
+                    completion(false, "Błąd przy tworzeniu użytkownika: \(error.localizedDescription)")
+                }
+                return
+            }
             
             guard let user = authResult?.user else {
-                // Obsługa błędu, jeśli użytkownik nie został utworzony poprawnie
+                completion(false, "Nie udało się utworzyć użytkownika.")
                 return
             }
             self.isUserLoggedIn = true
             
-            
             self.profilemanager.createProfile(name: name, surname: surname, pictureType: gender) { profile, error in
                 if let profile = profile {
-                    // Zapisz lub zaktualizuj profil w aplikacji
                     self.currentProfileSelected = profile
-                    
-                    let profileRef = self.db.collection("profiles").document(self.currentProfileSelected?.uid ?? "")
-
-                    // Uaktualnienie obiektu User z dodatkowymi danymi
-                    let newUser = User(uid: user.uid, username: name, email: email, surname: surname,gender:gender)
+                    let profileRef = self.db.collection("profiles").document(profile.uid)
+                    self.listOfProfiles.append(profile)
+                    let newUser = User(uid: user.uid, username: name, email: email, surname: surname, gender: gender)
                     newUser.addProfileReference(profile: profileRef)
-                    
                     self.currentUser = newUser
-                    
-                    
-                    // Zapisanie użytkownika do bazy danych
                     self.saveUser(user: newUser)
-
-                } else if let error = error {
-                    // Obsługa błędu
-                    print("Błąd przy tworzeniu profilu w Firestore")
+                    
+                    completion(true, nil)
+                } else {
+                    completion(false, "Błąd przy tworzeniu profilu w Firestore: \(error?.localizedDescription ?? "Nieznany błąd")")
                 }
             }
-
-            
-            
         }
-        
-        
     }
+    
+    //    func createUser(email: String, password: String,name: String, surname: String,gender: String) {
+    //
+    //
+    //        Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
+    //
+    //            guard let user = authResult?.user else {
+    //                // Obsługa błędu, jeśli użytkownik nie został utworzony poprawnie
+    //                return
+    //            }
+    //            self.isUserLoggedIn = true
+    //
+    //
+    //            self.profilemanager.createProfile(name: name, surname: surname, pictureType: gender) { profile, error in
+    //                if let profile = profile {
+    //                    // Zapisz lub zaktualizuj profil w aplikacji
+    //                    self.currentProfileSelected = profile
+    //
+    //                    let profileRef = self.db.collection("profiles").document(self.currentProfileSelected?.uid ?? "")
+    //
+    //                    // Uaktualnienie obiektu User z dodatkowymi danymi
+    //                    let newUser = User(uid: user.uid, username: name, email: email, surname: surname,gender:gender)
+    //                    newUser.addProfileReference(profile: profileRef)
+    //
+    //                    self.currentUser = newUser
+    //
+    //
+    //                    // Zapisanie użytkownika do bazy danych
+    //                    self.saveUser(user: newUser)
+    //
+    //                } else if let error = error {
+    //                    // Obsługa błędu
+    //                    print("Błąd przy tworzeniu profilu w Firestore")
+    //                }
+    //            }
+    //
+    //
+    //
+    //        }
+    //
+    //
+    //    }
 }

@@ -131,8 +131,21 @@ struct RegisterView: View {
                         if validation.1{
                             //wszystkie pola sa uzupelnione
                             
-                            userAuth.createUser(email: email, password: password,name: name, surname: surname,gender:selectedGender)
-                            isNextViewActive = true
+                            userAuth.createUser(email: email, password: password, name: name, surname: surname, gender: selectedGender) { success, errorMessage in
+                                if success {
+                                   
+                                    isNextViewActive = true
+                                } else {
+                                    // Wystąpił błąd, wyświetl errorMessage
+                                    print("Błąd w tworzeniu \(errorMessage ?? "")")
+                                    alertText = "Taki mail już istnieje"
+                                    showAlert = true
+                                    
+                                }
+                            }
+
+                        
+                           
                         }
                         else{
                             alertText = validation.0

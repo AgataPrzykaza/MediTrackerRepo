@@ -10,6 +10,21 @@ import SwiftUI
 struct EditLoginData: View {
     
     @Environment(\.dismiss) var dismiss
+    @ObservedObject var manager: UserManager
+    
+    @State var email: String = ""
+   
+    @State var password: String = ""
+    @State var passwordAgain: String = ""
+    
+    @State var showAlert = false
+    @State var alertText = ""
+    
+    init(manager: UserManager) {
+            self.manager = manager
+            // Załaduj e-mail użytkownika do zmiennej email (jeśli jest dostępny)
+            _email = State(initialValue: manager.currentUser?.email ?? "")
+        }
     var body: some View {
         
         VStack(){
@@ -27,6 +42,12 @@ struct EditLoginData: View {
                 
                 
                 Button(action: {
+                    
+                   
+
+
+                    
+                   // updateUserData()
                     
                 }) {
                     Text("Zapisz")
@@ -49,7 +70,7 @@ struct EditLoginData: View {
             HStack{
                 Image(systemName: "envelope")
                     .font(.system(size: 30))
-                TextField("mail", text: /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Value@*/.constant("")/*@END_MENU_TOKEN@*/)
+                TextField("Email", text: $email)
                     .frame(width: 300,height: 40)
                     .autocorrectionDisabled()
                     .onSubmit {
@@ -66,7 +87,7 @@ struct EditLoginData: View {
                 Image(systemName: "lock.square.fill")
                     .font(.system(size: 35))
                 
-                SecureField(/*@START_MENU_TOKEN@*//*@PLACEHOLDER=Label@*/"Password"/*@END_MENU_TOKEN@*/, text: /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Value@*/.constant("Apple")/*@END_MENU_TOKEN@*/)
+                SecureField("Hasło", text: $password)
                     .frame(width: 300,height: 40)
             
             }
@@ -80,7 +101,7 @@ struct EditLoginData: View {
                 Image(systemName: "lock.square.fill")
                     .font(.system(size: 35))
                 
-                SecureField(/*@START_MENU_TOKEN@*//*@PLACEHOLDER=Label@*/"Password"/*@END_MENU_TOKEN@*/, text: /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Value@*/.constant("Apple")/*@END_MENU_TOKEN@*/)
+                SecureField("Ponownie hasło", text: $passwordAgain)
                     .frame(width: 300,height: 40)
             
             }
@@ -91,12 +112,47 @@ struct EditLoginData: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity,alignment: .top)
         .navigationBarBackButtonHidden()
+        .navigationBarHidden(true)
         .onTapGesture {
             UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
         }
     }
+    
+    func updateUserData(){
+        if !email.isEmpty && isValidEmail(email){
+            
+            if !password.isEmpty && !passwordAgain.isEmpty && samePassword(password: password, passwordAgain: passwordAgain) && checkLengthOfPassword(password: password) && checkLengthOfPassword(password: passwordAgain){
+                
+                manager.updateEmailAndPassword(newEmail: email, newPassword: password) { success, error in
+                    if success{
+                        
+                        alertText = "Dane zostały zmienione"
+                        
+                    }
+                    else{
+                        alertText = "Nie udało się zmienić danych"
+                        print("Błąd: \(error)")
+                    }
+                }
+                
+            }
+            else
+            {
+              
+                alertText = "Hasła niepoprawne"
+            }
+            
+        }
+        else{
+          
+            alertText = "Niepoprawny email"
+        }
+        
+        showAlert = true
+        
+    }
 }
 
 #Preview {
-    EditLoginData()
+    EditLoginData(manager: UserManager())
 }

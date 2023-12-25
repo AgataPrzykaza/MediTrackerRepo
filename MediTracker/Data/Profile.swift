@@ -6,7 +6,7 @@
 //
 
 import Foundation
-
+import UserNotifications
 
 class Profile: Identifiable, Codable{
     
@@ -30,24 +30,103 @@ class Profile: Identifiable, Codable{
         
         var entry = MedicationEntry(medicine: med, times: med.calculateNextDoses())
         if delay != 0{
-            //setDelayMedsForMatchingWeekdays(newDelayMeds: delay, newMedicationEntry: entry)
+            
             adjustTimesForMatchingMedicationsAndWeekdays(interactions: entry.medicine.interactions, delay: delay, newMedicationEntry: entry)
         }
         medicationSchedule.append(entry)
-        
+        scheduleWeeklyNotifications(for: entry)
         
         
     }
-    func removeMedicationEntry(medicineUID: String) {
-            // Find the index of the medication entry that matches the given medicine UID
-        if let index = medicationSchedule.firstIndex(where: { $0.medicine.uid.uuidString == medicineUID }) {
-                // Remove the medication entry at the found index
-                medicationSchedule.remove(at: index)
-            } else {
-                // Handle the case where the medication entry is not found
-                print("Medication entry not found")
+    
+    
+    func scheduleWeeklyNotifications(for entry: MedicationEntry) {
+        let content = UNMutableNotificationContent()
+        content.title = "\(name) Czas na lek"
+        content.body = "Przypomnienie o wzięciu leku: \(entry.medicine.name)"
+        content.sound = UNNotificationSound.default
+        
+        for time in entry.times {
+            
+            let triggerDate = Calendar.current.dateComponents([.weekday, .hour, .minute], from: time)
+            
+            let trigger = UNCalendarNotificationTrigger(dateMatching: triggerDate, repeats: true)
+            
+            let dayOfWeek = Calendar.current.component(.weekday, from: time)
+            let hour = Calendar.current.component(.hour, from: time)
+            let identifier = "\(uid)-\(entry.medicine.name)-\(dayOfWeek)-\(hour)"
+            
+            
+            let request = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
+            UNUserNotificationCenter.current().add(request) { error in
+                if let error = error {
+                    // Obsługa błędów powiadomień
+                    print("Błąd przy dodawaniu powiadomienia: \(error)")
+                }
             }
         }
+    }
+    
+    func updateNotificationTime(forMedicineName medicineName: String, onDayOfWeek dayOfWeek: Int, currentHour: Int, newHour: Int) {
+        let currentIdentifierPattern = "\(uid)-\(medicineName)-\(dayOfWeek)-\(currentHour)"
+        
+        UNUserNotificationCenter.current().getPendingNotificationRequests { requests in
+            let requestsToUpdate = requests.filter { $0.identifier.contains(currentIdentifierPattern) }
+            
+            for request in requestsToUpdate {
+                // Sprawdzenie, czy trigger jest UNCalendarNotificationTrigger
+                if let calendarTrigger = request.trigger as? UNCalendarNotificationTrigger {
+                    // Tworzenie nowego triggera z aktualizowaną godziną
+                    var newTriggerDate = calendarTrigger.dateComponents
+                    newTriggerDate.hour = newHour
+                    
+                    let newTrigger = UNCalendarNotificationTrigger(dateMatching: newTriggerDate, repeats: true)
+                    let newIdentifier = "\(self.uid)-\(medicineName)-\(dayOfWeek)-\(newHour)"
+                    
+                    let newRequest = UNNotificationRequest(identifier: newIdentifier, content: request.content, trigger: newTrigger)
+                    
+                    // Dodanie nowego powiadomienia i usunięcie starego
+                    UNUserNotificationCenter.current().add(newRequest) { error in
+                        if let error = error {
+                            print("Błąd przy aktualizacji powiadomienia: \(error)")
+                        } else {
+                            UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [request.identifier])
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    
+    
+    func removeNotification(forMedicineName medicineName: String, onDayOfWeek dayOfWeek: Int, atHour hour: Int) {
+        let identifierPattern = "\(uid)-\(medicineName)-\(dayOfWeek)-\(hour)"
+        
+        UNUserNotificationCenter.current().getPendingNotificationRequests { requests in
+            let identifiersToRemove = requests
+                .filter { $0.identifier.contains(identifierPattern) }
+                .map { $0.identifier }
+            
+            UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: identifiersToRemove)
+            
+            
+        }
+    }
+    
+    
+    
+    
+    func removeMedicationEntry(medicineUID: String) {
+        // Find the index of the medication entry that matches the given medicine UID
+        if let index = medicationSchedule.firstIndex(where: { $0.medicine.uid.uuidString == medicineUID }) {
+            // Remove the medication entry at the found index
+            medicationSchedule.remove(at: index)
+        } else {
+            // Handle the case where the medication entry is not found
+            print("Medication entry not found")
+        }
+    }
     func adjustTimesForMatchingMedicationsAndWeekdays(interactions: [String], delay: Double, newMedicationEntry: MedicationEntry) {
         
         let newWeekdays = Set(newMedicationEntry.times.map { Calendar.current.component(.weekday, from: $0) })
@@ -68,6 +147,15 @@ class Profile: Identifiable, Codable{
                         let weekday = Calendar.current.component(.weekday, from: newMedicationSchedule[i].times[k])
                         if commonWeekdays.contains(weekday) {
                             
+                            let oldTime = newMedicationSchedule[i].times[k]
+                            let oldHour = Calendar.current.component(.hour, from: oldTime)
+                            
+                            let newHour = Calendar.current.component(.hour, from: newMedicationSchedule[i].times[k])
+                            
+                            // Aktualizacja powiadomień dla zmienionego czasu
+                            updateNotificationTime(forMedicineName: newMedicationSchedule[i].medicine.name, onDayOfWeek: weekday, currentHour: oldHour, newHour: newHour)
+                        
+                        
                             newMedicationSchedule[i].times[k] = newMedicationSchedule[i].times[k] .addingTimeInterval(delay * 3600)
                         
                     }
@@ -78,10 +166,10 @@ class Profile: Identifiable, Codable{
             
             
         }
-                
+        
     }
     
-        medicationSchedule = newMedicationSchedule
+    medicationSchedule = newMedicationSchedule
 }
 
 
@@ -130,10 +218,10 @@ func getMedsList() -> [Medicine]{
     }
     return leki
 }
-    
-    func getMedicationEntry(for medicine: Medicine) -> MedicationEntry? {
-        return medicationSchedule.first { $0.medicine.uid == medicine.uid }
-    }
+
+func getMedicationEntry(for medicine: Medicine) -> MedicationEntry? {
+    return medicationSchedule.first { $0.medicine.uid == medicine.uid }
+}
 
 }
 

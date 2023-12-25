@@ -52,6 +52,9 @@ struct MedicationListView: View {
                             } else {
                                 self.medicationTakenStates[key] = true
                                 alertMessage = "Lek \(medication.name) został zażyty."
+                                manager.currentProfileSelected?.removeNotification(forMedicineName: medication.name,
+                                                                                   onDayOfWeek: Calendar.current.component(.weekday, from: createDateWithTodayDateAndTimeString(timeString: time)!),
+                                                                                   atHour: Calendar.current.component(.hour, from: createDateWithTodayDateAndTimeString(timeString: time)!))
                             }
                             showAlert = true
                         }

@@ -34,6 +34,11 @@ class ProfileManager{
        }
 
     
+    
+        
+
+    
+    
     func updateProfile(profile: Profile, completion: @escaping (Error?) -> Void) {
         DispatchQueue.main.async {
             let profileRef = self.db.collection("profiles").document(profile.uid)

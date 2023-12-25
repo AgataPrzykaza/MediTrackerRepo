@@ -45,7 +45,7 @@ struct MenuView: View {
                                     .foregroundColor(.white)
                             }
                         }
-                    SettingsView()
+                    SettingsView(manager: manager)
                         .frame(height: 620)
                         .tabItem {
                             VStack {
