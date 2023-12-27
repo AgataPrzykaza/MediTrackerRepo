@@ -105,6 +105,10 @@ struct MenuView: View {
                     }
                 }
             )
+            .onAppear(){
+                
+                manager.fetchUserData()
+            }
             
             
             

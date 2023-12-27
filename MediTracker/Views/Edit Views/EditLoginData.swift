@@ -15,6 +15,7 @@ struct EditLoginData: View {
     @State var email: String = ""
    
     @State var password: String = ""
+    @State var oldPassword: String = ""
     @State var passwordAgain: String = ""
     
     @State var showAlert = false
@@ -22,7 +23,7 @@ struct EditLoginData: View {
     
     init(manager: UserManager) {
             self.manager = manager
-            // Załaduj e-mail użytkownika do zmiennej email (jeśli jest dostępny)
+            
             _email = State(initialValue: manager.currentUser?.email ?? "")
         }
     var body: some View {
@@ -43,11 +44,7 @@ struct EditLoginData: View {
                 
                 Button(action: {
                     
-                   
-
-
-                    
-                   // updateUserData()
+                    updateUserData()
                     
                 }) {
                     Text("Zapisz")
@@ -60,25 +57,26 @@ struct EditLoginData: View {
             }
             
             
-            Text("Zarządzaj kontem")
+            Text("Zmień hasło")
                 .frame(width: 400,height: 45,alignment: .center)
                 .font(.system(size: 25))
-                .padding(.bottom, 50)
+                .padding(.bottom, 30)
                 .bold()
             
-            //mail
+        
+            //stare haslo
+            Text("Stare hasło")
+                .font(.system(size: 23))
             HStack{
-                Image(systemName: "envelope")
-                    .font(.system(size: 30))
-                TextField("Email", text: $email)
+                
+                Image(systemName: "lock.square.fill")
+                    .font(.system(size: 35))
+                
+                SecureField("Hasło", text: $oldPassword)
                     .frame(width: 300,height: 40)
-                    .autocorrectionDisabled()
-                    .onSubmit {
-                        
-                    }
+            
             }
             .padding(.bottom,30)
-            
             //nowe haslo
             Text("Nowe hasło")
                 .font(.system(size: 23))
@@ -116,21 +114,26 @@ struct EditLoginData: View {
         .onTapGesture {
             UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
         }
+        .alert(isPresented: $showAlert) {
+            Alert(title: Text("Alert"), message: Text(alertText), dismissButton: .default(Text("OK")))
+        }
     }
     
     func updateUserData(){
-        if !email.isEmpty && isValidEmail(email){
+       
             
             if !password.isEmpty && !passwordAgain.isEmpty && samePassword(password: password, passwordAgain: passwordAgain) && checkLengthOfPassword(password: password) && checkLengthOfPassword(password: passwordAgain){
                 
-                manager.updateEmailAndPassword(newEmail: email, newPassword: password) { success, error in
+                manager.updatePassword(newPassword: password, currentPassword: oldPassword) { success, error in
                     if success{
                         
                         alertText = "Dane zostały zmienione"
+                        showAlert = true
                         
                     }
                     else{
                         alertText = "Nie udało się zmienić danych"
+                        showAlert = true
                         print("Błąd: \(error)")
                     }
                 }
@@ -140,15 +143,12 @@ struct EditLoginData: View {
             {
               
                 alertText = "Hasła niepoprawne"
+                showAlert = true
             }
             
-        }
-        else{
-          
-            alertText = "Niepoprawny email"
-        }
         
-        showAlert = true
+        
+        
         
     }
 }

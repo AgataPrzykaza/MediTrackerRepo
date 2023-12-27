@@ -197,17 +197,15 @@ struct MedDetailsView: View {
                 }
                 
                 HStack(spacing: 45){
-                    Button(action: {
-                        dismiss()
-                    }) {
-                        Text("Edytuj lek")
-                            .padding()
-                            .font(.system(size: 20))
-                            .frame(minWidth: 0, maxWidth: 130)
-                            .background(K.BrandColors.pink2)
-                            .foregroundStyle(.white)
-                            .cornerRadius(24)
-                    }
+                    
+                    NavigationLink("Edytuj lek", destination: EditMedicineView(manager: manager, medEntry: medicationEntry))
+                        .padding()
+                        .font(.system(size: 20))
+                        .frame(minWidth: 0, maxWidth: 130)
+                        .background(K.BrandColors.pink2)
+                        .foregroundStyle(.white)
+                        .cornerRadius(24)
+                    
                     
                     Button(action: {
                         
@@ -241,6 +239,15 @@ struct MedDetailsView: View {
     }
     
     func removeMedicine(){
+        for time in medicationEntry.times{
+            
+          
+                
+            manager.currentProfileSelected?.removeNotification(forMedicineName: medicationEntry.medicine.name,
+                                                                   onDayOfWeek: Calendar.current.component(.weekday, from: time),
+                                                                   atHour: Calendar.current.component(.hour, from: time))
+            
+        }
         manager.removeMedicine(medicineUID: medicationEntry.medicine.uid.uuidString) { error in
                        if let error = error {
                            alertMessage = "Błąd: \(error.localizedDescription)"

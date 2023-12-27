@@ -110,7 +110,7 @@ struct AddProfileView: View {
             }
             Spacer()
         }
-        .frame(width: 500,height: 800,alignment: .top)
+        .frame(maxWidth: .infinity, maxHeight: .infinity,alignment: .top)
         .background(K.BrandColors.lightPink1)
         .navigationBarBackButtonHidden()
         .onTapGesture {

@@ -17,7 +17,7 @@ class ProfileManager{
     
     func removeMedicationEntry(from profile: Profile, withMedicineUID medicineUID: String, completion: @escaping (Error?) -> Void) {
            
-        
+         
       
            profile.removeMedicationEntry(medicineUID: medicineUID)
            
@@ -33,12 +33,7 @@ class ProfileManager{
            }
        }
 
-    
-    
-        
-
-    
-    
+ 
     func updateProfile(profile: Profile, completion: @escaping (Error?) -> Void) {
         DispatchQueue.main.async {
             let profileRef = self.db.collection("profiles").document(profile.uid)
@@ -176,11 +171,6 @@ class ProfileManager{
     
   
     
-    func deleteProfile(){
-        
-    }
-    func updateProfile(){
-        
-    }
+   
     
 }

@@ -119,9 +119,12 @@ struct HeadingView: View {
     var body: some View {
         
         MedicationListView(manager: manager, medications: medicine, time:scheduledTime)
+           
+           
        
         
         
     }
+    
 }
 

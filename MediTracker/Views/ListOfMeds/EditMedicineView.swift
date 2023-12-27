@@ -1,16 +1,17 @@
 //
-//  EditMedicine.swift
+//  EditMedcineView.swift
 //  MediTracker
 //
-//  Created by Agata Przykaza on 11/11/2023.
+//  Created by Agata Przykaza on 27/12/2023.
 //
 
 import SwiftUI
 
-
-struct EditMedicine: View{
-    @ObservedObject var manager: UserManager
+struct EditMedicineView: View {
+    
     @Environment(\.dismiss) var dismiss
+    @ObservedObject var manager: UserManager
+   
     
     var medicationEntry: MedicationEntry
     
@@ -33,8 +34,8 @@ struct EditMedicine: View{
        
         
         }
+    
     var body: some View {
-        
         VStack{
             HStack(alignment: .top,spacing: 200){
                 Button(action: {
@@ -50,31 +51,24 @@ struct EditMedicine: View{
                 
                 
                 Button(action: {
-                    
-                  
+                   
+                      
                     updateMed()
-                        
-                    manager.updateMedicine(medicationEntry: medicationEntry) { error in
-                            if let error = error {
-                                print("Błąd zmiany danych leku: \(error.localizedDescription)")
-                            } else {
-                                print("Udało się zmienić dane leku")
-                                // Możesz wywołać dismiss() tutaj, jeśli chcesz zamknąć widok tylko po pomyślnej aktualizacji
-                                manager.profilemanager.updateProfile(profile: manager.currentProfileSelected!) { profileError in
-                                    if let profileError = profileError {
-                                        print("Błąd aktualizacji danych profilu: \(profileError.localizedDescription)")
-                                    } else {
-                                        print("Dane profilu zaktualizowane pomyślnie!")
-                                        // Wywołanie dismiss() po pomyślnym zaktualizowaniu profilu
-                                        dismiss()
-                                    }
-                                }
-                            }
+                    
+                    manager.profilemanager.updateProfile(profile: manager.currentProfileSelected!) { error in
+                        if let error = error {
+                            print("Błąd aktualizacji danych profilu: \(error.localizedDescription)")
+                        } else {
+                            print("Dane profilu zaktualizowane pomyślnie!")
+                            
                         }
-                    
-                    
-                    
-                    
+                    }
+
+                    dismiss()
+                      
+                     
+                        
+                   
                     
                 }) {
                     Text("ZAPISZ")
@@ -137,14 +131,17 @@ struct EditMedicine: View{
         }
     }
     
-    func updateMed(){
+    func updateMed() {
         medicationEntry.medicine.setMedName(name)
-        medicationEntry.medicine.setDose(Double(dose)!)
+        medicationEntry.medicine.setDose(Double(dose) ?? 0.0)
         medicationEntry.medicine.setUnit(unit)
         medicationEntry.medicine.setType(type)
+        manager.updateMed(med: medicationEntry)
     }
+    
+    
 }
 
-//#Preview {
-//    EditMedicine(manager: UserManager(), medEntry: MedicationEntry(from: <#Decoder#>))
-//}
+
+
+

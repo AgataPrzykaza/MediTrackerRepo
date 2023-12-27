@@ -39,6 +39,15 @@ class Profile: Identifiable, Codable{
         
     }
     
+    func updateMed(med: MedicationEntry){
+        if let index = medicationSchedule.firstIndex(where: { $0.medicine.uid == med.medicine.uid }) {
+        medicationSchedule[index].medicine = med.medicine
+            print("Lek zaktualizowany pomyślnie w profilu")
+
+        } else {
+            print("Nie znaleziono leku do aktualizacji w profilu")
+        }
+    }
     
     func scheduleWeeklyNotifications(for entry: MedicationEntry) {
         let content = UNMutableNotificationContent()
@@ -74,9 +83,9 @@ class Profile: Identifiable, Codable{
             let requestsToUpdate = requests.filter { $0.identifier.contains(currentIdentifierPattern) }
             
             for request in requestsToUpdate {
-                // Sprawdzenie, czy trigger jest UNCalendarNotificationTrigger
+              
                 if let calendarTrigger = request.trigger as? UNCalendarNotificationTrigger {
-                    // Tworzenie nowego triggera z aktualizowaną godziną
+                 
                     var newTriggerDate = calendarTrigger.dateComponents
                     newTriggerDate.hour = newHour
                     
@@ -85,7 +94,7 @@ class Profile: Identifiable, Codable{
                     
                     let newRequest = UNNotificationRequest(identifier: newIdentifier, content: request.content, trigger: newTrigger)
                     
-                    // Dodanie nowego powiadomienia i usunięcie starego
+                   
                     UNUserNotificationCenter.current().add(newRequest) { error in
                         if let error = error {
                             print("Błąd przy aktualizacji powiadomienia: \(error)")
@@ -118,12 +127,12 @@ class Profile: Identifiable, Codable{
     
     
     func removeMedicationEntry(medicineUID: String) {
-        // Find the index of the medication entry that matches the given medicine UID
+     
         if let index = medicationSchedule.firstIndex(where: { $0.medicine.uid.uuidString == medicineUID }) {
-            // Remove the medication entry at the found index
+          
             medicationSchedule.remove(at: index)
         } else {
-            // Handle the case where the medication entry is not found
+            
             print("Medication entry not found")
         }
     }
@@ -152,7 +161,7 @@ class Profile: Identifiable, Codable{
                             
                             let newHour = Calendar.current.component(.hour, from: newMedicationSchedule[i].times[k])
                             
-                            // Aktualizacja powiadomień dla zmienionego czasu
+                           
                             updateNotificationTime(forMedicineName: newMedicationSchedule[i].medicine.name, onDayOfWeek: weekday, currentHour: oldHour, newHour: newHour)
                         
                         
@@ -176,14 +185,14 @@ class Profile: Identifiable, Codable{
 
 
 func setDelayMedsForMatchingWeekdays(newDelayMeds: Double, newMedicationEntry: MedicationEntry) {
-    // Sprawdź dni tygodnia dla nowego leku
+   
     let newWeekdays = Set(newMedicationEntry.times.map { Calendar.current.component(.weekday, from: $0) })
     
     for medicationEntry in medicationSchedule {
-        // Sprawdź dni tygodnia dla istniejącego leku
+        
         let weekdays = Set(medicationEntry.times.map { Calendar.current.component(.weekday, from: $0) })
         
-        // Jeśli istnieje przynajmniej jeden wspólny dzień tygodnia
+       
         if !newWeekdays.isDisjoint(with: weekdays) {
             medicationEntry.medicine.delayMeds = Int(newDelayMeds)
         }

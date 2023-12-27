@@ -43,14 +43,14 @@ struct EditProfileView: View {
                 
                 Button(action: {
                     
-                    //updateCurrentUserData()
+                    
                     updateCurrentProfile()
                     
                     manager.profilemanager.updateProfile(profile: manager.currentProfileSelected!) { error in
                         if let error = error {
-                            print("Błąd aktualizacji danych użytkownika: \(error.localizedDescription)")
+                            print("Błąd aktualizacji danych profilu: \(error.localizedDescription)")
                         } else {
-                            print("Dane użytkownika zaktualizowane pomyślnie!")
+                            print("Dane profilu zaktualizowane pomyślnie!")
                             
                         }
                     }
@@ -118,8 +118,9 @@ struct EditProfileView: View {
             }
             Spacer()
         }
-        .frame(width: 500,height: 800,alignment: .top)
+        .frame(maxWidth: .infinity, maxHeight: .infinity,alignment: .top)
         .navigationBarBackButtonHidden()
+        .navigationBarHidden(true)
         .onTapGesture {
             UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
         }
@@ -131,11 +132,7 @@ struct EditProfileView: View {
         }
     }
 
-    func updateCurrentUserData(){
-        manager.currentUser?.updateName(name)
-        manager.currentUser?.updateSurname(surname)
-        manager.currentUser?.updateGender(selectedType)
-    }
+   
     
     func updateCurrentProfile(){
         manager.currentProfileSelected?.updateName(name)

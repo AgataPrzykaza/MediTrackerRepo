@@ -32,6 +32,21 @@ struct SettingsView: View {
                 .foregroundColor(K.BrandColors.darkPink1)
             }
             .padding(.bottom, 30)
+           
+            NavigationLink("Zmień hasło", destination: EditLoginData( manager: manager))
+                .font(.system(size: 25, weight: .bold))
+                .frame(minWidth: 0, maxWidth: 350,minHeight: 50)
+                .background(K.BrandColors.intensePink2)
+                .foregroundStyle(.white)
+                .cornerRadius(24)
+            
+            NavigationLink("Zmień dane", destination: EditUserView( manager: manager))
+                .font(.system(size: 25, weight: .bold))
+                .frame(minWidth: 0, maxWidth: 350,minHeight: 50)
+                .background(K.BrandColors.pink2)
+                .foregroundStyle(.white)
+                .cornerRadius(24)
+            
             Button(action: {
                 
                 removeProfile()
@@ -48,12 +63,6 @@ struct SettingsView: View {
                 Alert(title: Text("Alert"), message: Text(alertText), dismissButton: .default(Text("OK")))
             }
             
-            NavigationLink("Edytuj dane logowania", destination: EditLoginData( manager: manager))
-                .font(.system(size: 25, weight: .bold))
-                .frame(minWidth: 0, maxWidth: 350,minHeight: 50)
-                .background(K.BrandColors.intensePink2)
-                .foregroundStyle(.white)
-                .cornerRadius(24)
         }
         .padding()
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)

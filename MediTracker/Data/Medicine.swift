@@ -47,12 +47,29 @@ class Medicine: Codable {
         uid = id
     }
     
+    func setMedName(_ name: String){
+        self.name = name
+    }
+    func setDose(_ dose: Double)
+    {
+        dosage = dose
+    }
+    
+    func setUnit(_ unit: String)
+    {
+        self.unit = unit
+    }
+    
+    func setType(_ type: String)
+    {
+        self.type = type
+    }
     
     func calculateNextDoses() -> [Date] {
         var doses = [Date]()
         var nextDose = startHour
         
-        if dayPeriod == 0 {
+        if dayPeriod == 0 || dayPeriod == 1{
             for _ in 0..<7 {
                 if hourPeriod == 0 && frequency == 0 {
                     doses.append(nextDose)

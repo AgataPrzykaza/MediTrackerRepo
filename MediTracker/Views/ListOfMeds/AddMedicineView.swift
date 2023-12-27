@@ -416,11 +416,11 @@ struct AddMedicineView: View {
                     
                     if withOtherMeds{
                         
-                        Text("Przerwa pomiedzy lekami")
+                        Text("Przesunięcie leków")
                         
                         HStack{
-                            Text("Ile godzin")
-                            
+                            Text("O ile godzin przesunąć")
+                             
                             Picker("godziny", selection: $delayMeds) {
                                 ForEach(hourDelay, id: \.self) { hour in
                                     Text(String(hour)).tag(hour)
