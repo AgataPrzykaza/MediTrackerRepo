@@ -13,6 +13,9 @@ struct EditMedicineView: View {
     @ObservedObject var manager: UserManager
     @Binding var medEditedBinding: Bool
     
+    @State var showAlert = false
+    @State var alertText = ""
+    
     var medicationEntry: MedicationEntry
     
     @State var name: String = ""
@@ -84,6 +87,10 @@ struct EditMedicineView: View {
                         update()
                         medEditedBinding = true
                     }
+                    else{
+                        showAlert = true
+                        alertText = "Pozostały puste pola!"
+                    }
                    // updateMed()
                     
                     
@@ -154,7 +161,9 @@ struct EditMedicineView: View {
         .onTapGesture {
             UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
         }
-       
+        .alert(isPresented: $showAlert) {
+            Alert(title: Text("Alert"), message: Text(alertText), dismissButton: .default(Text("OK")))
+        }
     }
     
 //    func updateMed() {

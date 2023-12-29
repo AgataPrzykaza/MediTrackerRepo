@@ -13,6 +13,9 @@ struct EditUserView: View {
     @State var name = ""
     @State var surname = ""
     
+    @State var showAlert = false
+    @State var alertText = ""
+    
     @State private var selectedType: String = "Mężczyzna"
     let types = ["Mężczyzna", "Kobieta", "Inne"]
     
@@ -45,19 +48,25 @@ struct EditUserView: View {
                 
                 Button(action: {
                     
-                    updateCurrentUserData()
-                    
-                    manager.updateUser(user: manager.currentUser!) { error in
-                        if let error = error {
-                            print("Błąd aktualizacji danych użytkownika: \(error.localizedDescription)")
-                        } else {
-                            print("Dane użytkownika zaktualizowane pomyślnie!")
-                            
+                    if !name.isEmpty && !surname.isEmpty && !selectedType.isEmpty{
+                        updateCurrentUserData()
+                        
+                        manager.updateUser(user: manager.currentUser!) { error in
+                            if let error = error {
+                                print("Błąd aktualizacji danych użytkownika: \(error.localizedDescription)")
+                            } else {
+                                print("Dane użytkownika zaktualizowane pomyślnie!")
+                                
+                            }
                         }
+                        dismiss()
+                        
+                    }else{
+                        showAlert = true
+                        alertText = "Pozostały puste pole!"
                     }
-                    dismiss()
                     
-                  }
+                }
                     
                   
                 ) {
@@ -123,6 +132,9 @@ struct EditUserView: View {
         .navigationBarHidden(true)
         .onTapGesture {
             UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+        }
+        .alert(isPresented: $showAlert) {
+            Alert(title: Text("Alert"), message: Text(alertText), dismissButton: .default(Text("OK")))
         }
     }
     

@@ -11,6 +11,8 @@ struct AddMedicineView: View {
     
    @ObservedObject var manager: UserManager
     
+    @State var showAlert = false
+    @State var alertText = ""
     
     @State private var keyboardHeight: CGFloat = 0
 
@@ -186,6 +188,10 @@ struct AddMedicineView: View {
                         if goodFields(){
                             createMedicine()
                             dismiss()
+                        }
+                        else{
+                            showAlert = true
+                            alertText = "Źle uzupełnione pola"
                         }
                         
                     }) {
@@ -527,6 +533,9 @@ struct AddMedicineView: View {
         .toolbar(.hidden, for: .navigationBar)
         .onTapGesture {
             UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+        }
+        .alert(isPresented: $showAlert) {
+            Alert(title: Text("Alert"), message: Text(alertText), dismissButton: .default(Text("OK")))
         }
         .onAppear {
             

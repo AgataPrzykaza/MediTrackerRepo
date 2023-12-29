@@ -19,6 +19,9 @@ struct EditProfileView: View {
     @State var name = ""
     @State var surname = ""
     
+    @State var showAlert = false
+    @State var alertText = ""
+    
     @State private var selectedType: String = "Mężczyzna"
     let types = ["Mężczyzna", "Kobieta", "Inne","Zwierze"]
     
@@ -43,21 +46,26 @@ struct EditProfileView: View {
                 
                 Button(action: {
                     
-                    
-                    updateCurrentProfile()
-                    
-                    manager.profilemanager.updateProfile(profile: manager.currentProfileSelected!) { error in
-                        if let error = error {
-                            print("Błąd aktualizacji danych profilu: \(error.localizedDescription)")
-                        } else {
-                            print("Dane profilu zaktualizowane pomyślnie!")
-                            
+                    if !name.isEmpty && !surname.isEmpty && !selectedType.isEmpty{
+                        updateCurrentProfile()
+                        
+                        manager.profilemanager.updateProfile(profile: manager.currentProfileSelected!) { error in
+                            if let error = error {
+                                print("Błąd aktualizacji danych profilu: \(error.localizedDescription)")
+                            } else {
+                                print("Dane profilu zaktualizowane pomyślnie!")
+                                
+                            }
                         }
+                        
+                        dismiss()
+                        
                     }
-
-                    dismiss()
-                    
-                  }
+                    else{
+                        showAlert = true
+                        alertText = "Pozostały puste pola!"
+                    }
+                }
                     
                   
                 ) {
@@ -123,6 +131,9 @@ struct EditProfileView: View {
         .navigationBarHidden(true)
         .onTapGesture {
             UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+        }
+        .alert(isPresented: $showAlert) {
+            Alert(title: Text("Alert"), message: Text(alertText), dismissButton: .default(Text("OK")))
         }
         .onAppear(){
             var userData = loadData(manager: manager)

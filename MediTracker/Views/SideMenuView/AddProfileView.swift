@@ -14,6 +14,9 @@ struct AddProfileView: View {
     
     var profileManager = ProfileManager()
     
+    @State var showAlert = false
+    @State var alertText = ""
+    
     @State var name = ""
     @State var surname = ""
     
@@ -42,10 +45,14 @@ struct AddProfileView: View {
                     
                     if(!name.isEmpty && !surname.isEmpty && !selectedPicType.isEmpty){
                         addProfile()
+                        dismiss()
+                    }else{
+                        showAlert = true
+                        alertText = "Źle uzupełnione pola"
                     }
                     
                     
-                    dismiss()
+                    
                 }
                        
                        
@@ -118,6 +125,9 @@ struct AddProfileView: View {
         }
         .onAppear(){
             
+        }
+        .alert(isPresented: $showAlert) {
+            Alert(title: Text("Alert"), message: Text(alertText), dismissButton: .default(Text("OK")))
         }
     }
     
