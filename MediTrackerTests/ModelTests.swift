@@ -116,3 +116,60 @@ class ProfileTests: XCTestCase {
     }
 
 }
+
+
+class MedicineTests: XCTestCase {
+
+    var medicine: Medicine!
+
+    override func setUp() {
+        super.setUp()
+        medicine = Medicine(name: "Aspirin", dosage: 500, unit: "mg", type: "Tablet", hourPeriod: 8, frequency: 3, startHour: Date(), dayPeriod: 1, onEmptyStomach: false, delayMeds: 0, instructions: "Take after meals", interactions: [], reminder: true, isAntibiotic: false)
+    }
+
+    override func tearDown() {
+        medicine = nil
+        super.tearDown()
+    }
+
+    func testCalculateNextDoses() {
+        let doses = medicine.calculateNextDoses()
+        XCTAssertFalse(doses.isEmpty)
+    }
+
+    func testIsOneWeekApart() {
+        let date1 = Date()
+        let date2 = Calendar.current.date(byAdding: .day, value: 8, to: date1)!
+        XCTAssertTrue(medicine.isOneWeekApart(date1, date2))
+    }
+
+    
+}
+
+
+class UserTests: XCTestCase {
+
+    var user: User!
+
+    override func setUp() {
+        super.setUp()
+        user = User(uid: "1", username: "JohnDoe", email: "johndoe@example.com", surname: "Doe", gender: "Male")
+    }
+
+    override func tearDown() {
+        user = nil
+        super.tearDown()
+    }
+
+    func testUpdateName() {
+        user.updateName("Jane")
+        XCTAssertEqual(user.name, "Jane")
+    }
+
+    func testUpdateSurname() {
+        user.updateSurname("Doe")
+        XCTAssertEqual(user.surname, "Doe")
+    }
+
+    
+}

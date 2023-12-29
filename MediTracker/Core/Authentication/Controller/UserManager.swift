@@ -36,21 +36,49 @@ class UserManager: ObservableObject {
         self.objectWillChange.send()
         currentProfileSelected = newProfile
     }
+    
+    
+    func fetchProfile()
+    { guard let uid = currentProfileSelected?.uid else {
+        print("Błąd: UID jest nil")
+        return
+     }
+        
+        let profileRef = Firestore.firestore().collection("profiles").document(uid)
+        self.profilemanager.fetchProfile(profileRef: profileRef) { profile in
+            self.currentProfileSelected = profile
+        }
+    }
+    
     //MARK: - Aktualizacja Profilu
     func updateProfile(){
         
-       
+        
         self.objectWillChange.send()
         
         
-            profilemanager.updateProfile(profile: currentProfileSelected!) { error in
-                
-                if let error = error{
-                    print("Błąd przy aktializacji profiilu")
-                }
+        self.profilemanager.updateProfile(profile: self.currentProfileSelected!) { error in
             
+            if let error = error{
+                print("Błąd przy aktializacji profiilu")
+            }
+            if let index = self.listOfProfiles.firstIndex(where: { $0.uid == self.currentProfileSelected!.uid }) {
+                self.listOfProfiles[index] = self.currentProfileSelected!
+                print("Profile updated in list successfully")
+            } else {
+                print("Profile not found in the list")
+            }
         }
+        
+        
+        
+        
+        
+        
+        
     }
+    
+    
     
     
     //Zapisanie Usera
@@ -165,6 +193,9 @@ class UserManager: ObservableObject {
 //Operacje na profilach
 extension UserManager{
     
+    
+    
+    
     func removeMedicine(medicineUID: String, completion: @escaping (Error?) -> Void){
         self.objectWillChange.send()
         self.profilemanager.removeMedicationEntry(from: self.currentProfileSelected!, withMedicineUID: medicineUID, completion: completion)
@@ -172,9 +203,9 @@ extension UserManager{
     
     func updateMed(med: MedicationEntry){
         self.objectWillChange.send()
-        currentProfileSelected?.updateMed(med: med)
+        self.currentProfileSelected?.updateMed(med: med)
     }
-
+    
     
     func deleteProfile(profile: Profile, completion: @escaping (Error?) -> Void) {
         self.objectWillChange.send()
@@ -211,8 +242,8 @@ extension UserManager{
         }
     }
     
-   
-
+    
+    
     
 }
 
@@ -236,11 +267,11 @@ extension UserManager {
             }
         }
     }
-
+    
     
     func reauthenticateUser(password: String, completion: @escaping (Bool, String?) -> Void) {
         let credential = EmailAuthProvider.credential(withEmail: currentUser!.email, password: password)
-
+        
         Auth.auth().currentUser?.reauthenticate(with: credential) { _, error in
             if let error = error {
                 completion(false, "Błąd ponownego uwierzytelnienia: \(error.localizedDescription)")
@@ -322,5 +353,5 @@ extension UserManager {
         }
     }
     
-   
+    
 }

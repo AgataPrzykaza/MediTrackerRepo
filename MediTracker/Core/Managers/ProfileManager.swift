@@ -71,6 +71,7 @@ class ProfileManager{
                 "medicationSchedule": medicationScheduleData
             ]
             
+            
             // Aktualizacja danych profilu
             profileRef.setData(updatedData, merge: true) { error in
                 if let error = error {
@@ -144,6 +145,57 @@ class ProfileManager{
 
         dispatchGroup.notify(queue: .main) {
             completion(profiles)
+        }
+    }
+
+    func fetchProfile(profileRef: DocumentReference, completion: @escaping (Profile?) -> Void) {
+        profileRef.getDocument { (document, error) in
+            if let document = document, document.exists {
+                let data = document.data()
+                var profile = Profile(uid: "", name: "", surname: "", pictureType: "")
+                if let data = data {
+                    profile.name = data["name"] as? String ?? ""
+                    profile.surname = data["surname"] as? String ?? ""
+                    profile.pictureType = data["pictureType"] as? String ?? ""
+                    profile.uid = data["uid"] as? String ?? document.documentID
+
+                    if let medicationScheduleData = data["medicationSchedule"] as? [[String: Any]] {
+                        for entryData in medicationScheduleData {
+                            if let medicineData = entryData["medicine"] as? [String: Any],
+                               let timesData = entryData["times"] as? [TimeInterval] {
+
+                                let medicine = Medicine(
+                                    name: medicineData["name"] as? String ?? "",
+                                    dosage: medicineData["dosage"] as? Double ?? 0.0,
+                                    unit: medicineData["unit"] as? String ?? "",
+                                    type: medicineData["type"] as? String ?? "",
+                                    hourPeriod: medicineData["hourPeriod"] as? Int ?? 0,
+                                    frequency: medicineData["frequency"] as? Int ?? 0,
+                                    startHour: Date(timeIntervalSince1970: medicineData["startHour"] as? TimeInterval ?? 0),
+                                    dayPeriod: medicineData["dayPeriod"]as? Int ?? 0,
+                                    onEmptyStomach: medicineData["onEmptyStomach"] as? Bool ?? false,
+                                    delayMeds: medicineData["delayMeds"] as? Int ?? 0,
+                                    instructions: medicineData["instructions"] as? String ?? "",
+                                    interactions: medicineData["interactions"] as? [String] ?? [],
+                                    reminder: medicineData["reminder"] as? Bool ?? false,
+                                    isAntibiotic: medicineData["isAntibiotic"] as? Bool ?? false
+                                )
+                                medicine.setUid(id: UUID(uuidString: medicineData["uid"] as? String ?? "") ?? UUID())
+                                let times = timesData.map { Date(timeIntervalSince1970: $0) }
+                                let entry = MedicationEntry(medicine: medicine, times: times)
+                                profile.medicationSchedule.append(entry)
+                            }
+                        }
+                    }
+                    completion(profile)
+                } else {
+                    print("Błąd: brak danych w dokumencie")
+                    completion(nil)
+                }
+            } else {
+                print("Błąd podczas odczytu profilu: \(error?.localizedDescription ?? "Nieznany błąd")")
+                completion(nil)
+            }
         }
     }
 

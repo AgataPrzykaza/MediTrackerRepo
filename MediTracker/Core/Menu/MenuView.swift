@@ -105,10 +105,7 @@ struct MenuView: View {
                     }
                 }
             )
-            .onAppear(){
-                
-                manager.fetchUserData()
-            }
+            
             
             
             
@@ -118,6 +115,7 @@ struct MenuView: View {
             
         }
         .navigationBarBackButtonHidden(true)
+        
         
         
         

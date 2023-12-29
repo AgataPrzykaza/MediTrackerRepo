@@ -11,7 +11,7 @@ struct EditMedicineView: View {
     
     @Environment(\.dismiss) var dismiss
     @ObservedObject var manager: UserManager
-   
+    @Binding var medEditedBinding: Bool
     
     var medicationEntry: MedicationEntry
     
@@ -24,17 +24,45 @@ struct EditMedicineView: View {
     @State var type: String = "tabletka"
     let medType = ["tabletka","syrop","zastrzyk","probiotyk"]
     
-    init(manager: UserManager,medEntry: MedicationEntry) {
-            self.manager = manager
+    init(manager: UserManager,medEntry: MedicationEntry, medBinding: Binding<Bool>) {
+        self.manager = manager
         self.medicationEntry = medEntry
         _name = State(initialValue: medEntry.medicine.name )
         _dose = State(initialValue: String(medEntry.medicine.dosage))
         _unit = State(initialValue: medEntry.medicine.unit )
         _type = State(initialValue: medEntry.medicine.type )
-       
         
+        _medEditedBinding = medBinding
+    }
+    func goodFields() -> Bool {
+        
+        
+        if !name.isEmpty && !dose.isEmpty && !unit.isEmpty && !type.isEmpty {
+            
+                return true
+                
+                
+            }
+            else{
+                return false
+            }
+            
+            
+            
         }
+        
+        
     
+    
+    func update(){
+        medicationEntry.medicine.setMedName(name)
+        medicationEntry.medicine.setDose(Double(dose)!)
+        medicationEntry.medicine.setUnit(unit)
+        medicationEntry.medicine.setType(type)
+        manager.currentProfileSelected?.updateMed(med: medicationEntry)
+        
+        //manager.updateProfile()
+    }
     var body: some View {
         VStack{
             HStack(alignment: .top,spacing: 200){
@@ -51,24 +79,21 @@ struct EditMedicineView: View {
                 
                 
                 Button(action: {
-                   
-                      
-                    updateMed()
                     
-                    manager.profilemanager.updateProfile(profile: manager.currentProfileSelected!) { error in
-                        if let error = error {
-                            print("Błąd aktualizacji danych profilu: \(error.localizedDescription)")
-                        } else {
-                            print("Dane profilu zaktualizowane pomyślnie!")
-                            
-                        }
+                    if goodFields(){
+                        update()
+                        medEditedBinding = true
                     }
-
-                    dismiss()
-                      
-                     
-                        
-                   
+                   // updateMed()
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
                     
                 }) {
                     Text("ZAPISZ")
@@ -129,15 +154,26 @@ struct EditMedicineView: View {
         .onTapGesture {
             UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
         }
+       
     }
     
-    func updateMed() {
-        medicationEntry.medicine.setMedName(name)
-        medicationEntry.medicine.setDose(Double(dose) ?? 0.0)
-        medicationEntry.medicine.setUnit(unit)
-        medicationEntry.medicine.setType(type)
-        manager.updateMed(med: medicationEntry)
-    }
+//    func updateMed() {
+//        self.manager.objectWillChange.send()
+//        medicationEntry.medicine.setMedName(name)
+//        medicationEntry.medicine.setDose(Double(dose) ?? 0.0)
+//        medicationEntry.medicine.setUnit(unit)
+//        medicationEntry.medicine.setType(type)
+//        manager.currentProfileSelected?.updateMed(med: medicationEntry)
+//   
+//        manager.updateProfile()
+//        manager.selectProfile(newProfile: manager.currentProfileSelected!)
+//        dismiss()
+//        
+//           // dismiss()
+//        
+//    
+//    
+//    }
     
     
 }

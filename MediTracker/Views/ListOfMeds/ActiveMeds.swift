@@ -10,7 +10,7 @@ import SwiftUI
 struct ActiveMeds: View {
     
     @ObservedObject var manager: UserManager
-    
+    @State var medEdited: Bool = false
    
     
     var body: some View {
@@ -44,7 +44,7 @@ struct ActiveMeds: View {
                 
                 ForEach(manager.currentProfileSelected?.getMedsList() ?? [],id: \.uid) {  medication in
                     
-                    NavigationLink(destination: MedDetailsView( medicationEntry: (manager.currentProfileSelected?.getMedicationEntry(for: medication))!, manager: manager)){
+                    NavigationLink(destination: MedDetailsView( medicationEntry: (manager.currentProfileSelected?.getMedicationEntry(for: medication))!, manager: manager, medEdited: $medEdited)){
                         
                         Medication(medication: medication)
                             .padding(.bottom,5)
@@ -64,6 +64,17 @@ struct ActiveMeds: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(K.BrandColors.Beige)
+        .onAppear(){
+          
+            if medEdited{
+                manager.updateProfile()
+                manager.fetchProfile()
+                medEdited = false
+            }
+           
+        }
+        
+        
        
         
         

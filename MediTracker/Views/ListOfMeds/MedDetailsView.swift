@@ -11,6 +11,7 @@ struct MedDetailsView: View {
     @Environment(\.dismiss) var dismiss
     var medicationEntry: MedicationEntry
     @ObservedObject var manager: UserManager
+    @Binding var medEdited: Bool
     
     @State private var showAlert = false
     @State private var alertMessage = "Lek został usunięty"
@@ -24,6 +25,9 @@ struct MedDetailsView: View {
                 
                 HStack(alignment: .top,spacing: 80){
                     Button(action: {
+                        
+                       
+                      
                         dismiss()
                     }) {
                         Image(systemName: "xmark")
@@ -198,7 +202,7 @@ struct MedDetailsView: View {
                 
                 HStack(spacing: 45){
                     
-                    NavigationLink("Edytuj lek", destination: EditMedicineView(manager: manager, medEntry: medicationEntry))
+                    NavigationLink("Edytuj lek", destination: EditMedicineView(manager: manager, medEntry: medicationEntry, medBinding: $medEdited))
                         .padding()
                         .font(.system(size: 20))
                         .frame(minWidth: 0, maxWidth: 130)
@@ -236,6 +240,9 @@ struct MedDetailsView: View {
             .alert(isPresented: $showAlert) {
                        Alert(title: Text("Powiadomienie"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
                    }
+            
+               
+           
     }
     
     func removeMedicine(){
@@ -300,21 +307,21 @@ struct MedDetailsView: View {
     
     }
 
-struct MedDetailsView_Previews: PreviewProvider {
-    static var previews: some View {
-        let medicine = Medicine(name: "Example Medicine", dosage: 10.0, unit: "mg", type: "Tabletka", hourPeriod: 6, frequency: 3, startHour: Date(), dayPeriod: 7, onEmptyStomach: false, delayMeds: 1, instructions: "Before meal", interactions: ["Interaction 1", "Interaction 2"], reminder: true, isAntibiotic: false)
-        let timestamps = [
-            1702635000,
-            1702678200,
-            1702883400,
-            1702926600,
-            1703153400,
-            1703196600
-        ]
-        
-        let times: [Date] = timestamps.map { Date(timeIntervalSince1970: TimeInterval($0)) }
-        let medicationEntry = MedicationEntry(medicine: medicine, times: times)
-        
-        return MedDetailsView(medicationEntry: medicationEntry, manager: UserManager())
-    }
-}
+//struct MedDetailsView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        let medicine = Medicine(name: "Example Medicine", dosage: 10.0, unit: "mg", type: "Tabletka", hourPeriod: 6, frequency: 3, startHour: Date(), dayPeriod: 7, onEmptyStomach: false, delayMeds: 1, instructions: "Before meal", interactions: ["Interaction 1", "Interaction 2"], reminder: true, isAntibiotic: false)
+//        let timestamps = [
+//            1702635000,
+//            1702678200,
+//            1702883400,
+//            1702926600,
+//            1703153400,
+//            1703196600
+//        ]
+//        
+//        let times: [Date] = timestamps.map { Date(timeIntervalSince1970: TimeInterval($0)) }
+//        let medicationEntry = MedicationEntry(medicine: medicine, times: times)
+//        
+//        return MedDetailsView(medicationEntry: medicationEntry, manager: UserManager(), medEdited: Binding<Bool>)
+//    }
+//}
