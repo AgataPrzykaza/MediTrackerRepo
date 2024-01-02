@@ -23,7 +23,7 @@ class UserManager: ObservableObject {
     @Published var listOfProfiles:[Profile]  = []
     
     
-    //    var profileListManager =  ProfilesListManager (profiles: [])
+
     
     init() {
         isUserLoggedIn = Auth.auth().currentUser != nil
@@ -206,6 +206,21 @@ extension UserManager{
         self.currentProfileSelected?.updateMed(med: med)
     }
     
+    func deleteAllMedsNotification(profile: Profile){
+        
+        for med in profile.medicationSchedule{
+            
+            for time in med.times{
+                
+               profile.removeNotification(forMedicineName: med.medicine.name,
+                                                                   onDayOfWeek: Calendar.current.component(.weekday, from: time),
+                                                                   atHour: Calendar.current.component(.hour, from: time))
+                
+            }
+        }
+        
+        
+    }
     
     func deleteProfile(profile: Profile, completion: @escaping (Error?) -> Void) {
         self.objectWillChange.send()
@@ -219,6 +234,7 @@ extension UserManager{
             // Aktualizacja obiektu User
             if let index = self.currentUser?.profiles.firstIndex(where: { $0.documentID == profile.uid }) {
                 self.currentUser?.profiles.remove(at: index)
+                self.deleteAllMedsNotification(profile: profile)
                 self.updateUser(user: self.currentUser!) { error in
                     if let error = error {
                         completion(error)

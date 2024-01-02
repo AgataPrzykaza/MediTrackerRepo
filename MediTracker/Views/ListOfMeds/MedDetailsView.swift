@@ -248,22 +248,20 @@ struct MedDetailsView: View {
     func removeMedicine(){
         for time in medicationEntry.times{
             
-          
-                
             manager.currentProfileSelected?.removeNotification(forMedicineName: medicationEntry.medicine.name,
                                                                    onDayOfWeek: Calendar.current.component(.weekday, from: time),
                                                                    atHour: Calendar.current.component(.hour, from: time))
             
         }
         manager.removeMedicine(medicineUID: medicationEntry.medicine.uid.uuidString) { error in
-                       if let error = error {
-                           alertMessage = "Błąd: \(error.localizedDescription)"
-                       } else {
-                           alertMessage = "Lek został usunięty."
-                           
-                       }
-                       showAlert = true
-                   }
+            if let error = error {
+             alertMessage = "Błąd: \(error.localizedDescription)"
+              } else {
+                alertMessage = "Lek został usunięty."
+                    
+               }
+               showAlert = true
+        }
     }
     
     func formatDoubleToString(_ value: Double) -> String {
