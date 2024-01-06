@@ -76,6 +76,35 @@ class Profile: Identifiable, Codable{
         }
     }
     
+    func scheduleNextWeekNotification(forMedication medicine: Medicine, at scheduledTime: Date) {
+        let nextWeekTime = Calendar.current.date(byAdding: .weekOfYear, value: 1, to: scheduledTime)!
+        
+        let content = UNMutableNotificationContent()
+        content.title = "\(name) Czas na lek"
+        content.body = "Przypomnienie o wzięciu leku: \(medicine.name)"
+        content.sound = UNNotificationSound.default
+
+        
+        
+        let triggerDate = Calendar.current.dateComponents([.weekday, .hour, .minute], from: nextWeekTime)
+        
+        let trigger = UNCalendarNotificationTrigger(dateMatching: triggerDate, repeats: true)
+        
+        let dayOfWeek = Calendar.current.component(.weekday, from: scheduledTime)
+        let hour = Calendar.current.component(.hour, from: scheduledTime)
+        let identifier = "\(uid)-\(medicine.name)-\(dayOfWeek)-\(hour)"
+        
+        
+        let request = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
+        UNUserNotificationCenter.current().add(request) { error in
+            if let error = error {
+                // Obsługa błędów powiadomień
+                print("Błąd przy dodawaniu powiadomienia: \(error)")
+            }
+        }
+        
+    }
+    
     func updateNotificationTime(forMedicineName medicineName: String, onDayOfWeek dayOfWeek: Int, currentHour: Int, newHour: Int) {
         let currentIdentifierPattern = "\(uid)-\(medicineName)-\(dayOfWeek)-\(currentHour)"
         

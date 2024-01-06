@@ -55,6 +55,7 @@ struct MedicationListView: View {
                                 manager.currentProfileSelected?.removeNotification(forMedicineName: medication.name,
                                                                                    onDayOfWeek: Calendar.current.component(.weekday, from: createDateWithTodayDateAndTimeString(timeString: time)!),
                                                                                    atHour: Calendar.current.component(.hour, from: createDateWithTodayDateAndTimeString(timeString: time)!))
+                                manager.currentProfileSelected?.scheduleNextWeekNotification(forMedication: medication, at: scheduledTime)
                             }
                             showAlert = true
                         }
@@ -68,6 +69,8 @@ struct MedicationListView: View {
             }
         }
         .onAppear {
+            
+            
             
             for medication in medications {
                     let scheduledTime = createDateWithTodayDateAndTimeString(timeString: time)!
@@ -102,7 +105,13 @@ struct MedicationListView: View {
                     actualTimeTaken: Date()) { error in
                         if error == nil {
                             self.medicationTakenStates[key] = true
+                            alertMessage = "Leki zostały zażyte."
+                            manager.currentProfileSelected?.removeNotification(forMedicineName: medication.name,
+                                                                               onDayOfWeek: Calendar.current.component(.weekday, from: createDateWithTodayDateAndTimeString(timeString: time)!),
+                                                                               atHour: Calendar.current.component(.hour, from: createDateWithTodayDateAndTimeString(timeString: time)!))
+                            manager.currentProfileSelected?.scheduleNextWeekNotification(forMedication: medication, at: scheduledTime)
                         }
+                        showAlert = true
                     }
             }
         }

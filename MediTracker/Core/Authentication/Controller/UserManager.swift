@@ -124,7 +124,7 @@ class UserManager: ObservableObject {
                                     // Zakładając, że interesuje Cię tylko pierwszy profil lub sposób ich obsługi
                                     self.currentProfileSelected = profiles.first
                                     self.listOfProfiles = profiles
-                                    
+                                    self.setupNotificationsOnFirstLogin()
                                 }
                             }
                         }
@@ -193,8 +193,35 @@ class UserManager: ObservableObject {
 //Operacje na profilach
 extension UserManager{
     
+    func setupNotificationsOnFirstLogin() {
+        let userDefaults = UserDefaults.standard
+
+        // Sprawdzanie, czy powiadomienia zostały już ustawione
+        if !userDefaults.bool(forKey: "notificationsSet") {
+            // Tworzenie powiadomień
+            makeNotifications()
+
+            // Zapisanie flagi, że powiadomienia zostały ustawione
+            userDefaults.set(true, forKey: "notificationsSet")
+        }
+    }
     
+    func makeNotifications()
+    {
+        for profile in listOfProfiles{
+            
+            for medEntry in profile.medicationSchedule{
+                profile.scheduleWeeklyNotifications(for: medEntry)
+            }
+              
+        }
+    }
     
+    func deleteNotifications(){
+        for profile in self.listOfProfiles {
+            deleteAllMedsNotification(profile: profile)
+        }
+    }
     
     func removeMedicine(medicineUID: String, completion: @escaping (Error?) -> Void){
         self.objectWillChange.send()
@@ -247,6 +274,7 @@ extension UserManager{
                         self.listOfProfiles.removeAll { $0.uid == profile.uid }
                         self.currentProfileSelected = self.listOfProfiles.first
                         
+                      
                         
                         completion(nil)
                     }
@@ -300,7 +328,9 @@ extension UserManager {
     func logout() {
         do {
             try Auth.auth().signOut()
-            
+            let userDefaults = UserDefaults.standard
+            deleteNotifications()
+            userDefaults.set(false, forKey: "notificationsSet")
             self.objectWillChange.send()
             currentUser = nil
             currentProfileSelected = nil

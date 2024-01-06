@@ -23,6 +23,7 @@ struct ContentView: View {
                                     MenuView(manager: userAuth)
                                         .onAppear {
                                             userAuth.fetchUserData()
+                                            
                                         }
                                 } else {
                                     // Wyświetl komunikat o braku połączenia internetowego
