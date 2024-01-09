@@ -1,4 +1,7 @@
 
+
+// Klasa zarządzająca historią przyjmowania.
+
 import Foundation
 import FirebaseFirestore
 
@@ -7,6 +10,7 @@ class MedicationHistoryManager {
    
     let db = Firestore.firestore()
 
+    // Funkcja dodająca historie zażycia leku do bazy danych
     func addMedicationHistoryEntry(profileId: String, medicationId: UUID, scheduledTime: Date, actualTimeTaken: Date, completion: @escaping (Error?) -> Void) {
         let medicationHistoryData: [String: Any] = [
             "profileId": profileId,
@@ -25,7 +29,8 @@ class MedicationHistoryManager {
             }
         }
     }
-
+    
+    // Funkcja sprawdzająca czy dany lek w harmonogramie jest już oznaczony jako zażyty ,czyli czy jest w histori leków w bazie danych
     func isMedicationTaken(profileId: String, medicationId: UUID, at scheduledTime: Date, completion: @escaping (Bool) -> Void) {
         db.collection("medicationHistory")
             .whereField("profileId", isEqualTo: profileId)

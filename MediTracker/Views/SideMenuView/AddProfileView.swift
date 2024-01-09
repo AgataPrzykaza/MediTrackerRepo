@@ -4,6 +4,7 @@
 //
 //  Created by Agata Przykaza on 27/11/2023.
 //
+//  Widok dodania nowego profilu
 
 import SwiftUI
 

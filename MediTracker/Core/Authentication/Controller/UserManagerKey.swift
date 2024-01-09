@@ -4,7 +4,7 @@
 //
 //  Created by Agata Przykaza on 26/11/2023.
 //
-
+//  Dostęp do zmiennej
 import Foundation
 import SwiftUI
 

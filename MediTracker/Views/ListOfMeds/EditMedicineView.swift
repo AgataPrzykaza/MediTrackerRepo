@@ -4,6 +4,7 @@
 //
 //  Created by Agata Przykaza on 27/12/2023.
 //
+// Widok edycji danych leku
 
 import SwiftUI
 
@@ -166,23 +167,7 @@ struct EditMedicineView: View {
         }
     }
     
-//    func updateMed() {
-//        self.manager.objectWillChange.send()
-//        medicationEntry.medicine.setMedName(name)
-//        medicationEntry.medicine.setDose(Double(dose) ?? 0.0)
-//        medicationEntry.medicine.setUnit(unit)
-//        medicationEntry.medicine.setType(type)
-//        manager.currentProfileSelected?.updateMed(med: medicationEntry)
-//   
-//        manager.updateProfile()
-//        manager.selectProfile(newProfile: manager.currentProfileSelected!)
-//        dismiss()
-//        
-//           // dismiss()
-//        
-//    
-//    
-//    }
+
     
     
 }

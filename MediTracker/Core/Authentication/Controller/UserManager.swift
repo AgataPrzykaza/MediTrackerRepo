@@ -4,6 +4,7 @@
 //
 //  Created by Agata Przykaza on 18/11/2023.
 //
+// Klasa UserManager jest kontrolerem zarządzającym użytkownikiem, zwaiera kluczowe funkcje zarządzające oraz zmienne przechowujące informacje w aplikacji.
 
 import Firebase
 import Combine
@@ -14,6 +15,8 @@ class UserManager: ObservableObject {
     
     
     @Published var db = Firestore.firestore()
+    
+    
     @Published var profilemanager = ProfileManager()
     
     @Published var isUserLoggedIn: Bool = false
@@ -37,7 +40,7 @@ class UserManager: ObservableObject {
         currentProfileSelected = newProfile
     }
     
-    
+    // Pobranie profilu z bazy danych
     func fetchProfile()
     { guard let uid = currentProfileSelected?.uid else {
         print("Błąd: UID jest nil")
@@ -81,7 +84,7 @@ class UserManager: ObservableObject {
     
     
     
-    //Zapisanie Usera
+    //Zapisanie użytkownika
     func saveUser(user: User) {
         
         db.collection("users").document(user.uid).setData([
@@ -100,7 +103,7 @@ class UserManager: ObservableObject {
         }
     }
     
-    //Pobranie danych usera
+    //Pobranie danych użytkownika
     func fetchUserData() {
         guard let uid = Auth.auth().currentUser?.uid else {
             print("Brak zalogowanego użytkownika")
@@ -117,11 +120,11 @@ class UserManager: ObservableObject {
                     DispatchQueue.main.async {
                         self.currentUser = user
                         
-                        // Teraz używasz fetchProfiles zamiast fetchProfile
+                        
                         if let profileRefs = self.currentUser?.profiles{
                             self.profilemanager.fetchProfiles(profileRefs: profileRefs) { profiles in
                                 DispatchQueue.main.async {
-                                    // Zakładając, że interesuje Cię tylko pierwszy profil lub sposób ich obsługi
+                                    
                                     self.currentProfileSelected = profiles.first
                                     self.listOfProfiles = profiles
                                     self.setupNotificationsOnFirstLogin()
@@ -151,7 +154,7 @@ class UserManager: ObservableObject {
         
     }
     
-    //Aktualizowanie danych usera
+    //Aktualizowanie danych użytkownika
     func updateUser(user: User, completion: @escaping (Error?) -> Void) {
         DispatchQueue.main.async {
             
@@ -159,14 +162,14 @@ class UserManager: ObservableObject {
             
             let userRef = self.db.collection("users").document(user.uid)
             
-            // Nowe dane użytkownika, które chcesz zaktualizować
+          
             let updatedData: [String: Any] = [
                 "name": user.name,
                 "surname": user.surname,
                 "email": user.email,
                 "gender": user.gender,
                 "profiles": user.profiles
-                // Dodaj inne pola, które chcesz zaktualizować
+               
             ]
             
             // Aktualizacja danych użytkownika
@@ -190,9 +193,10 @@ class UserManager: ObservableObject {
     
 }
 
-//Operacje na profilach
+//  Rozszerzenie klasy UserManager zajmujące się zarządzaniem profilami
 extension UserManager{
     
+    // Funkcja ustawiająca powiadomienia po zalogowaniu
     func setupNotificationsOnFirstLogin() {
         let userDefaults = UserDefaults.standard
 
@@ -206,6 +210,7 @@ extension UserManager{
         }
     }
     
+    // Funkcja tworząca powiadomienia dla każdego z profili użytkownika
     func makeNotifications()
     {
         for profile in listOfProfiles{
@@ -217,22 +222,26 @@ extension UserManager{
         }
     }
     
+    //  Funkcja usuwająca powiadomienia profili użytkownika
     func deleteNotifications(){
         for profile in self.listOfProfiles {
             deleteAllMedsNotification(profile: profile)
         }
     }
     
+    // Usuwanie leku w profilu leków
     func removeMedicine(medicineUID: String, completion: @escaping (Error?) -> Void){
         self.objectWillChange.send()
         self.profilemanager.removeMedicationEntry(from: self.currentProfileSelected!, withMedicineUID: medicineUID, completion: completion)
     }
     
+    // Aktualizacja danych leku
     func updateMed(med: MedicationEntry){
         self.objectWillChange.send()
         self.currentProfileSelected?.updateMed(med: med)
     }
     
+    // Funkcja usuwająca powiadomienia dla danego profilu
     func deleteAllMedsNotification(profile: Profile){
         
         for med in profile.medicationSchedule{
@@ -249,6 +258,7 @@ extension UserManager{
         
     }
     
+    // Funkcja usuwająca profil leków użytkownika
     func deleteProfile(profile: Profile, completion: @escaping (Error?) -> Void) {
         self.objectWillChange.send()
         // Usunięcie profilu z Firestore
@@ -280,7 +290,7 @@ extension UserManager{
                     }
                 }
             } else {
-                // Profil nie znaleziony w obiekcie User
+               
                 completion(nil)
             }
         }
@@ -291,9 +301,10 @@ extension UserManager{
     
 }
 
-
+//  Rozszerzenie klasy UserManager zarządzające kontem użytkownika
 extension UserManager {
     
+    // Funkcja aktualizująca hasło
     func updatePassword(newPassword: String,currentPassword: String, completion: @escaping (Bool, String?) -> Void) {
         self.reauthenticateUser(password: currentPassword) { success, reauthError in
             if success {
@@ -312,7 +323,7 @@ extension UserManager {
         }
     }
     
-    
+    // Ponowna autentykacja użytkownika
     func reauthenticateUser(password: String, completion: @escaping (Bool, String?) -> Void) {
         let credential = EmailAuthProvider.credential(withEmail: currentUser!.email, password: password)
         
@@ -325,6 +336,7 @@ extension UserManager {
         }
     }
     
+    //Funkcja wylogowująca
     func logout() {
         do {
             try Auth.auth().signOut()
@@ -343,6 +355,7 @@ extension UserManager {
         }
     }
     
+    // Funkcja logowania
     func login(email:String, password: String, completion: @escaping (Bool, Error?) -> Void){
         
         Auth.auth().signIn(withEmail: email, password: password) { (result, error) in
@@ -362,6 +375,7 @@ extension UserManager {
         
     }
     
+    // Tworzenie użytkownika w bazie danych
     func createUser(email: String, password: String, name: String, surname: String, gender: String, completion: @escaping (Bool, String?) -> Void) {
         Auth.auth().createUser(withEmail: email.lowercased(), password: password) { authResult, error in
             if let error = error as NSError? {

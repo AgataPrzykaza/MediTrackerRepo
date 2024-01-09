@@ -4,7 +4,7 @@
 //
 //  Created by Agata Przykaza on 05/11/2023.
 //
-
+// Widok listy profili użytkownika
 import SwiftUI
 
 struct ProfileList: View {

@@ -4,6 +4,7 @@
 //
 //  Created by Agata Przykaza on 05/11/2023.
 //
+// Model profilu leków
 
 import Foundation
 import UserNotifications
@@ -24,6 +25,7 @@ class Profile: Identifiable, Codable{
         self.pictureType = pictureType
     }
     
+    // Dodanie leku do profilu
     func addMedication (_ med: Medicine,delay: Double){
         
         
@@ -39,6 +41,7 @@ class Profile: Identifiable, Codable{
         
     }
     
+    //Aktualizacja leku
     func updateMed(med: MedicationEntry){
         if let index = medicationSchedule.firstIndex(where: { $0.medicine.uid == med.medicine.uid }) {
         medicationSchedule[index].medicine = med.medicine
@@ -49,6 +52,7 @@ class Profile: Identifiable, Codable{
         }
     }
     
+    // Ustawienie powiadomień dla leku
     func scheduleWeeklyNotifications(for entry: MedicationEntry) {
         let content = UNMutableNotificationContent()
         content.title = "\(name) Czas na lek"
@@ -75,7 +79,7 @@ class Profile: Identifiable, Codable{
             }
         }
     }
-    
+    //Ustawienie powiadomien dla leku o konkretnej datcie
     func scheduleNextWeekNotification(forMedication medicine: Medicine, at scheduledTime: Date) {
         let nextWeekTime = Calendar.current.date(byAdding: .weekOfYear, value: 1, to: scheduledTime)!
         
@@ -105,6 +109,7 @@ class Profile: Identifiable, Codable{
         
     }
     
+    // AKtualizacja powiadomień
     func updateNotificationTime(forMedicineName medicineName: String, onDayOfWeek dayOfWeek: Int, currentHour: Int, newHour: Int) {
         let currentIdentifierPattern = "\(uid)-\(medicineName)-\(dayOfWeek)-\(currentHour)"
         
@@ -137,7 +142,7 @@ class Profile: Identifiable, Codable{
     }
     
     
-    
+    // Usuwanie powiadomień
     func removeNotification(forMedicineName medicineName: String, onDayOfWeek dayOfWeek: Int, atHour hour: Int) {
         let identifierPattern = "\(uid)-\(medicineName)-\(dayOfWeek)-\(hour)"
         
@@ -154,7 +159,7 @@ class Profile: Identifiable, Codable{
     
     
     
-    
+    // Usuwanie leku
     func removeMedicationEntry(medicineUID: String) {
      
         if let index = medicationSchedule.firstIndex(where: { $0.medicine.uid.uuidString == medicineUID }) {
@@ -165,6 +170,8 @@ class Profile: Identifiable, Codable{
             print("Medication entry not found")
         }
     }
+    
+    // Aktualizacja godziny dla leków interakcyjnych
     func adjustTimesForMatchingMedicationsAndWeekdays(interactions: [String], delay: Double, newMedicationEntry: MedicationEntry) {
         
         let newWeekdays = Set(newMedicationEntry.times.map { Calendar.current.component(.weekday, from: $0) })
@@ -212,7 +219,7 @@ class Profile: Identifiable, Codable{
 
 
 
-
+// Ustawienie opóznienia leków
 func setDelayMedsForMatchingWeekdays(newDelayMeds: Double, newMedicationEntry: MedicationEntry) {
    
     let newWeekdays = Set(newMedicationEntry.times.map { Calendar.current.component(.weekday, from: $0) })

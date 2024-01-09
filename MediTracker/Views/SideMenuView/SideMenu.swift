@@ -4,7 +4,7 @@
 //
 //  Created by Agata Przykaza on 01/11/2023.
 //
-
+// Widok bocznego menu
 import SwiftUI
 
 

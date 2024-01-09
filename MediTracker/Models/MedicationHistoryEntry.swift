@@ -4,6 +4,7 @@
 //
 //  Created by Agata Przykaza on 13/12/2023.
 //
+// Model historii leku
 
 import Foundation
 

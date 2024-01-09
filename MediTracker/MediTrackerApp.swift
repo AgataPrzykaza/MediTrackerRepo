@@ -4,6 +4,7 @@
 //
 //  Created by Agata Przykaza on 23/10/2023.
 //
+// Główny plik aplikacji
 
 import SwiftUI
 import FirebaseCore

@@ -4,10 +4,12 @@
 //
 //  Created by Agata Przykaza on 27/12/2023.
 //
+//  Testy modelu aplikacji
 
 import XCTest
 @testable import MediTracker
 
+// Testy klasy Profile
 class ProfileTests: XCTestCase {
 
     var profile: Profile!
@@ -27,11 +29,13 @@ class ProfileTests: XCTestCase {
         super.tearDown()
     }
 
+    // Testowanie dodawania leku
     func testAddMedication() {
         profile.addMedication(medicine, delay: 0)
         XCTAssertFalse(profile.medicationSchedule.isEmpty)
     }
-
+    
+    // Testowanie aktualizacji leku
     func testUpdateMedication() {
         profile.addMedication(medicine, delay: 0)
         let updatedMedicine = Medicine(name: "Ibuprofen", dosage: 400, unit: "mg", type: "Capsule", hourPeriod: 12, frequency: 2, startHour: Date(), dayPeriod: 1, onEmptyStomach: false, delayMeds: 0, instructions: "Take with water", interactions: [], reminder: true, isAntibiotic: false)
@@ -41,7 +45,7 @@ class ProfileTests: XCTestCase {
 
         XCTAssertEqual(profile.medicationSchedule.first?.medicine.name, "Ibuprofen")
     }
-
+    // Testowanie usuwania leku istniejącego
     func testRemoveMedicationEntry_ExistingEntry() {
         let medicationEntry = MedicationEntry(medicine: medicine, times: [Date()])
             profile.medicationSchedule.append(medicationEntry)
@@ -52,6 +56,7 @@ class ProfileTests: XCTestCase {
             XCTAssertNil(profile.medicationSchedule.first { $0.medicine.uid.uuidString == medicineUID })
         }
     
+    // Testowanie zwracania listy leków
     func testGetMedsList() {
      
         XCTAssertTrue(profile.medicationSchedule.isEmpty)
@@ -69,7 +74,7 @@ class ProfileTests: XCTestCase {
         XCTAssertTrue(medsList.contains { $0.name == "Med2" })
     }
     
-    
+    //Testowanie ustawiania opóźnienia dla pasujących dni tygodnia
     func testSetDelayMedsForMatchingWeekdays() {
         let medicine1 = Medicine(name: "Med1",  dosage: 400, unit: "mg", type: "Tabletka", hourPeriod: 12, frequency: 2, startHour: Date(), dayPeriod: 1, onEmptyStomach: false, delayMeds: 0, instructions: "Take with water", interactions: [], reminder: true, isAntibiotic: false)
         let medicine2 = Medicine(name: "Med2",  dosage: 400, unit: "ml", type: "Syrop", hourPeriod: 12, frequency: 2, startHour: Date(), dayPeriod: 1, onEmptyStomach: false, delayMeds: 0, instructions: "Take with water", interactions: [], reminder: true, isAntibiotic: false)
@@ -90,7 +95,7 @@ class ProfileTests: XCTestCase {
         XCTAssertEqual(medicine2.delayMeds, 0) 
     }
 
-
+    // Testowania aktualizacji czasów leków interakcyjncych
     func testAdjustTimesForMatchingMedicationsAndWeekdays() {
         // Przygotowanie danych testowych
         let medicine1 = Medicine(name: "Med1",dosage: 400, unit: "mg", type: "Capsule", hourPeriod: 12, frequency: 2, startHour: Date(), dayPeriod: 1, onEmptyStomach: false, delayMeds: 0, instructions: "Take with water", interactions: [], reminder: true, isAntibiotic: false)
@@ -117,7 +122,7 @@ class ProfileTests: XCTestCase {
 
 }
 
-
+// Testowanie klasy Medicine
 class MedicineTests: XCTestCase {
 
     var medicine: Medicine!
@@ -132,11 +137,12 @@ class MedicineTests: XCTestCase {
         super.tearDown()
     }
 
+    // Testowanie oblicznania terminów dawek
     func testCalculateNextDoses() {
         let doses = medicine.calculateNextDoses()
         XCTAssertFalse(doses.isEmpty)
     }
-
+    // Testowanie czy odstęp między datami jest jeden tydzień
     func testIsOneWeekApart() {
         let date1 = Date()
         let date2 = Calendar.current.date(byAdding: .day, value: 8, to: date1)!
@@ -146,7 +152,7 @@ class MedicineTests: XCTestCase {
     
 }
 
-
+//Testowanie klasy User
 class UserTests: XCTestCase {
 
     var user: User!
@@ -161,11 +167,12 @@ class UserTests: XCTestCase {
         super.tearDown()
     }
 
+    // Testowanie zmiany imienia
     func testUpdateName() {
         user.updateName("Jane")
         XCTAssertEqual(user.name, "Jane")
     }
-
+    // Testowanie zmiany nazwiska
     func testUpdateSurname() {
         user.updateSurname("Doe")
         XCTAssertEqual(user.surname, "Doe")

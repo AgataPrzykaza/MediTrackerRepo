@@ -23,7 +23,6 @@
 		FD7725512AE83B10009D91FB /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD7725502AE83B10009D91FB /* RegisterView.swift */; };
 		FD7725542AE83CA2009D91FB /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD7725532AE83CA2009D91FB /* Constants.swift */; };
 		FD7EC30F2AFFFFD6008F40AF /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD7EC30E2AFFFFD6008F40AF /* ContentView.swift */; };
-		FD7EC3112B000C2D008F40AF /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD7EC3102B000C2D008F40AF /* Settings.swift */; };
 		FD7EC3132B000CED008F40AF /* ActiveMeds.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD7EC3122B000CED008F40AF /* ActiveMeds.swift */; };
 		FD8308832AFFEFD700939175 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD8308822AFFEFD700939175 /* User.swift */; };
 		FD830ED42AE6D57300E3D2FC /* MediTrackerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD830ED32AE6D57300E3D2FC /* MediTrackerApp.swift */; };
@@ -63,7 +62,6 @@
 		FDE107C52AF7F0F800DD234B /* Medicine.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDE107C42AF7F0F800DD234B /* Medicine.swift */; };
 		FDE107C92AF7F1D700DD234B /* MedicationList.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDE107C82AF7F1D700DD234B /* MedicationList.swift */; };
 		FDE107CB2AF7F2BB00DD234B /* Medication.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDE107CA2AF7F2BB00DD234B /* Medication.swift */; };
-		FDE3848A2B39C4A2000F2CCA /* DeleteProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDE384892B39C4A2000F2CCA /* DeleteProfileView.swift */; };
 		FDF2548A2B09005D00ADDAB4 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDF254892B09005D00ADDAB4 /* LoginView.swift */; };
 		FDF2548D2B092C3600ADDAB4 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDF2548C2B092C3600ADDAB4 /* UserManager.swift */; };
 /* End PBXBuildFile section */
@@ -96,7 +94,6 @@
 		FD7725502AE83B10009D91FB /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
 		FD7725532AE83CA2009D91FB /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		FD7EC30E2AFFFFD6008F40AF /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		FD7EC3102B000C2D008F40AF /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		FD7EC3122B000CED008F40AF /* ActiveMeds.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveMeds.swift; sourceTree = "<group>"; };
 		FD8308822AFFEFD700939175 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		FD830ED02AE6D57300E3D2FC /* MediTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MediTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -117,7 +114,6 @@
 		FDE107C42AF7F0F800DD234B /* Medicine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Medicine.swift; sourceTree = "<group>"; };
 		FDE107C82AF7F1D700DD234B /* MedicationList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicationList.swift; sourceTree = "<group>"; };
 		FDE107CA2AF7F2BB00DD234B /* Medication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Medication.swift; sourceTree = "<group>"; };
-		FDE384892B39C4A2000F2CCA /* DeleteProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteProfileView.swift; sourceTree = "<group>"; };
 		FDF254892B09005D00ADDAB4 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		FDF2548C2B092C3600ADDAB4 /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -167,11 +163,12 @@
 				FD279C112AF2B21C00B23AC4 /* MenuContent.swift */,
 				FDE107C02AF7E8B700DD234B /* ProfileList.swift */,
 				FDB12BD12B18E72D00AAEAD7 /* AddProfileView.swift */,
+				FD279C0E2AF2B16A00B23AC4 /* MiniProfileView.swift */,
 			);
 			path = SideMenuView;
 			sourceTree = "<group>";
 		};
-		FD4131492AF1563400CBCCBF /* Data */ = {
+		FD4131492AF1563400CBCCBF /* Models */ = {
 			isa = PBXGroup;
 			children = (
 				FDE107C22AF7EA5200DD234B /* Profile.swift */,
@@ -179,7 +176,7 @@
 				FD8308822AFFEFD700939175 /* User.swift */,
 				FD26BD262B29F9460003C5FC /* MedicationHistoryEntry.swift */,
 			);
-			path = Data;
+			path = Models;
 			sourceTree = "<group>";
 		};
 		FD6EC0D62B2DD0B8003D4B1D /* MediTrackerTests */ = {
@@ -196,20 +193,10 @@
 			children = (
 				FDE107C72AF7F1A800DD234B /* MedicationListView */,
 				FD279C102AF2B1EF00B23AC4 /* SideMenuView */,
-				FD7EC3062AFFF8A4008F40AF /* Main tabs */,
 				FD7EC3072AFFF8C5008F40AF /* Edit Views */,
-				FD279C0E2AF2B16A00B23AC4 /* MiniProfileView.swift */,
 				FD7EC3142B000E98008F40AF /* ListOfMeds */,
 			);
 			path = Views;
-			sourceTree = "<group>";
-		};
-		FD7EC3062AFFF8A4008F40AF /* Main tabs */ = {
-			isa = PBXGroup;
-			children = (
-				FD7EC3102B000C2D008F40AF /* Settings.swift */,
-			);
-			path = "Main tabs";
 			sourceTree = "<group>";
 		};
 		FD7EC3072AFFF8C5008F40AF /* Edit Views */ = {
@@ -257,7 +244,6 @@
 				FD2169632AEBED2300FC613B /* MenuView.swift */,
 				FD7EC30E2AFFFFD6008F40AF /* ContentView.swift */,
 				FD570F242B38CFE70079BDCB /* SettingsView.swift */,
-				FDE384892B39C4A2000F2CCA /* DeleteProfileView.swift */,
 			);
 			path = Menu;
 			sourceTree = "<group>";
@@ -300,7 +286,7 @@
 				FDDB58D12B07808B003A7767 /* GoogleService-Info.plist */,
 				FD830ED92AE6D57400E3D2FC /* Preview Content */,
 				FD7725522AE83B16009D91FB /* Views */,
-				FD4131492AF1563400CBCCBF /* Data */,
+				FD4131492AF1563400CBCCBF /* Models */,
 				FD7725532AE83CA2009D91FB /* Constants.swift */,
 			);
 			path = MediTracker;
@@ -487,7 +473,6 @@
 				FD6EC0E22B2DD385003D4B1D /* MedDetailsView.swift in Sources */,
 				FDE107C32AF7EA5200DD234B /* Profile.swift in Sources */,
 				FDCA6CC02AFD5AE400575E05 /* EditLoginData.swift in Sources */,
-				FDE3848A2B39C4A2000F2CCA /* DeleteProfileView.swift in Sources */,
 				FDF2548A2B09005D00ADDAB4 /* LoginView.swift in Sources */,
 				FD26BD272B29F9460003C5FC /* MedicationHistoryEntry.swift in Sources */,
 				FD48FF5E2B3C9BA200CFACD8 /* EditMedicineView.swift in Sources */,
@@ -508,7 +493,6 @@
 				FD15FE022B1A0EA400D8C259 /* EditUserView.swift in Sources */,
 				FD7725542AE83CA2009D91FB /* Constants.swift in Sources */,
 				FD8308832AFFEFD700939175 /* User.swift in Sources */,
-				FD7EC3112B000C2D008F40AF /* Settings.swift in Sources */,
 				FD279C122AF2B21C00B23AC4 /* MenuContent.swift in Sources */,
 				FDE107C12AF7E8B700DD234B /* ProfileList.swift in Sources */,
 				FD873FBA2B14F20900F39B43 /* Controller.swift in Sources */,

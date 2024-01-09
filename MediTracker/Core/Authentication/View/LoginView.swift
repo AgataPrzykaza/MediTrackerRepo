@@ -4,6 +4,7 @@
 //
 //  Created by Agata Przykaza on 18/11/2023.
 //
+// Widok logowania
 
 import SwiftUI
 import FirebaseAuth
@@ -126,6 +127,7 @@ struct LoginView: View {
         
     }
     
+    // Walidacja pól 
     func validationAndLogin(){
         if isValidEmail(email){
             

@@ -4,7 +4,7 @@
 //
 //  Created by Agata Przykaza on 02/12/2023.
 //
-
+// Widok dodania nowego leku
 import SwiftUI
 
 struct AddMedicineView: View {
@@ -63,7 +63,7 @@ struct AddMedicineView: View {
     @Environment(\.dismiss) var dismiss
     
     
-    
+    // Sprawdzenie poprawności pól
     func goodFields() -> Bool {
         
         
@@ -136,6 +136,8 @@ struct AddMedicineView: View {
         let components = input.components(separatedBy: ",")
         return components.map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
     }
+    
+    // Tworzenie nowego leku
     func createMedicine(){
         
         let med = Medicine(name: name, dosage: Double(dose)!, unit: unit, type: type, hourPeriod: hourPeriod, frequency:frequency,startHour: firstDose, dayPeriod: dayType, onEmptyStomach: selectedInstruction == "Na czczo" ? true: false, delayMeds: 0, instructions: selectedInstruction + ", " + extraInstruction, interactions: stringToArray(interactions), reminder: true, isAntibiotic: antibioticToggle)

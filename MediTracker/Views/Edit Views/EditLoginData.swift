@@ -4,6 +4,7 @@
 //
 //  Created by Agata Przykaza on 09/11/2023.
 //
+// Widok edycji hasła
 
 import SwiftUI
 
@@ -119,6 +120,7 @@ struct EditLoginData: View {
         }
     }
     
+    // Aktualizacja danych
     func updateUserData(){
        
             

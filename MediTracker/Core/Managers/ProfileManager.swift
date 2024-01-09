@@ -4,6 +4,7 @@
 //
 //  Created by Agata Przykaza on 27/11/2023.
 //
+//  Klasa jest kontrolerem zarządzającym profilem leków.
 
 import Foundation
 import FirebaseCore
@@ -15,6 +16,7 @@ class ProfileManager{
     let db = Firestore.firestore()
     @Published var medHistoryManager = MedicationHistoryManager()
     
+    //  Funkcja usuwająca lek z profilu
     func removeMedicationEntry(from profile: Profile, withMedicineUID medicineUID: String, completion: @escaping (Error?) -> Void) {
            
          
@@ -33,7 +35,7 @@ class ProfileManager{
            }
        }
 
- 
+    //  Funkcja aktualizaująca dane profilu w bazie danych
     func updateProfile(profile: Profile, completion: @escaping (Error?) -> Void) {
         DispatchQueue.main.async {
             let profileRef = self.db.collection("profiles").document(profile.uid)
@@ -59,7 +61,7 @@ class ProfileManager{
                         "isAntibiotic": entry.medicine.isAntibiotic
                         
                     ],
-                    "times": entry.times.map { $0.timeIntervalSince1970 } // Konwersja dat na timestamp
+                    "times": entry.times.map { $0.timeIntervalSince1970 }
                 ]
             }
             
@@ -147,7 +149,8 @@ class ProfileManager{
             completion(profiles)
         }
     }
-
+    
+    // Pobranie jednego konkretnego profilu
     func fetchProfile(profileRef: DocumentReference, completion: @escaping (Profile?) -> Void) {
         profileRef.getDocument { (document, error) in
             if let document = document, document.exists {

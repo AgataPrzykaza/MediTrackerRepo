@@ -4,6 +4,7 @@
 //
 //  Created by Agata Przykaza on 05/11/2023.
 //
+// Widok harmonogramu leków
 
 import SwiftUI
 
@@ -90,7 +91,7 @@ struct MedicationListView: View {
         }
     }
     
-    
+    // Oznaczenie leków jak zażytych
     func markAllMedicationsAsTaken() {
         let scheduledTime = createDateWithTodayDateAndTimeString(timeString: time)!
 
@@ -122,7 +123,7 @@ struct MedicationListView: View {
 
 
 
-
+// Stworzenie daty z godziny
 func createDateWithTodayDateAndTimeString(timeString: String) -> Date? {
     // Ustawienie formatu daty
     let dateFormatter = DateFormatter()

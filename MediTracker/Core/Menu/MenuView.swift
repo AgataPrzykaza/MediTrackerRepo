@@ -4,6 +4,8 @@
 //
 //  Created by Agata Przykaza on 27/10/2023.
 //
+//  Główny widok aplikacji zawierający zakładki harmonogramu, wszystkich leków oraz ustwień. Zawiera także odnośnik do bocznego menu aplikacji.
+//
 
 import SwiftUI
 
@@ -30,9 +32,9 @@ struct MenuView: View {
                         .tabItem {
                             VStack {
                                 Image(systemName: "house")
-                                    .foregroundColor(.white) // Ustawianie koloru dla pierwszego symbolu
+                                    .foregroundColor(.white)
                                 Text("Ekran główny")
-                                    .foregroundColor(.white) // Ustawianie koloru dla tekstu
+                                    .foregroundColor(.white)
                             }
                         }
                     ActiveMeds(manager: manager)
@@ -56,7 +58,7 @@ struct MenuView: View {
                             }
                         }
                 }
-                .accentColor(K.BrandColors.darkPink2) // Ustawianie koloru akcentu dla całej TabView
+                .accentColor(K.BrandColors.darkPink2) 
                 .padding(/*@START_MENU_TOKEN@*/EdgeInsets()/*@END_MENU_TOKEN@*/)
                 
                 
@@ -87,7 +89,7 @@ struct MenuView: View {
                                 .foregroundColor(K.BrandColors.darkPink1)
                                 
                         }
-                        //.padding(.top)
+                        
                         
                         
                     }
@@ -97,7 +99,7 @@ struct MenuView: View {
 
             }
     
-            .navigationBarHidden(self.sideMenuOpened) // Ukryj pasek nawigacji, gdy menu jest otwarte
+            .navigationBarHidden(self.sideMenuOpened)
             .overlay(
                 SideMenu(userAuth: manager,width: 300, menuOpened: sideMenuOpened) {
                     withAnimation {

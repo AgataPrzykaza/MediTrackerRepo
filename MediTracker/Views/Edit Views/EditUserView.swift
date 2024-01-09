@@ -4,6 +4,7 @@
 //
 //  Created by Agata Przykaza on 01/12/2023.
 //
+// Widok aktualizujący dane użytkownika
 
 import SwiftUI
 

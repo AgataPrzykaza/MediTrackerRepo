@@ -4,6 +4,7 @@
 //
 //  Created by Agata Przykaza on 11/11/2023.
 //
+// Model użytkownika
 
 import Foundation
 import FirebaseFirestore
@@ -18,7 +19,7 @@ class User: Codable{
     
     var profiles: [DocumentReference] = []
     
-    // inne właściwości użytkownika
+    
     
     init(uid: String, username: String, email: String,surname: String,gender: String) {
         self.uid = uid
@@ -29,6 +30,7 @@ class User: Codable{
         
     }
     
+    // Dodanie nowego profilu
     func addProfileReference(profile: DocumentReference){
         
         profiles.append(profile)

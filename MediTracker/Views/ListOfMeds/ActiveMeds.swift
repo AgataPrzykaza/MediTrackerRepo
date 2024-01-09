@@ -4,6 +4,7 @@
 //
 //  Created by Agata Przykaza on 11/11/2023.
 //
+// Widok wszystkich leków profilu
 
 import SwiftUI
 
@@ -20,7 +21,7 @@ struct ActiveMeds: View {
             HStack{
                 
                 Text("Aktywne leki")
-                //lista lekow na dan godzine
+                //lista lekow na daną godzine
                     .padding()
                 
                 NavigationLink(destination: AddMedicineView(manager: manager)) {

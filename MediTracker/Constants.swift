@@ -4,17 +4,7 @@
 //
 //  Created by Agata Przykaza on 24/10/2023.
 //
-//lightBeige-50: 252 243 248;
-//Beige-100: 250 233 244;
-//lightPink1-200: 247 211 232;
-//lightPink2-300: 244 190 221;
-//pink1-400: 232 126 184;
-//pink2-500: 221 87 157;
-//intensePink1-600: 202 56 126;
-//intensePink2-700: 175 39 100;
-//darkPink1-800: 145 35 82;
-//darkPink2-900: 121 34 72;
-//darkerPink-950: 73 14 39;
+// Lista stały kolorów wykorzystywanych w aplikacji
 
 import SwiftUI
 

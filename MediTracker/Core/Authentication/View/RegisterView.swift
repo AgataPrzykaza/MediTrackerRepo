@@ -4,6 +4,7 @@
 //
 //  Created by Agata Przykaza on 24/10/2023.
 //
+// Widok rejestracji w aplikacji
 
 import SwiftUI
 import Firebase

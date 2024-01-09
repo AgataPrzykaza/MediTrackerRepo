@@ -4,6 +4,7 @@
 //
 //  Created by Agata Przykaza on 24/12/2023.
 //
+//  Widok ustwień, możliwość zmiany danych oraz usunięcia profilu.
 
 import SwiftUI
 
@@ -69,6 +70,8 @@ struct SettingsView: View {
         .background(K.BrandColors.lightPink1)
     }
     
+    
+    // Usuwanie profilu
     func removeProfile(){
         
         if checkIfOnlyOneProfile(){
@@ -98,7 +101,7 @@ struct SettingsView: View {
         
     }
     
-    
+    // Sprawdzanie czy pozostał tylko jeden profil
     func checkIfOnlyOneProfile() -> Bool{
         if manager.listOfProfiles.count <= 1{
             return true

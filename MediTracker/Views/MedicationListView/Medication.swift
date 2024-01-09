@@ -4,6 +4,7 @@
 //
 //  Created by Agata Przykaza on 05/11/2023.
 //
+// Mini widok reprezentujacy pojedynczy lek w harmonogramie
 
 import SwiftUI
 
@@ -49,10 +50,7 @@ func checkNumber(_ liczba: Double) -> String {
         return String(Int(liczba)) // Bez przecinka
     }
 }
-//funkcja ktora daje odpowieni napis w zaleznosci od rodzaju przyjmowanego leku np czy 1, 200mg
-func ChangeUnit() -> Void{
-    
-}
+
 
 //#Preview {
 //    Medication(medication: Medicine(name: "Omega", time: "12.00", quantity: 1.5, type: "tabletka"))

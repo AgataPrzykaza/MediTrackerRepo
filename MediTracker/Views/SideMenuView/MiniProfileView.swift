@@ -4,7 +4,7 @@
 //
 //  Created by Agata Przykaza on 01/11/2023.
 //
-
+// Reprezentacja widoku ikony profilu
 import SwiftUI
 
 //MARK: - Subview do wyswietlenie miniaturki profilu

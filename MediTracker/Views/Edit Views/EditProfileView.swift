@@ -4,6 +4,7 @@
 //
 //  Created by Agata Przykaza on 09/11/2023.
 //
+// Widok aktualizacji danych profilu
 
 import SwiftUI
 
@@ -144,7 +145,7 @@ struct EditProfileView: View {
     }
 
    
-    
+    // Aktualizacja nowych danych
     func updateCurrentProfile(){
         manager.currentProfileSelected?.updateName(name)
         manager.currentProfileSelected?.updateSurname(surname)
@@ -155,6 +156,7 @@ struct EditProfileView: View {
     }
 }
 
+// Pobranie aktualnych danych
 func loadData(manager: UserManager) -> (String,String,String){
     
     var name = manager.currentProfileSelected?.name ?? "Brak"

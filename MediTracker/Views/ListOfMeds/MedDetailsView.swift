@@ -4,6 +4,7 @@
 //
 //  Created by Agata Przykaza on 16/12/2023.
 //
+// Widok szczegółów leku
 
 import SwiftUI
 
@@ -244,7 +245,7 @@ struct MedDetailsView: View {
                
            
     }
-    
+    //Usuwanie leku
     func removeMedicine(){
         for time in medicationEntry.times{
             
@@ -305,21 +306,4 @@ struct MedDetailsView: View {
     
     }
 
-//struct MedDetailsView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        let medicine = Medicine(name: "Example Medicine", dosage: 10.0, unit: "mg", type: "Tabletka", hourPeriod: 6, frequency: 3, startHour: Date(), dayPeriod: 7, onEmptyStomach: false, delayMeds: 1, instructions: "Before meal", interactions: ["Interaction 1", "Interaction 2"], reminder: true, isAntibiotic: false)
-//        let timestamps = [
-//            1702635000,
-//            1702678200,
-//            1702883400,
-//            1702926600,
-//            1703153400,
-//            1703196600
-//        ]
-//        
-//        let times: [Date] = timestamps.map { Date(timeIntervalSince1970: TimeInterval($0)) }
-//        let medicationEntry = MedicationEntry(medicine: medicine, times: times)
-//        
-//        return MedDetailsView(medicationEntry: medicationEntry, manager: UserManager(), medEdited: Binding<Bool>)
-//    }
-//}
+

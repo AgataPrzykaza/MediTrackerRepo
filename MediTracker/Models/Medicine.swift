@@ -4,7 +4,7 @@
 //
 //  Created by Agata Przykaza on 05/11/2023.
 //
-
+// Model leku
 import Foundation
 
 class Medicine: Codable {
@@ -65,6 +65,7 @@ class Medicine: Codable {
         self.type = type
     }
     
+    //Obliczanie terminów dawek dla tygodnia
     func calculateNextDoses() -> [Date] {
         var doses = [Date]()
         var nextDose = startHour
@@ -108,6 +109,7 @@ class Medicine: Codable {
         return doses
     }
 
+    //Sprawdzenie czy róznią się jednym tygodniem
     func isOneWeekApart(_ date1: Date, _ date2: Date) -> Bool {
         let calendar = Calendar.current
 
@@ -132,7 +134,7 @@ func shiftDatesByAWeek(dates: [Date]) -> [Date] {
     return dates.map { $0.addingTimeInterval(604800) } // Dodaje 604800 sekund (czyli tydzień) do każdej daty
 }
 
-
+// Reprezentacja leku wraz z terminami dawek
 struct MedicationEntry: Codable {
     var medicine: Medicine
     var times: [Date] // Czasy zażycia leku

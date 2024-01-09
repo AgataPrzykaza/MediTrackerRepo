@@ -4,6 +4,7 @@
 //
 //  Created by Agata Przykaza on 11/11/2023.
 //
+// Widok zarządzający ekranami początkowymi, ekranem powitalnym oraz głównym widokiem aplikacji. Sprawdza stan zalogowania.
 
 import SwiftUI
 import FirebaseAuth
@@ -44,6 +45,7 @@ struct ContentView: View {
     }
 }
 
+// Klasa pomocna do sprawdzania połączenia internetowego
 class NetworkManager {
     static let shared = NetworkManager()
     private let monitor = NWPathMonitor()
